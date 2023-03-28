@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Home",
+        "href": "../home/",
+        "_id": "234",
+        "icon": "fa fa-home"
+    },
+    {
+        "title": "Messages",
+        "href": "../messages.html",
+        "_id": "567",
+        "icon": "fa-regular fa-envelope"
+    },
+    {
+        "title": "Lists",
+        "href": "../lists",
+        "_id": "789",
+        "icon": "fa fa-list"
+    },
+    {
+        "title": "Profile",
+        "href": "../profile",
+        "_id": "890",
+        "icon": "fa-regular fa-user"
+    }
+]
