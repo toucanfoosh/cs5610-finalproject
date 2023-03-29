@@ -1,5 +1,5 @@
 .sf-primary {
-    color:white;
+    color: white;
 }
 
 .sf-bg-primary {
@@ -12,4 +12,8 @@
 
 .sf-bg-secondary {
     background-color: #ffffff;
+}
+
+.sf-accent {
+    color: #ff6b6bd4;
 }

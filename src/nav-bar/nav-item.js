@@ -12,7 +12,7 @@ const NavItem = (
             "_id": "123",
             "icon": "fa fa-home"
         },
-        active = 'Explore'
+        active = 'Home'
     }
 ) => {
     return (

@@ -1,0 +1,26 @@
+[
+    {
+        "_id": "234",
+        "userName": "Kevin Liu",
+        "time": "2h",
+        "avatar": "catjam.jpg",
+        "liked": false,
+        "replies": 0,
+        "retuits": 0,
+        "likes": 0,
+        "handle": "faosldkjfhf",
+        "post": "Hello hello hello"
+    },
+    {
+        "_id": "345",
+        "userName": "Toucan",
+        "time": "2h",
+        "avatar": "catjam.jpg",
+        "liked": false,
+        "replies": 0,
+        "retuits": 0,
+        "likes": 0,
+        "handle": "toucanfoosh",
+        "post": "Hi"
+    }
+]
