@@ -1,11 +1,11 @@
 import NavItem from "./nav-item";
 import sidebar from "./sidebar.json";
+import '../index.css';
 import "./index.css";
 
 const NavBar = ({ active = 'home' }) => {
     return (
-        <div>
-            <h1>SymFolio</h1>
+        <div className="sf-navbar-min-width">
             <div className="list-group">
                 {sidebar.map((sidebarItem) => (
                     <NavItem item={sidebarItem} active={active} />

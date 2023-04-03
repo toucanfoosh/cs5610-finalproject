@@ -1,19 +1,63 @@
+:root {
+    --primary: #ffffff;
+    --secondary: #000000;
+    --tertiary: #5c5c5c;
+    --accent: #00dc25;
+    --accent-darker: #00ac1d;
+}
+
+html,
+body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .sf-primary {
-    color: white;
+    color: var(--primary) !important;
 }
 
 .sf-bg-primary {
-    background-color: #000000;
+    background-color: var(--primary) !important;
 }
 
 .sf-secondary {
-    color: #000000;
+    color: var(--secondary) !important;
 }
 
 .sf-bg-secondary {
-    background-color: #ffffff;
+    background-color: var(--secondary) !important;
+}
+
+.sf-tertiary {
+    color: var(--tertiary) !important;
+}
+
+.sf-bg-tertiary {
+    background-color: var(--tertiary) !important;
 }
 
 .sf-accent {
-    color: #ff6b6bd4;
+    color: var(--accent) !important;
+}
+
+.sf-bg-accent {
+    background-color: var(--accent) !important;
+}
+
+.sf-accent-darker {
+    color: var(--accent-darker) !important;
+}
+
+.sf-bg-accent-darker {
+    background-color: var(--accent-darker) !important;
+}
+
+.sf-small-pfp {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+}
+
+.sf-navbar-min-width {
+    min-width: 3rem;
 }

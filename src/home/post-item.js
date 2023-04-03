@@ -1,9 +1,16 @@
-const PostItem = ({post}) => {
+import '../index.css'
+import './index.css'
+
+const PostItem = ({ post }) => {
     return (
-        <div className="list-group-item">
-            <div className="row">
-                <img className="col-2 col-lg-1 rounded-circle" src={`/src/images/${post.avatar}`} width="50px" height="50px"/>
-                <span className="sf-font-bold col-10 col-lg-11">
+        <div className="sf-home-post-border sf-tertiary">
+            <div className="row px-3">
+                <div className="ps-2 pe-4 col-1 col-lg-1 ">
+                    <div className='d-flex justify-content-center'>
+                        <img className="sf-small-pfp" src={`./images/${post.avatar}`} />
+                    </div>
+                </div>
+                <span className="sf-font-bold col-11 col-lg-11">
                     {post.userName} <span class="fa-solid fa-circle-check sf-accent"></span>
                     <span className="sf-font-normal"> @{post.handle}</span>
                     <div className="sf-font-normal">
@@ -11,7 +18,7 @@ const PostItem = ({post}) => {
                     </div>
                 </span>
             </div>
-        </div>
+        </div >
     );
 };
 

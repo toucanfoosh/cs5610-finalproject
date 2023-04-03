@@ -1,7 +1,4 @@
-:root {
-    --btn-1-color: #ff6b6bd4;
-    --btn-1-hover-color: #ff6b6b;
-}
+@import '../index.css';
 
 .sf-center {
     display: flex;
@@ -11,7 +8,7 @@
 
 .sf-btn {
     width: 100%;
-    background-color: rgba(255, 151, 169, 0.704);
+    background-color: var(--accent);
     backdrop-filter: blur(10px);
 }
 
@@ -36,8 +33,8 @@
 }
 
 .sf-btn-1 {
-    background: var(--btn-1-color);
-    width: 130px;
+    background: var(--accent);
+    width: 100%;
     height: 40px;
     line-height: 42px;
     padding: 0;
@@ -58,7 +55,7 @@
     content: "";
     right: 0;
     top: 0;
-    background: var(--btn-1-hover-color);
+    background: var(--accent-darker);
     transition: all 0.3s ease;
 }
 
@@ -86,7 +83,7 @@
 }
 
 .sf-btn-1 span:hover {
-    color: var(--btn-1-hover-color);
+    color: var(--accent-darker);
 }
 
 .sf-btn-1 span:before,
@@ -95,7 +92,7 @@
     content: "";
     left: 0;
     bottom: 0;
-    background: var(--btn-1-hover-color);
+    background: var(--accent-darker);
     transition: all 0.3s ease;
 }
 
@@ -116,3 +113,4 @@
 .sf-btn-1 span:hover:after {
     width: 100%;
 }
+

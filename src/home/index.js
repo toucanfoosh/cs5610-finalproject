@@ -7,10 +7,7 @@ const HomeComponent = () => {
     const posts = useSelector(state => state.posts);
     return (
         <div>
-            <div>
-                <h1>Recommended Posts</h1>
-            </div>
-            <div className="list-group">
+            <div className="list-group ps-0 sf-home-min-width">
                 {posts.map((post) => (
                     <PostItem post={post} />
                 ))}
