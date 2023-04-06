@@ -1,5 +1,6 @@
 import '../index.css'
 import './index.css'
+import PostStats from './post-stats';
 
 const PostItem = ({ post }) => {
     return (
@@ -16,6 +17,7 @@ const PostItem = ({ post }) => {
                     <div className="sf-font-normal">
                         {post.post}
                     </div>
+                    <PostStats stats={post} />
                 </span>
             </div>
         </div >
