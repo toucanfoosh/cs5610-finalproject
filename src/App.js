@@ -23,16 +23,16 @@ function App() {
                 <div className="row mt-2">
                     <div className="col-1 col-xl-3 sf-navbar-min-width px-2">
                         <Routes>
-                            <Route path="/" element={<NavBar active="Home"/>} />
-                            <Route path="/home" element={<NavBar active="Home"/>} />
-                            <Route path="/profile" element={<NavBar active="Profile"/>} />
+                            <Route path="/" element={<NavBar active="Home" />} />
+                            <Route path="/home" element={<NavBar active="Home" />} />
+                            <Route path="/profile" element={<NavBar active="Profile" />} />
                         </Routes>
                     </div>
-                    <div className="col-10 col-lg-7 col-xl-6">
+                    <div className="ms-2 ms-md-0 col-10 col-lg-7 col-xl-6">
                         <Routes>
-                            <Route index element={<HomeComponent/>} />
-                            <Route path="/home" element={<HomeComponent/>} />
-                            <Route path="/profile" element={<Profile/>} />
+                            <Route index element={<HomeComponent />} />
+                            <Route path="/home" element={<HomeComponent />} />
+                            <Route path="/profile" element={<Profile />} />
                         </Routes>
                     </div>
                     <div className="d-none d-lg-block col-lg-4 col-xl-3">
