@@ -1,3 +1,7 @@
 .sf-padding-20 {
     padding: 20px;
 }
+
+.sf-text-area-no-resize {
+    resize: none;
+}
