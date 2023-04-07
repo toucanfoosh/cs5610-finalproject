@@ -6,9 +6,10 @@ import WhatsHappening from "../whats-happening";
 
 const HomeComponent = () => {
     const posts = useSelector(state => state.posts);
+    const user = useSelector(state => state.user);
     return (
         <div>
-            <WhatsHappening />
+            <WhatsHappening currentUser={user} />
             <div className="mb-2 list-group ps-0 sf-home-min-width sf-home-border">
                 {posts.map((post) => (
                     <PostItem post={post} />
