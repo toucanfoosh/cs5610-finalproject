@@ -1,6 +1,7 @@
+import "./index.css";
 const EmptyCol = () => {
     return (
-        <div>
+        <div className="sf-min-width-empty-col">
         </div>
     )
 };

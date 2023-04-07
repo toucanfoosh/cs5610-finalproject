@@ -6,6 +6,23 @@
     align-items: center;
 }
 
+.sf-m-top {
+    top: 10px !important;
+}
+
+.sf-navbar {
+    height: 100vh;
+}
+
+.sf-navbar-item {
+    padding: 5vh 0;
+}
+
+.sf-navbar-profile {
+    bottom: 2vh;
+    position: absolute;
+}
+
 .sf-btn {
     width: 100%;
     background-color: var(--accent);
@@ -113,4 +130,3 @@
 .sf-btn-1 span:hover:after {
     width: 100%;
 }
-

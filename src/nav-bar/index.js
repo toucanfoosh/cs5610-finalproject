@@ -5,15 +5,20 @@ import "./index.css";
 
 const NavBar = ({ active = 'home' }) => {
     return (
-        <div className="sf-navbar-min-width">
-            <div className="list-group">
-                {sidebar.map((sidebarItem) => (
-                    <NavItem item={sidebarItem} active={active} />
-                ))}
-                <div className="sf-center sf-frame">
-                    <button className="mt-2 sf-custom-btn sf-btn-1">
-                        <span>Post</span>
-                    </button>
+        <div className="sticky-top sf-m-top sf-navbar">
+            <div className="sf-navbar-min-width">
+                <div className="sf-navbar">
+                    {sidebar.map((sidebarItem) => (
+                        <NavItem item={sidebarItem} active={active} />
+                    ))}
+                    <div className="sf-center sf-frame">
+                        <button className="mt-2 sf-custom-btn sf-btn-1">
+                            <span>Post</span>
+                        </button>
+                    </div>
+                </div>
+                <div className="sf-navbar-profile">
+                    <div>hi</div>
                 </div>
             </div>
         </div>
