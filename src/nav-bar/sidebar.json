@@ -19,7 +19,7 @@
     },
     {
         "title": "Profile",
-        "href": "../profile",
+        "href": "../login",
         "_id": "890",
         "icon": "fa-regular fa-user"
     }

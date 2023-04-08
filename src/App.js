@@ -10,10 +10,15 @@ import EmptyCol from './empty-col';
 import postReducer from "./reducers/posts/post-reducer";
 import Profile from "./profile";
 import LoadProfile from "./load-profile";
+import userReducer from "./reducers/user/user-reducer";
+import Login from "./login";
 
 const store = configureStore(
     {
-        reducer: { postsData: postReducer }
+        reducer: {
+            postsData: postReducer,
+            user: userReducer
+        }
     }
 )
 
@@ -28,6 +33,7 @@ function App() {
                                 <Route path="/" element={<NavBar active="Home" />} />
                                 <Route path="/home" element={<NavBar active="Home" />} />
                                 <Route path="/profile" element={<NavBar active="Profile" />} />
+                                <Route path="/login" element={<NavBar active="Profile" />} />
                             </Routes>
                         </div>
                         <div className="ms-2 ms-md-0 col-10 col-lg-7 col-xl-6">
@@ -35,6 +41,7 @@ function App() {
                                 <Route index element={<HomeComponent />} />
                                 <Route path="/home" element={<HomeComponent />} />
                                 <Route path="/profile" element={<Profile />} />
+                                <Route path="/login" element={<Login />} />
                             </Routes>
                         </div>
                         <div className="d-none d-lg-block col-lg-4 col-xl-3">
