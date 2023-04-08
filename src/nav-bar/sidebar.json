@@ -6,13 +6,13 @@
         "icon": "fa fa-home"
     },
     {
-        "title": "Messages",
-        "href": "../messages.html",
+        "title": "Explore",
+        "href": "../explore",
         "_id": "567",
-        "icon": "fa-regular fa-envelope"
+        "icon": "fa-solid fa-magnifying-glass"
     },
     {
-        "title": "Lists",
+        "title": "Saved",
         "href": "../lists",
         "_id": "789",
         "icon": "fa fa-list"

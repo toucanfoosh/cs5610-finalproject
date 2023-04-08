@@ -13,7 +13,7 @@ import LoadProfile from "./load-profile";
 
 const store = configureStore(
     {
-        reducer: { posts: postReducer }
+        reducer: { postsData: postReducer }
     }
 )
 

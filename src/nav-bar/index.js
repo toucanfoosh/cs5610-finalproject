@@ -11,11 +11,11 @@ const NavBar = ({ active = 'home' }) => {
                     {sidebar.map((sidebarItem) => (
                         <NavItem item={sidebarItem} active={active} />
                     ))}
-                    <div className="sf-center sf-frame">
+                    {/* <div className="sf-center sf-frame">
                         <button className="mt-2 sf-custom-btn sf-btn-1">
                             <span>Post</span>
                         </button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="sf-navbar-profile">
                     <div>hi</div>
