@@ -13,11 +13,14 @@ const Login = () => {
     const dispatch = useDispatch();
 
     const handleLogin = async () => {
-        await dispatch(loginThunk({ username, password }));
-        navigate("/profile");
+        const status = await dispatch(loginThunk({ username, password }));
+        if (status === 404) {
+            setError("Failed to login");
+        }
+        // navigate("/profile");
     };
 
-    const handleRegister = async () => {
+    const handleRegister = () => {
         navigate("/register");
     }
 

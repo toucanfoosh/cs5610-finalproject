@@ -12,6 +12,7 @@ import Profile from "./profile";
 import LoadProfile from "./load-profile";
 import userReducer from "./reducers/user/user-reducer";
 import Login from "./login";
+import RegisterScreen from "./register";
 
 const store = configureStore(
     {
@@ -34,6 +35,7 @@ function App() {
                                 <Route path="/home" element={<NavBar active="Home" />} />
                                 <Route path="/profile" element={<NavBar active="Profile" />} />
                                 <Route path="/login" element={<NavBar active="Profile" />} />
+                                <Route path="/register" element={<NavBar active="Profile" />} />
                             </Routes>
                         </div>
                         <div className=" ms-md-0 col-10 col-lg-7 col-xl-6 sf-overflow">
@@ -42,6 +44,7 @@ function App() {
                                 <Route path="/home" element={<HomeComponent />} />
                                 <Route path="/profile" element={<Profile />} />
                                 <Route path="/login" element={<Login />} />
+                                <Route path="/register" element={<RegisterScreen />} />
                             </Routes>
                         </div>
                         <div className="d-none d-lg-block col-lg-4 col-xl-3 sf-side sf-left-border">
