@@ -16,6 +16,11 @@ const Login = () => {
         await dispatch(loginThunk({ username, password }));
         navigate("/profile");
     };
+
+    const handleRegister = async () => {
+        navigate("/register");
+    }
+
     return (
         <div>
             <h1>
@@ -48,7 +53,7 @@ const Login = () => {
             <button onClick={handleLogin} className="mt-5 sf-custom-btn sf-btn-1">
                 Login
             </button>
-            <button className="mt-5 sf-custom-btn sf-btn-1">
+            <button onClick={handleRegister} className="mt-5 sf-custom-btn sf-btn-1">
                 Register
             </button>
             {currentUser && (
