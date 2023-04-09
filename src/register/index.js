@@ -14,12 +14,12 @@ const RegisterScreen = () => {
     const handleRegister = async () => {
         const status = await dispatch(registerThunk({ username, password }));
         console.log(status);
-        if (status === 409) {
-            setError("User is already registered");
+        if (status.error.code === "ERR_BAD_REQUEST") {
+            setError("Error: User is already registered");
             return;
         }
         else {
-            // navigate("/login");
+            navigate("/login");
             console.log(status);
         }
     }
@@ -36,8 +36,6 @@ const RegisterScreen = () => {
                 setPassword(e.target.value);
             }} className="mb-2 mt-2 form-control" type="password" id="password"></input>
             <FancyButton onclick={handleRegister} text="Register" />
-            {username} <br />
-            {password}
             {error}
         </div>
     )
