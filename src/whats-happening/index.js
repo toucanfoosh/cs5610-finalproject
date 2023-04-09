@@ -14,10 +14,10 @@ const WhatsHappening = () => {
         dispatch(createPostThunk(newPost));
     }
     return (
-        <div className="sf-padding-20 row">
+        <div className="p-3 row">
             <div className="col-9 row">
                 <div className="col-2 col-md-1 d-flex-inline align-self-center">
-                    <img className='rounded-circle sf-image' src={`./images/catjam.jpg`} />
+                    <img className='rounded-circle sf-pfp' src={`./images/catjam.jpg`} />
                 </div>
                 <div className="col-1" />
                 <div className="col">
