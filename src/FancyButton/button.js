@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import './button.css';
 
-const BubblyButton = ({ text, onclick }) => {
+const FancyButton = ({ text, onclick }) => {
     const [isAnimating, setIsAnimating] = useState(false);
 
     const handleClick = () => {
+        onclick();
         setIsAnimating(true);
         setTimeout(() => {
             setIsAnimating(false);
@@ -13,10 +14,10 @@ const BubblyButton = ({ text, onclick }) => {
 
     return (
         <button className={`sf-bubbly-button ${isAnimating ? 'animate' : ''}`}
-            onClick={onclick} >
+            onClick={handleClick} >
             {text}
         </button >
     );
 };
 
-export default BubblyButton;
+export default FancyButton;

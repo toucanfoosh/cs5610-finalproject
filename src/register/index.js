@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { registerThunk } from "../services/user-thunk";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
-import BubblyButton from "../whats-happening/button";
+import FancyButton from "../FancyButton/button";
 
 const RegisterScreen = () => {
     const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const RegisterScreen = () => {
             <input onChange={(e) => {
                 setPassword(e.target.value);
             }} className="mb-2 mt-2 form-control" type="password" id="password"></input>
-            <BubblyButton onclick={handleRegister} text="Register" />
+            <FancyButton onclick={handleRegister} text="Register" />
             {username} <br />
             {password}
             {error}

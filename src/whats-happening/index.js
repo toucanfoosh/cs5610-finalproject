@@ -2,7 +2,7 @@ import "./index.css";
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { createPostThunk } from "../services/posts-thunk";
-import BubblyButton from "./button.js";
+import FancyButton from "../FancyButton/button";
 
 const WhatsHappening = () => {
     const [post, setPost] = useState("");
@@ -27,7 +27,7 @@ const WhatsHappening = () => {
                 </div>
             </div>
             <div className="col">
-                <BubblyButton onclick={postClickHandler} text="Post" />
+                <FancyButton onclick={postClickHandler} text="Post" />
             </div>
         </div>
     )
