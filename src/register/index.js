@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { registerThunk } from "../services/user-thunk";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import BubblyButton from "../whats-happening/button";
 
 const RegisterScreen = () => {
     const dispatch = useDispatch();
@@ -33,10 +34,8 @@ const RegisterScreen = () => {
             <label for="password">Password</label>
             <input onChange={(e) => {
                 setPassword(e.target.value);
-            }} className="mt-2 form-control" type="password" id="password"></input>
-            <button onClick={handleRegister} className="mt-5 sf-custom-btn sf-btn-1">
-                Register
-            </button>
+            }} className="mb-2 mt-2 form-control" type="password" id="password"></input>
+            <BubblyButton onclick={handleRegister} text="Register" />
             {username} <br />
             {password}
             {error}

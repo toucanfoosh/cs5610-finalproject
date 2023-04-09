@@ -27,9 +27,8 @@ const WhatsHappening = () => {
                 </div>
             </div>
             <div className="col">
-                <BubblyButton onClick={postClickHandler} />
+                <BubblyButton onclick={postClickHandler} text="Post" />
             </div>
-            {post}
         </div>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './button.css';
 
-const BubblyButton = () => {
+const BubblyButton = ({ text, onclick }) => {
     const [isAnimating, setIsAnimating] = useState(false);
 
     const handleClick = () => {
@@ -13,9 +13,9 @@ const BubblyButton = () => {
 
     return (
         <button className={`sf-bubbly-button ${isAnimating ? 'animate' : ''}`}
-            onClick={handleClick} >
-            Post
-        </button>
+            onClick={onclick} >
+            {text}
+        </button >
     );
 };
 

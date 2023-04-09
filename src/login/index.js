@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import { loginThunk } from "../services/user-thunk";
 import { Link } from "react-router-dom";
+import BubblyButton from "../whats-happening/button";
 
 const Login = () => {
     const { currentUser } = useSelector((state) => state.user);
@@ -53,12 +54,9 @@ const Login = () => {
                     onChange={(event) => setPassword(event.target.value)}
                 />
             </div>
-            <button onClick={handleLogin} className="mt-5 sf-custom-btn sf-btn-1">
-                Login
-            </button>
-            <button onClick={handleRegister} className="mt-5 sf-custom-btn sf-btn-1">
-                Register
-            </button>
+            <BubblyButton onclick={handleLogin} text="Login" />
+            <BubblyButton onclick={handleRegister} text="Register" />
+
             {currentUser && (
                 <div>
                     <h1>Welcome {currentUser.username}</h1>
