@@ -1,7 +1,7 @@
 :root {
     --primary: #ffffff;
     --secondary: #000000;
-    --tertiary: #5c5c5c;
+    --tertiary: #606060;
     --accent: #00dc25;
     --accent-darker: #00ac1d;
 }
@@ -58,6 +58,19 @@ body {
     height: 50px;
 }
 
-.sf-navbar-min-width {
-    min-width: 3rem;
+.sf-side {
+    height: 100vh;
+    position: sticky;
+    position: -webkit-sticky;
+    margin-top: -10px!important;
+}
+
+.sf-right-border {
+    border-right: 1px solid var(--secondary);
+    top: 0;
+}
+
+.sf-left-border {
+    border-left: 1px solid var(--secondary);
+    top: 0;
 }

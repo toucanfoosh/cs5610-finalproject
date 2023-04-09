@@ -18,24 +18,26 @@ const HomeComponent = () => {
     }, [])
 
     return (
-        <div>
-            <WhatsHappening />
-            {
-                loading &&
-                <div className="mb-2 list-group ps-0 sf-home-min-width sf-home-border">
-                    <div className="sf-home-post-border sf-tertiary">
-                        Loading...
+        <div className="row">
+            <div className="sf-home-border">
+                <WhatsHappening />
+                {
+                    loading &&
+                    <div className="mb-2 list-group ps-0">
+                        <div className="sf-home-post-border sf-tertiary">
+                            Loading...
+                        </div>
                     </div>
-                </div>
-            }
-            {
-                !loading &&
-                <div className="mb-2 list-group ps-0 sf-home-min-width sf-home-border">
-                    {posts.map((post) => (
-                        <PostItem post={post} />
-                    ))}
-                </div>
-            }
+                }
+                {
+                    !loading &&
+                    <div className="mb-2 list-group ps-0">
+                        {posts.map((post) => (
+                            <PostItem post={post} />
+                        ))}
+                    </div>
+                }
+            </div>
         </div>
     );
 };

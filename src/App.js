@@ -12,7 +12,6 @@ import Profile from "./profile";
 import LoadProfile from "./load-profile";
 import userReducer from "./reducers/user/user-reducer";
 import Login from "./login";
-import RegisterScreen from "./register";
 
 const store = configureStore(
     {
@@ -29,28 +28,26 @@ function App() {
             <BrowserRouter>
                 <LoadProfile>
                     <div className="row mt-2">
-                        <div className="col-1 col-xl-3 sf-navbar-min-width px-2">
+                        <div className="col-1 col-xl-3 px-2 sf-side sf-right-border">
                             <Routes>
                                 <Route path="/" element={<NavBar active="Home" />} />
                                 <Route path="/home" element={<NavBar active="Home" />} />
                                 <Route path="/profile" element={<NavBar active="Profile" />} />
                                 <Route path="/login" element={<NavBar active="Profile" />} />
-                                <Route path="/register" element={<NavBar active="Profile" />} />
                             </Routes>
                         </div>
-                        <div className="ms-2 ms-md-0 col-10 col-lg-7 col-xl-6">
+                        <div className=" ms-md-0 col-10 col-lg-7 col-xl-6 sf-overflow">
                             <Routes>
                                 <Route index element={<HomeComponent />} />
                                 <Route path="/home" element={<HomeComponent />} />
                                 <Route path="/profile" element={<Profile />} />
                                 <Route path="/login" element={<Login />} />
-                                <Route path="/register" element={<RegisterScreen />} />
                             </Routes>
                         </div>
-                        <div className="d-none d-lg-block col-lg-4 col-xl-3">
+                        <div className="d-none d-lg-block col-lg-4 col-xl-3 sf-side sf-left-border">
                             <SideBar />
                         </div>
-                        <div className="d-none d-sm-block d-lg-none col">
+                        <div className="d-block d-lg-none col sf-side sf-left-border">
                             <EmptyCol />
                         </div>
                     </div>
