@@ -8,10 +8,10 @@
     font-weight: normal;
 }
 
-.sf-home-bottom-border {
-    border: 0px solid var(--secondary);
-    padding: 0px;
-    border-bottom: 1px;
+.sf-bottom-border {
+    border-bottom: 1px solid var(--secondary);
+    width: calc(100% + 24px);
+    margin-left: -12px;
 }
 
 .sf-no-link-decor {

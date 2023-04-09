@@ -20,18 +20,18 @@ const HomeComponent = () => {
     return (
         <div className="row">
             <div className="sf-home-border">
-                <WhatsHappening />
+                <WhatsHappening className="sf-bottom-border"/>
                 {
                     loading &&
                     <div className="mb-2 list-group ps-0">
-                        <div className="sf-home-post-border sf-tertiary">
+                        <div className="sf-tertiary">
                             Loading...
                         </div>
                     </div>
                 }
                 {
                     !loading &&
-                    <div className="mb-2 list-group ps-0">
+                    <div className="mb-2 sf-bottom-border list-group ps-0">
                         {posts.map((post) => (
                             <PostItem post={post} />
                         ))}
