@@ -20,7 +20,7 @@ const RegisterScreen = () => {
         }
         else {
             setError('');
-            navigate("/login");
+            navigate("/profile");
         }
     }
 

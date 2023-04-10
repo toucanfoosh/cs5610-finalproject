@@ -2,7 +2,6 @@ import NavItem from "./nav-item";
 import sidebar from "./sidebar.json";
 import '../index.css';
 import "./index.css";
-import { useSelector } from "react-redux";
 
 const NavBar = ({ active = 'home' }) => {
     return (
