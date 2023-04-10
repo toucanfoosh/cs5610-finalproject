@@ -21,7 +21,7 @@ const PostItem = ({ post }) => {
                 <span className="sf-font-bold ccol">
                     <i className="fa-solid fa-x float-end"
                         onClick={() => deletePostHandler(post._id)}></i>
-                    {post.userName} <span class="fa-solid fa-circle-check sf-accent"></span>
+                    {post.username} <span class="fa-solid fa-circle-check sf-accent"></span>
                     <span className="sf-font-normal"> @{post.handle}</span>
                     <div className="sf-font-normal">
                         {post.post}

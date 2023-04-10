@@ -51,11 +51,8 @@ export const profile = async () => {
     return user;
 };
 
-export const register = async ({ username, password }) => {
-    const response = await api.post(`${USERS_URL}/register`, {
-        username,
-        password,
-    });
+export const register = async (credentials) => {
+    const response = await api.post(`${USERS_URL}/register`, credentials);
     const user = response.data;
     return user;
 };

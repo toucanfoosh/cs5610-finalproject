@@ -8,14 +8,30 @@ const RegisterScreen = () => {
     const dispatch = useDispatch();
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+    const [handle, setHandle] = useState('');
+    const [email, setEmail] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
 
     const handleRegister = async () => {
-        const status = await dispatch(registerThunk({ username, password }));
+        const newUser = {
+            username,
+            password,
+            handle,
+            email,
+            followers: 0,
+            following: 0,
+            posts: 0,
+            reviews: 0,
+            bio: "",
+            avatar: "catjam.jpg",
+            banner: "catjam.jpg",
+            website: ""
+        }
+        const status = await dispatch(registerThunk(newUser));
         console.log(status);
         if (status.type === "user/register/rejected") {
-            setError("Error: User is already registered");
+            setError("Failed to register");
             return;
         }
         else {
@@ -38,6 +54,14 @@ const RegisterScreen = () => {
             <input onChange={(e) => {
                 setPassword(e.target.value);
             }} className="mb-2 mt-2 form-control" type="password" id="password"></input>
+            <label for="email">Email</label>
+            <input onChange={(e) => {
+                setEmail(e.target.value);
+            }} className="mb-2 mt-2 form-control" type="email" id="email"></input>
+            <label for="handle">Handle</label>
+            <input onChange={(e) => {
+                setHandle(e.target.value);
+            }} className="mb-2 mt-2 form-control" type="text" id="handle"></input>
             <FancyButton onclick={handleRegister} text="Register" />
             {error}
         </div>

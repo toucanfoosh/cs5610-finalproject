@@ -1,22 +1,24 @@
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
-import { loginThunk } from "../services/user-thunk";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { profileThunk, loginThunk } from "../services/user-thunk";
 import FancyButton from "../FancyButton/button";
 
 const Login = () => {
     const { currentUser } = useSelector((state) => state.user);
-    const [username, setUsername] = useState("jack123");
-    const [password, setPassword] = useState("123");
+    const [username, setUsername] = useState("");
+    const [password, setPassword] = useState("");
+    const [profile, setProfile] = useState(null);
     const [error, setError] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const handleLogin = async () => {
         const status = await dispatch(loginThunk({ username, password }));
-        if (status === 404) {
+        console.log(status);
+        if (status.type === "user/login/rejected") {
             setError("Failed to login");
+            return;
         }
         navigate("/profile");
     };
@@ -24,6 +26,18 @@ const Login = () => {
     const handleRegister = () => {
         navigate("/register");
     }
+
+    useEffect(() => {
+        const handleProfile = async () => {
+            const newProfile = await dispatch(profileThunk());
+            setProfile(newProfile.payload);
+        }
+        handleProfile().catch(console.error);
+        console.log(profile);
+        if (profile) {
+            navigate("/profile");
+        }
+    });
 
     return (
         <div>

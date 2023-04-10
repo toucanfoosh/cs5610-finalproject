@@ -7,16 +7,22 @@ import { useEffect, useState } from "react";
 const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const currentUser = useSelector(state => state.user);
-    const [profile, setProfile] = useState(null);
+    const [profile, setProfile] = useState({});
     const handleLogout = () => {
         dispatch(logoutThunk());
         navigate("/login");
     }
+    useEffect(() => {
+        const handleProfile = async () => {
+            const newProfile = await dispatch(profileThunk());
+            setProfile(newProfile.payload);
+        }
+        handleProfile().catch(console.error);
+    }, []);
     return (
         <div>
             <h1>Profile</h1>
-            {JSON.stringify(currentUser)}
+            {JSON.stringify(profile)}
 
             <FancyButton onclick={handleLogout} text="Logout" />
         </div>

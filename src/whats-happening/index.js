@@ -1,15 +1,32 @@
 import "./index.css";
-import { useDispatch } from "react-redux";
-import React, { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import { createPostThunk } from "../services/posts-thunk";
 import FancyButton from "../FancyButton/button";
+import { profileThunk } from "../services/user-thunk";
 
 const WhatsHappening = () => {
     const [post, setPost] = useState("");
+    const [profile, setProfile] = useState({});
     const dispatch = useDispatch();
+    useEffect(() => {
+        const handleProfile = async () => {
+            const newProfile = await dispatch(profileThunk());
+            setProfile(newProfile.payload);
+        }
+        handleProfile().catch(console.error);
+    }, []);
     const postClickHandler = () => {
+        if (!profile) {
+            alert("Not logged in");
+            return;
+        }
+        console.log(profile);
         const newPost = {
-            post
+            post,
+            username: profile.username,
+            handle: "" + profile.handle,
+            avatar: profile.avatar
         }
         dispatch(createPostThunk(newPost));
     }
