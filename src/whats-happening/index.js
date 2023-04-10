@@ -25,7 +25,7 @@ const WhatsHappening = () => {
         const newPost = {
             post,
             username: profile.username,
-            handle: "" + profile.handle,
+            handle: profile.handle,
             avatar: profile.avatar
         }
         dispatch(createPostThunk(newPost));
