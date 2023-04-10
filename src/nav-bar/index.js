@@ -2,6 +2,7 @@ import NavItem from "./nav-item";
 import sidebar from "./sidebar.json";
 import '../index.css';
 import "./index.css";
+import { useSelector } from "react-redux";
 
 const NavBar = ({ active = 'home' }) => {
     return (
@@ -11,11 +12,6 @@ const NavBar = ({ active = 'home' }) => {
                     {sidebar.map((sidebarItem) => (
                         <NavItem item={sidebarItem} active={active} />
                     ))}
-                    {/* <div className="sf-center sf-frame">
-                        <button className="mt-2 sf-custom-btn sf-btn-1">
-                            <span>Post</span>
-                        </button>
-                    </div> */}
                 </div>
                 <div className="sf-navbar-profile">
                     <div>hi</div>

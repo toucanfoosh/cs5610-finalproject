@@ -14,18 +14,21 @@ const RegisterScreen = () => {
     const handleRegister = async () => {
         const status = await dispatch(registerThunk({ username, password }));
         console.log(status);
-        if (status.error.code === "ERR_BAD_REQUEST") {
+        if (status.type === "user/register/rejected") {
             setError("Error: User is already registered");
             return;
         }
         else {
+            setError('');
             navigate("/login");
-            console.log(status);
         }
     }
 
     return (
         <div>
+            <button className="float-start" onClick={() => {
+                navigate("/login");
+            }}><i class="fa-solid fa-arrow-left"></i></button>
             <h1>Register</h1>
             <label for="username">Username</label>
             <input onChange={(e) => {

@@ -18,7 +18,7 @@ const Login = () => {
         if (status === 404) {
             setError("Failed to login");
         }
-        // navigate("/profile");
+        navigate("/profile");
     };
 
     const handleRegister = () => {
