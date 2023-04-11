@@ -46,6 +46,12 @@ const RegisterScreen = () => {
                 navigate("/login");
             }}><i class="fa-solid fa-arrow-left"></i></button>
             <h1>Register</h1>
+            {
+                error &&
+                <div className="alert alert-danger" role="alert">
+                    {error}
+                </div>
+            }
             <label for="username">Username</label>
             <input onChange={(e) => {
                 setUsername(e.target.value);
@@ -63,7 +69,6 @@ const RegisterScreen = () => {
                 setHandle(e.target.value);
             }} className="mb-2 mt-2 form-control" type="text" id="handle"></input>
             <FancyButton onclick={handleRegister} text="Register" />
-            {error}
         </div>
     )
 };
