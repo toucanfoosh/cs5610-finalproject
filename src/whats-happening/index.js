@@ -8,6 +8,7 @@ import { profileThunk } from "../services/user-thunk";
 const WhatsHappening = () => {
     const [post, setPost] = useState("");
     const [profile, setProfile] = useState({});
+    const [error, setError] = useState("");
     const dispatch = useDispatch();
     useEffect(() => {
         const handleProfile = async () => {
@@ -18,7 +19,7 @@ const WhatsHappening = () => {
     }, []);
     const postClickHandler = () => {
         if (!profile) {
-            alert("Not logged in");
+            setError("Must be logged in to post");
             return;
         }
         console.log(profile);
@@ -32,6 +33,12 @@ const WhatsHappening = () => {
     }
     return (
         <div className="p-3 row">
+            {
+                error &&
+                <div className="alert alert-danger" role="alert">
+                    {error}
+                </div>
+            }
             <div className="col-9 row">
                 <div className="col-2 col-md-1 d-flex-inline align-self-center">
                     <img className='rounded-circle sf-pfp' src={`./images/catjam.jpg`} />
