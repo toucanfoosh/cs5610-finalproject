@@ -27,19 +27,19 @@ const store = configureStore(
 )
 
 function App() {
-    const [token, setToken] = useState("");
-    useEffect(() => {
-        const hash = window.location.hash;
-        let token = window.localStorage.getItem("token");
+    // const [token, setToken] = useState("");
+    // useEffect(() => {
+    //     const hash = window.location.hash;
+    //     let token = window.localStorage.getItem("token");
 
-        if (!token && hash) {
-            token = hash.substring(1).split("&").find(elem => elem.startsWith("accessToken")).split("=")[1]
-            window.localStorage.setItem("token", token)
-            window.location.hash = "";
-            setToken(token);
-            console.log(token);
-        }
-    })
+    //     if (!token && hash) {
+    //         token = hash.substring(1).split("&").find(elem => elem.startsWith("accessToken")).split("=")[1]
+    //         window.localStorage.setItem("token", token)
+    //         window.location.hash = "";
+    //         setToken(token);
+    //         console.log(token);
+    //     }
+    // })
     return (
         <Provider store={store}>
             <BrowserRouter>

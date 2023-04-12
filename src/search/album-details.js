@@ -21,17 +21,23 @@ const AlbumDetails = () => {
                 token
             }
             const album = await getAlbum(params);
-            setAlbum(album.data);
+            setAlbum(album);
+            console.log(album.data);
         }
         getToken();
         getAlbums();
-    }, [id]);
+    }, []);
     return (
         <div>
-            <h1>{album.name}</h1>
-            <div>
-                {album.artists && album.artists.map(artist => <span>{artist.name} </span>)}
-            </div>
+            {album.data &&
+                <div>
+                    <h1>{album.data.name}</h1>
+                    <img src={album.data.images[1].url} />
+                    <div>
+                        {album.data.artists && album.data.artists.map(artist => <span>{artist.name} </span>)}
+                    </div>
+                </div>
+            }
         </div>
     )
 }

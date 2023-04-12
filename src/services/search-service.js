@@ -81,5 +81,9 @@ export const getAlbum = async ({ id, accessToken }) => {
             console.log(400);
             return 400;
         }
+        if (error.response.status === 401) {
+            accessToken = await getAccessToken();
+            return getAlbum({ id, accessToken })
+        }
     }
 }
