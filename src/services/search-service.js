@@ -59,3 +59,29 @@ export const fullTextSearch = async ({ search, accessToken }) => {
         }
     }
 }
+
+export const getAlbum = async ({ id, accessToken }) => {
+    const headers = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        },
+        params: {
+            id: `${id}`
+        }
+    }
+
+    try {
+        const response = await axios.get(
+            `${API_BASE}/albums`,
+            headers
+        );
+        console.log(response);
+        return response;
+    } catch (error) {
+        if (error.response.status === 400) {
+            console.log(400);
+            return 400;
+        }
+    }
+}
