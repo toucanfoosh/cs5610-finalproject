@@ -14,6 +14,7 @@ import LoadProfile from "./load-profile";
 import userReducer from "./reducers/user/user-reducer";
 import Login from "./login";
 import RegisterScreen from "./register";
+import SearchScreen from "./search";
 
 const store = configureStore(
     {
