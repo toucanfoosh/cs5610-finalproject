@@ -17,3 +17,7 @@
 .sf-no-link-decor {
     text-decoration: none;
 }
+
+.sf-bottom-post {
+    height: 50vh;
+}

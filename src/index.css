@@ -1,15 +1,25 @@
 :root {
-    --primary: #ffffff;
-    --secondary: #000000;
+    /* --primary: #ffffff; */
+    --primary: #14181b;
+    /* --secondary: #000000; */
+    --secondary: #e9e9e9;
     --tertiary: #606060;
     --accent: #00dc25;
     --accent-darker: #00ac1d;
+    --clear: #ffffff00;
 }
 
 html,
 body {
     max-width: 100%;
+    background-color: var(--primary);
     /* overflow-x: hidden; */
+}
+
+.sf-test {
+    background-color: red;
+    width: 100%;
+    height: 1000vh;
 }
 
 .sf-primary {
@@ -52,6 +62,10 @@ body {
     background-color: var(--accent-darker) !important;
 }
 
+.sf-top-0 {
+    top: 0 !important;
+}
+
 .sf-pfp {
     border-radius: 50%;
     width: 50px;
@@ -62,7 +76,7 @@ body {
     height: 100vh;
     position: sticky;
     position: -webkit-sticky;
-    margin-top: -10px!important;
+    margin-top: -10px !important;
 }
 
 .sf-right-border {
@@ -73,4 +87,10 @@ body {
 .sf-left-border {
     border-left: 1px solid var(--secondary);
     top: 0;
+}
+
+.sf-mobile-navbar {
+    border-top: var(--secondary) 1px solid;
+    padding: 10px;
+    background-color: var(--primary);
 }

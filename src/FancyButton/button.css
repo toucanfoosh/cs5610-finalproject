@@ -10,7 +10,7 @@
   appearance: none;
   background-color: var(--accent);
   color: var(--primary);
-  border-radius: 4px;
+  border-radius: 5px;
   border: none;
   cursor: pointer;
   position: relative;
@@ -18,7 +18,7 @@
 }
 
 .sf-bubbly-button:hover {
-  box-shadow: 0 0 10px var(--accent);
+  box-shadow: 0 0 5px var(--accent-darker);
 }
 
 .sf-bubbly-button:focus {

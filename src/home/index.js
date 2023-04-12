@@ -20,7 +20,7 @@ const HomeComponent = () => {
     return (
         <div className="row">
             <div className="sf-home-border">
-                <WhatsHappening className="sf-bottom-border"/>
+                <WhatsHappening className="sf-bottom-border" />
                 {
                     loading &&
                     <div className="mb-2 list-group ps-0">
@@ -35,9 +35,11 @@ const HomeComponent = () => {
                         {posts.map((post) => (
                             <PostItem post={post} />
                         ))}
+                        <div className="sf-test" />
                     </div>
                 }
             </div>
+            <div className="sf-bottom-post"></div>
         </div>
     );
 };
