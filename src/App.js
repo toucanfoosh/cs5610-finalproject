@@ -1,5 +1,5 @@
 import { BrowserRouter } from "react-router-dom";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router";
 import { configureStore } from "@reduxjs/toolkit";
 import { Provider } from "react-redux";
@@ -27,6 +27,19 @@ const store = configureStore(
 )
 
 function App() {
+    const [token, setToken] = useState("");
+    useEffect(() => {
+        const hash = window.location.hash;
+        let token = window.localStorage.getItem("token");
+
+        if (!token && hash) {
+            token = hash.substring(1).split("&").find(elem => elem.startsWith("accessToken")).split("=")[1]
+            window.localStorage.setItem("token", token)
+            window.location.hash = "";
+            setToken(token);
+            console.log(token);
+        }
+    })
     return (
         <Provider store={store}>
             <BrowserRouter>
@@ -41,6 +54,7 @@ function App() {
                                     <Route index element={<HomeComponent />} />
                                     <Route path="/home" element={<HomeComponent />} />
                                     <Route path="/search" element={<SearchScreen />} />
+                                    <Route path="/search/:searchTerm" element={<SearchScreen />} />
                                     <Route path="/profile" element={<Profile />} />
                                     <Route path="/search/album/:id" element={<AlbumDetails />} />
                                     <Route path="/login" element={<Login />} />
@@ -66,13 +80,16 @@ function App() {
                                     <Route path="/login" element={<NavBar active="Profile" />} />
                                     <Route path="/register" element={<NavBar active="Profile" />} />
                                     <Route path="/search" element={<NavBar active="Search" />} />
+                                    <Route path="/search/:searchTerm" element={<NavBar active="Search" />} />
+                                    <Route path="/search/album/:id" element={<NavBar active="Search" />} />
                                 </Routes>
                             </div>
                             <div className="ms-md-0 d-none d-sm-block col-sm-10 col-lg-7 col-xl-6 sf-overflow">
                                 <Routes>
                                     <Route index element={<HomeComponent />} />
                                     <Route path="/home" element={<HomeComponent />} />
-                                    <Route path="/search/*" element={<SearchScreen />} />
+                                    <Route path="/search" element={<SearchScreen />} />
+                                    <Route path="/search/:searchTerm" element={<SearchScreen />} />
                                     <Route path="/search/album/:id" element={<AlbumDetails />} />
                                     <Route path="/profile" element={<Profile />} />
                                     <Route path="/login" element={<Login />} />

@@ -27,6 +27,7 @@ export const getAccessToken = async () => {
             qs.stringify(data),
             headers
         );
+        // console.log(response);
         return response.data.access_token;
     } catch (error) {
         console.log(error);
@@ -65,18 +66,15 @@ export const getAlbum = async ({ id, accessToken }) => {
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`,
-        },
-        params: {
-            id: `${id}`
         }
     }
 
     try {
+        // console.log(id);
         const response = await axios.get(
-            `${API_BASE}/albums`,
+            `${API_BASE}/albums/${id}`,
             headers
         );
-        console.log(response);
         return response;
     } catch (error) {
         if (error.response.status === 400) {

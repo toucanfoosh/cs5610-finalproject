@@ -21,6 +21,7 @@ const SearchScreen = () => {
     }, []);
 
     const searchSpotify = async () => {
+        localStorage.setItem("token", accessToken);
         const credentials = {
             search,
             accessToken
