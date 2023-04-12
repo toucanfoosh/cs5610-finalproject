@@ -6,8 +6,8 @@
         "icon": "fa fa-home"
     },
     {
-        "title": "Explore",
-        "href": "../explore",
+        "title": "Search",
+        "href": "../search",
         "_id": "567",
         "icon": "fa-solid fa-magnifying-glass"
     },
