@@ -5,17 +5,16 @@ import { getAccessToken, getAlbum } from "../services/search-service";
 const AlbumDetails = () => {
     const { id } = useParams();
     const [album, setAlbum] = useState({});
-    // const [accessToken, setAccessToken] = useState("");
     useEffect(() => {
         const getToken = async () => {
-            const token = await getAccessToken();
-            // setAccessToken(token);
-            return token;
+            if (!localStorage.getItem("token")) {
+                const temp = await getAccessToken();
+                localStorage.setItem("token", temp);
+            }
+            return localStorage.getItem("token");
         }
 
-        const getAlbums = async () => {
-            const token = await getToken();
-            console.log(token);
+        const getAlbums = async (token) => {
             const params = {
                 id,
                 token
@@ -24,8 +23,7 @@ const AlbumDetails = () => {
             setAlbum(album);
             console.log(album.data);
         }
-        getToken();
-        getAlbums();
+        getToken().then(result => getAlbums(result));
     }, []);
     return (
         <div>

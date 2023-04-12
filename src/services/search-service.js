@@ -83,6 +83,7 @@ export const getAlbum = async ({ id, accessToken }) => {
         }
         if (error.response.status === 401) {
             accessToken = await getAccessToken();
+            localStorage.setItem("token", accessToken);
             return getAlbum({ id, accessToken })
         }
     }
