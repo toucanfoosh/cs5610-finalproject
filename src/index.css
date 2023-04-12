@@ -88,9 +88,3 @@ body {
     border-left: 1px solid var(--secondary);
     top: 0;
 }
-
-.sf-mobile-navbar {
-    border-top: var(--secondary) 1px solid;
-    padding: 10px;
-    background-color: var(--primary);
-}

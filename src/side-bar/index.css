@@ -43,4 +43,6 @@
 .sf-searchbar-container {
     border-bottom: 1px var(--secondary) solid;
     background-color: var(--primary);
+    width: calc(100% + 24px);
+    margin-left: -12px;
 }

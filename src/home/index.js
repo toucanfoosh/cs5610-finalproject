@@ -35,7 +35,7 @@ const HomeComponent = () => {
                         {posts.map((post) => (
                             <PostItem post={post} />
                         ))}
-                        <div className="sf-test" />
+                        {/* <div className="sf-test" /> */}
                     </div>
                 }
             </div>
