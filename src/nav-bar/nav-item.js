@@ -23,7 +23,7 @@ const NavItem = (
     }
 
     return (
-        <Link onClick={refreshPage} key={item._id} className={`list-group-item ${IsActive(item.title, active)}`} to={item.href}>
+        <Link key={item._id} className={`list-group-item ${IsActive(item.title, active)}`} to={item.href}>
             <div className="d-flex-inline justify-content-center justify-content-xl-none sf-navbar-item">
                 <div className="row sf-secondary">
                     <div className="d-none d-xl-block col-3"></div>

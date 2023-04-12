@@ -29,10 +29,19 @@ const AlbumDetails = () => {
         <div>
             {album.data &&
                 <div>
-                    <h1>{album.data.name}</h1>
-                    <img src={album.data.images[1].url} />
                     <div>
-                        {album.data.artists && album.data.artists.map(artist => <span>{artist.name} </span>)}
+                        <h1>{album.data.name}</h1>
+                        <div>{album.data.release_date.substring(0, 4)} • {album.data.album_type}</div>
+                        <img src={album.data.images[1].url} />
+                        <div>
+                            {album.data.artists && album.data.artists.map(artist => <span>{artist.name} </span>)}
+                        </div>
+                    </div>
+                    <div className="mt-2">
+                        <h2>Tracks</h2>
+                        {album.data.tracks.items.map(track =>
+                            <div>{track.name}</div>
+                        )}
                     </div>
                 </div>
             }

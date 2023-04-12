@@ -34,7 +34,7 @@ export const getAccessToken = async () => {
     }
 }
 
-export const fullTextSearch = async ({ search, accessToken }) => {
+export const fullTextSearch = async ({ search, accessToken, offset }) => {
     const headers = {
         headers: {
             'Content-Type': 'application/json',
@@ -42,7 +42,9 @@ export const fullTextSearch = async ({ search, accessToken }) => {
         },
         params: {
             q: `${search}`,
-            type: "album"
+            type: "album",
+            limit: 8,
+            offset: `${offset}`
         }
     }
 

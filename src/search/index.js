@@ -12,7 +12,9 @@ const SearchScreen = () => {
     const [search, setSearch] = useState(searchTerm);
     const [accessToken, setAccessToken] = useState("");
     const [searchResults, setSearchResults] = useState({});
+    const [searchResultItems, setSearchResultItems] = useState([]);
     const [waiting, setWaiting] = useState(false);
+    const [offset, setOffset] = useState(0);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -26,20 +28,40 @@ const SearchScreen = () => {
         }
     }, [searchTerm]);
 
+    const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
+
     const searchSpotify = async () => {
         window.localStorage.setItem("token", accessToken);
+        if (!search) {
+            setSearchResults("");
+            return;
+        }
         const credentials = {
             search,
-            accessToken
+            accessToken,
+            offset
         }
         setWaiting(true);
         const results = await fullTextSearch(credentials);
+        console.log(results);
         setWaiting(false);
         if (results === 400) {
             return;
         }
         console.log(results.data.albums.items);
-        setSearchResults(results.data.albums);
+        if (offset > 0) {
+            setSearchResultItems(searchResultItems => [
+                ...searchResultItems,
+                ...results.data.albums.items
+            ])
+            console.log(searchResultItems);
+        }
+        else {
+            setSearchResults(results.data.albums);
+            setSearchResultItems(results.data.albums.items);
+        }
+
+
         navigate(`/search/${search}`);
     }
     return (
@@ -58,8 +80,14 @@ const SearchScreen = () => {
             <div className="container mt-3">
                 <div className="row row-cols-4">
                     {
+                        searchResults === "" &&
+                        <div>
+                            No results found
+                        </div>
+                    }
+                    {
                         searchResults.items &&
-                        searchResults.items.map(result =>
+                        searchResultItems.map(result =>
                             <div className="card">
                                 <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
                                     <img src={result.images[0].url} className="card-img"></img>
@@ -72,7 +100,15 @@ const SearchScreen = () => {
                         )
                     }
                     {
-                        searchResults.items && searchResults.items.length === 0 &&
+                        searchResults.items &&
+                        <FancyButton onclick={() => {
+                            setOffset(offset => offset + 8);
+                            console.log(offset);
+                            searchSpotify();
+                        }} text="More results" />
+                    }
+                    {
+                        searchResults.items && searchResultItems.length === 0 &&
                         <div>
                             No results found
                         </div>
