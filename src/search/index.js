@@ -59,10 +59,11 @@ const SearchScreen = () => {
         else {
             setSearchResults(results.data.albums);
             setSearchResultItems(results.data.albums.items);
+
         }
 
-
         navigate(`/search/${search}`);
+
     }
     return (
         <div>
@@ -99,13 +100,18 @@ const SearchScreen = () => {
                             </div>
                         )
                     }
+                    {/* {
+                        searchResults.items && offset > 0 &&
+                        <FancyButton onclick={async () => {
+                            await setOffset({ value: offset - 8 }, searchSpotify());
+                        }} text="Previous Page" />
+                    } */}
                     {
-                        searchResults.items &&
-                        <FancyButton onclick={() => {
-                            setOffset(offset => offset + 8);
-                            console.log(offset);
+                        searchResults.items && searchResultItems.length > 0 &&
+                        <FancyButton onclick={async () => {
+                            await setOffset(offset => offset + 8)
                             searchSpotify();
-                        }} text="More results" />
+                        }} text="More Results" />
                     }
                     {
                         searchResults.items && searchResultItems.length === 0 &&

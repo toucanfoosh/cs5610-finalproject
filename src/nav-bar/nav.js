@@ -4,6 +4,7 @@ import '../index.css';
 import "./index.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const NavBar = ({ active = 'home' }) => {
     const { currentUser } = useSelector(state => state.user);
@@ -26,7 +27,7 @@ const NavBar = ({ active = 'home' }) => {
             </div>
             {
                 !currentUser &&
-                <button onClick={handleLogin}>
+                <Link to="/login">
                     <div className="d-none d-xl-block sf-nav-profile-full mt-5 mb-4 mx-4">
                         <div className="d-flex-inline justify-content-center justify-content-xl-none sf-nav-profile-item">
                             <div className="row sf-secondary">
@@ -40,11 +41,11 @@ const NavBar = ({ active = 'home' }) => {
                             </div>
                         </div>
                     </div>
-                </button>
+                </Link>
             }
             {
                 currentUser &&
-                <button onClick={handleProfile}>
+                <Link to="/login">
                     <div className="d-none d-xl-block sf-nav-profile-full mt-5 mb-4 mx-4">
                         <div className="d-flex-inline justify-content-center justify-content-xl-none sf-nav-profile-item">
                             <div className="row sf-secondary">
@@ -58,7 +59,7 @@ const NavBar = ({ active = 'home' }) => {
                             </div>
                         </div>
                     </div>
-                </button>
+                </Link>
             }
 
         </div>
