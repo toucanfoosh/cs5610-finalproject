@@ -8,7 +8,6 @@ const Login = () => {
     const { currentUser } = useSelector((state) => state.user);
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
-    const [profile, setProfile] = useState(null);
     const [error, setError] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -28,16 +27,12 @@ const Login = () => {
     }
 
     useEffect(() => {
-        const handleProfile = async () => {
-            const newProfile = await dispatch(profileThunk());
-            setProfile(newProfile.payload);
-        }
-        handleProfile().catch(console.error);
-        console.log(profile);
-        if (profile) {
+        if (currentUser) {
+            console.log("navigating to profile");
             navigate("/profile");
         }
-    });
+
+    }, [currentUser]);
 
     return (
         <div>

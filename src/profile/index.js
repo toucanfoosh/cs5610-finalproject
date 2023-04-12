@@ -8,8 +8,9 @@ const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [profile, setProfile] = useState({});
-    const handleLogout = () => {
-        dispatch(logoutThunk());
+    const handleLogout = async () => {
+        await dispatch(logoutThunk());
+        console.log("logged out");
         navigate("/login");
     }
     useEffect(() => {
@@ -17,7 +18,7 @@ const Profile = () => {
             const newProfile = await dispatch(profileThunk());
             setProfile(newProfile.payload);
         }
-        handleProfile().catch(console.error);
+        handleProfile();
     }, []);
     return (
         <div>
