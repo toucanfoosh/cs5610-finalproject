@@ -48,7 +48,6 @@ function App() {
                                 <Route path="/login" element={<Login />} />
                                 <Route path="/register" element={<RegisterScreen />} />
                                 <Route path="/search/*" element={<SearchScreen />} />
-
                             </Routes>
                         </div>
                         <div className="d-none d-lg-block col-lg-4 col-xl-3 sf-side sf-left-border">

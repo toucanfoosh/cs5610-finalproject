@@ -2,30 +2,36 @@ import { useEffect, useState } from "react";
 import FancyButton from "../FancyButton/button";
 import { useDispatch } from "react-redux";
 import { getAccessTokenThunk } from "../services/search-thunk";
+import { fullTextSearch } from "../services/search-service";
+import "./index.css";
+import { Link } from "react-router-dom";
 
 const SearchScreen = () => {
     const [search, setSearch] = useState("");
     const [accessToken, setAccessToken] = useState("");
+    const [searchResults, setSearchResults] = useState({});
     const dispatch = useDispatch();
     useEffect(() => {
-        var token = dispatch(getAccessTokenThunk());
-        console.log(token);
+        const getToken = async () => {
+            const token = await dispatch(getAccessTokenThunk());
+            setAccessToken(token.payload);
+        }
+
+        getToken();
     }, []);
 
-    // async function searchSpotify() {
-    //     var params = {
-    //         method: "GET",
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             'Authorization': 'Bearer ' + accessToken
-    //         }
-    //     }
-
-    //     var results = await fetch('https://api.spotify.com/v1/search?q=' + search + '&type=album', params)
-    //         .then(response => response.json())
-    //         .then(data => { return data.albums.items });
-    // }
-
+    const searchSpotify = async () => {
+        const credentials = {
+            search,
+            accessToken
+        }
+        const results = await fullTextSearch(credentials);
+        if (results === 400) {
+            return;
+        }
+        console.log(results.data.albums.items);
+        setSearchResults(results.data.albums);
+    }
     return (
         <div>
             <div className="input-group mb-3" size="lg">
@@ -34,39 +40,31 @@ const SearchScreen = () => {
                     type="input"
                     onChange={(e) => {
                         setSearch(e.target.value);
-                        // searchSpotify();
+                        searchSpotify();
                     }}
                 />
             </div>
             <FancyButton text="Search"></FancyButton>
             <div className="container mt-3">
                 <div className="row row-cols-4">
-                    <div className="card">
-                        <img src="catjam.jpg" className="card-img-top"></img>
-                        <div className="card-body">
-                            <div className="card-title">Album Name</div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <img src="catjam.jpg" className="card-img-top"></img>
-                        <div className="card-body">
-                            <div className="card-title">Album Name</div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <img src="catjam.jpg" className="card-img-top"></img>
-                        <div className="card-body">
-                            <div className="card-title">Album Name</div>
-                        </div>
-                    </div>
-                    <div className="card">
-                        <img src="catjam.jpg" className="card-img-top"></img>
-                        <div className="card-body">
-                            <div className="card-title">Album Name</div>
-                        </div>
-                    </div>
+                    {
+                        searchResults.items &&
+                        searchResults.items.map(result =>
+                            <div className="card">
+                                <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
+                                    <img src={result.images[0].url} className="card-img"></img>
+                                    <div className="card-body">
+                                        <div className="card-title sf-text-bold">{result.name}</div>
+                                        <div className="card-text">{result.artists[0].name}</div>
+                                    </div>
+                                </Link>
+                            </div>
+                        )
+                    }
+
                 </div>
             </div>
+            {search}
         </div>
     )
 }
