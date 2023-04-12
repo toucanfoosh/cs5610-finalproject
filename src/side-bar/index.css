@@ -7,7 +7,7 @@
     justify-content: space-around;
     align-items: center;
     outline: none;
-    border: 2px solid var(--secondary);
+    border: 1px solid var(--tertiary);
     border-radius: 5px;
     padding: 5px;
     background-color: var(--primary);
@@ -25,8 +25,8 @@
 }
 
 .sf-searchbar:focus-within {
-    border: 2px solid var(--accent);
-    box-shadow: 0 0 0 2px var(--accent);
+    border: 1px solid var(--accent);
+    /* box-shadow: 0 0 0 2px var(--accent); */
 }
 
 .sf-searchbar-button {
@@ -41,7 +41,7 @@
 }
 
 .sf-searchbar-container {
-    border-bottom: 1px var(--secondary) solid;
+    border-bottom: .5px var(--tertiary) solid;
     background-color: var(--primary);
     width: calc(100% + 24px);
     margin-left: -12px;

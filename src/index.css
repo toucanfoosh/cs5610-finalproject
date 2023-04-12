@@ -1,8 +1,8 @@
 :root {
-    --primary: #ffffff;
-    /* --primary: #14181b; */
-    --secondary: #000000;
-    /* --secondary: #e9e9e9; */
+    /* --primary: #ffffff; */
+    --primary: #14181b;
+    /* --secondary: #000000; */
+    --secondary: #e9e9e9;
     --tertiary: #606060;
     --accent: #00dc25;
     --accent-darker: #00ac1d;
@@ -80,11 +80,11 @@ body {
 }
 
 .sf-right-border {
-    border-right: 1px solid var(--secondary);
+    border-right: 1px solid var(--tertiary);
     top: 0;
 }
 
 .sf-left-border {
-    border-left: 1px solid var(--secondary);
+    border-left: 1px solid var(--tertiary);
     top: 0;
 }

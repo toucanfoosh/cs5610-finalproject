@@ -18,11 +18,12 @@ const NavItem = (
     return (
         <Link key={item._id} className={`list-group-item ${IsActive(item.title, active)}`} to={item.href}>
             <div className="d-flex-inline justify-content-center justify-content-xl-none sf-navbar-item">
-                <div className="row">
+                <div className="row sf-secondary">
+                    <div className="d-none d-xl-block col-3"></div>
                     <div className="col-12 col-xl-2 text-center sf-tertiary">
-                        <span className={`${item.icon}`}></span>
+                        <span className={`${item.icon} sf-secondary`}></span>
                     </div>
-                    <div className="d-none d-xl-inline col-xl-10">
+                    <div className="d-none d-xl-inline col-xl-7">
                         <span>{item.title}</span>
                     </div>
                 </div>

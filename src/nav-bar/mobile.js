@@ -12,7 +12,7 @@ const MobileNavBar = ({ active = 'home' }) => {
                         <MobileItem item={sidebarItem} active={active} />
                     ))}
                 </div>
-                <div className="col-2">
+                <div className="col-2 text-center">
                     <img src="./images/catjam.jpg" className="sf-mobile-nav-pfp" alt="profile" />
                 </div>
             </div>

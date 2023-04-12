@@ -49,7 +49,7 @@ function App() {
                             <div className="sticky-top">
                                 <SideBar />
                             </div>
-                            <div className="ms-md-0 col-12 sf-overflow">
+                            <div className="ms-md-0 col-12">
                                 <Routes>
                                     <Route index element={<HomeComponent />} />
                                     <Route path="/home" element={<HomeComponent />} />
@@ -84,7 +84,7 @@ function App() {
                                     <Route path="/search/album/:id" element={<NavBar active="Search" />} />
                                 </Routes>
                             </div>
-                            <div className="ms-md-0 d-none d-sm-block col-sm-10 col-lg-7 col-xl-6 sf-overflow">
+                            <div className="ms-md-0 d-none d-sm-block col-sm-10 col-lg-7 col-xl-6">
                                 <Routes>
                                     <Route index element={<HomeComponent />} />
                                     <Route path="/home" element={<HomeComponent />} />
