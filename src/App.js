@@ -38,6 +38,7 @@ function App() {
                                 <Routes>
                                     <Route index element={<HomeComponent />} />
                                     <Route path="/home" element={<HomeComponent />} />
+                                    <Route path="/search" element={<NavBar active="Explore" />} />
                                     <Route path="/profile" element={<Profile />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<RegisterScreen />} />
@@ -47,6 +48,7 @@ function App() {
                                 <Routes>
                                     <Route path="/" element={<MobileNavBar active="Home" />} />
                                     <Route path="/home" element={<MobileNavBar active="Home" />} />
+                                    <Route path="/search" element={<NavBar active="Explore" />} />
                                     <Route path="/profile" element={<MobileNavBar active="Profile" />} />
                                     <Route path="/login" element={<MobileNavBar active="Profile" />} />
                                     <Route path="/register" element={<MobileNavBar active="Profile" />} />
@@ -67,6 +69,7 @@ function App() {
                                 <Routes>
                                     <Route index element={<HomeComponent />} />
                                     <Route path="/home" element={<HomeComponent />} />
+                                    <Route path="/search/*" element={<SearchScreen />} />
                                     <Route path="/profile" element={<Profile />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<RegisterScreen />} />
