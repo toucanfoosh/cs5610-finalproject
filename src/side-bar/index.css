@@ -45,4 +45,5 @@
     background-color: var(--primary);
     width: calc(100% + 24px);
     margin-left: -12px;
+    padding: 20px 0;
 }

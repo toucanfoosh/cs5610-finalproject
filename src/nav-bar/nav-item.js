@@ -23,19 +23,20 @@ const NavItem = (
     }
 
     return (
-        <Link key={item._id} className={`list-group-item ${IsActive(item.title, active)}`} to={item.href}>
-            <div className="d-flex-inline justify-content-center justify-content-xl-none sf-navbar-item">
-                <div className="row sf-secondary">
-                    <div className="d-none d-xl-block col-3"></div>
-                    <div className="col-12 col-xl-2 text-center sf-tertiary">
-                        <span className={`${item.icon} sf-secondary`}></span>
-                    </div>
-                    <div className="d-none d-xl-inline col-xl-7">
-                        <span>{item.title}</span>
+        <div className="justify-content-center justify-content-xl-none sf-navbar-item my-xl-0 my-3 mx-xl-4 py-2 py-xl-4">
+            <Link key={item._id} className={`list-group-item ${IsActive(item.title, active)}`} to={item.href}>
+                <div className="sf-secondary">
+                    <div className="row">
+                        <div className="text-center text-xl-end sf-tertiary col-xl-5">
+                            <span className={`${item.icon} sf-secondary`}></span>
+                        </div>
+                        <div className="d-none d-xl-inline text-start col-xl-7">
+                            <span>{item.title}</span>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </Link>
+            </Link >
+        </div>
     );
 };
 

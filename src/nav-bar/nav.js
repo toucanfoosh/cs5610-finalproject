@@ -22,44 +22,42 @@ const NavBar = ({ active = 'home' }) => {
                     <NavItem item={sidebarItem} active={active} />
                 ))}
             </div>
-            {
-                !currentUser &&
-                <Link to="/login">
-                    <div className="d-none d-xl-block sf-nav-profile-full mt-5 mb-4 mx-4">
-                        <div className="d-flex-inline justify-content-center justify-content-xl-none sf-nav-profile-item">
-                            <div className="row sf-secondary">
-                                <div className="d-none d-xl-block col-3"></div>
-                                <div className="col-12 col-xl-2 text-center sf-tertiary">
-                                    <img src="./images/catjam.jpg" className="sf-nav-pfp" />
+            <Link to="/login">
+                <div className="d-block sf-nav-profile-full py-2">
+                    <div className="justify-content-center justify-content-xl-none sf-nav-profile-item">
+                        <div className="sf-secondary">
+                            <div className="row">
+                                <div className="d-block text-center align-self-center sf-tertiary col-xl-4 px-1">
+                                    {
+                                        currentUser &&
+                                        <img src={`./images/${currentUser.avatar}`} className="sf-pfp" />
+                                    }
+                                    {
+                                        !currentUser &&
+                                        <img src="./images/catjam.jpg" className="sf-pfp" />
+                                    }
                                 </div>
-                                <div className="d-none d-xl-inline col-xl-7">
-                                    <span>Sign Up/Log In</span>
+                                <div className="d-none d-xl-inline text-start col-xl-8 align-items-center">
+                                    {
+                                        currentUser &&
+                                        <div>
+                                            <div className="py-1 sf-secondary text-decoration-none">{currentUser.username}</div>
+                                            <div className="py-1 sf-tertiary text-decoration-none">@{currentUser.handle}</div>
+                                        </div>
+                                    }
+                                    {
+                                        !currentUser &&
+                                        <div>
+                                            <div className="py-1 sf-secondary text-decoration-none">Sign Up/Log In</div>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                         </div>
                     </div>
-                </Link>
-            }
-            {
-                currentUser &&
-                <Link to="/login">
-                    <div className="d-none d-xl-block sf-nav-profile-full mt-5 mb-4 mx-4">
-                        <div className="d-flex-inline justify-content-center justify-content-xl-none sf-nav-profile-item">
-                            <div className="row sf-secondary">
-                                <div className="d-none d-xl-block col-3"></div>
-                                <div className="col-12 col-xl-2 text-center sf-tertiary">
-                                    <img src={`./images/${currentUser.avatar}`} className="sf-nav-pfp" />
-                                </div>
-                                <div className="d-none d-xl-inline col-xl-7">
-                                    <span>{currentUser.username}</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-            }
-
-        </div>
+                </div>
+            </Link >
+        </div >
     );
 };
 

@@ -16,13 +16,15 @@ const MobileItem = (
     }
 ) => {
     return (
-        <Link key={item._id} className={`list-group-item ${IsActive(item.title, active)} col align-self-center`} to={item.href}>
+        <div className="col align-self-center">
             <div className="text-center sf-secondary">
-                    <div className="sf-mobile-item-padding">
+                <Link key={item._id} className={`sf-secondary ${IsActive(item.title, active)} `} to={item.href}>
+                    <div className="sf-mobile-navbar-item">
                         <span className={`${item.icon}`}></span>
-                </div>
+                    </div>
+                </Link>
             </div>
-        </Link>
+        </div>
     );
 };
 

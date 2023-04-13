@@ -13,7 +13,7 @@ const PostItem = ({ post }) => {
     return (
         <div className="sf-tertiary p-3">
             <div className="row">
-                <div className="col-2 col-md-1 d-flex-inline align-self-center">
+                <div className="col-2 col-md-1 align-self-center">
                     <div className='d-flex justify-content-center'>
                         <img className="sf-pfp" src={`./images/${post.avatar}`} />
                     </div>
