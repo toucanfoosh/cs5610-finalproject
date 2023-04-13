@@ -100,12 +100,6 @@ const SearchScreen = () => {
                             </div>
                         )
                     }
-                    {/* {
-                        searchResults.items && offset > 0 &&
-                        <FancyButton onclick={async () => {
-                            await setOffset({ value: offset - 8 }, searchSpotify());
-                        }} text="Previous Page" />
-                    } */}
                     {
                         searchResults.items && searchResultItems.length > 0 &&
                         <FancyButton onclick={async () => {

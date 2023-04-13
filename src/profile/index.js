@@ -13,6 +13,9 @@ const Profile = () => {
         console.log("logged out");
         navigate("/login");
     }
+    const handleEditProfile = () => {
+        navigate("/edit-profile");
+    }
     useEffect(() => {
         const handleProfile = async () => {
             const newProfile = await dispatch(profileThunk());
@@ -23,7 +26,7 @@ const Profile = () => {
     return (
         <div>
             <h1>Profile</h1>
-            {JSON.stringify(profile)}
+            <FancyButton onclick={handleEditProfile} text="Edit Profile" />
 
             <FancyButton onclick={handleLogout} text="Logout" />
         </div>
