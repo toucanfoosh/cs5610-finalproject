@@ -23,8 +23,9 @@ const NavItem = (
     }
 
     return (
-        <div className="justify-content-center justify-content-xl-none sf-navbar-item my-xl-0 my-3 mx-xl-4 py-2 py-xl-4">
-            <Link key={item._id} className={`list-group-item ${IsActive(item.title, active)}`} to={item.href}>
+        <Link key={item._id} className={`list-group-item ${IsActive(item.title, active)}`} to={item.href}>
+
+            <div className="justify-content-center justify-content-xl-none sf-navbar-item my-xl-0 my-3 mx-xl-4 py-2 py-xl-4">
                 <div className="sf-secondary">
                     <div className="row">
                         <div className="text-center text-xl-end sf-tertiary col-xl-5">
@@ -35,8 +36,9 @@ const NavItem = (
                         </div>
                     </div>
                 </div>
-            </Link >
-        </div>
+            </div>
+        </Link >
+
     );
 };
 
