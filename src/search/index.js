@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import FancyButton from "../FancyButton/button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAccessTokenThunk } from "../services/search-thunk";
 import { useNavigate, useParams } from "react-router-dom";
 import { fullTextSearch } from "../services/search-service";
@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 const SearchScreen = () => {
     const { searchTerm } = useParams();
+
     const [search, setSearch] = useState(searchTerm);
     const [accessToken, setAccessToken] = useState("");
     const [searchResults, setSearchResults] = useState({});
@@ -59,7 +60,6 @@ const SearchScreen = () => {
         else {
             setSearchResults(results.data.albums);
             setSearchResultItems(results.data.albums.items);
-
         }
 
         navigate(`/search/${search}`);
@@ -109,7 +109,7 @@ const SearchScreen = () => {
                     {
                         searchResults.items && searchResultItems.length > 0 &&
                         <FancyButton onclick={async () => {
-                            await setOffset(offset => offset + 8)
+                            setOffset(offset => offset + 8)
                             searchSpotify();
                         }} text="More Results" />
                     }

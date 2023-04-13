@@ -2,18 +2,22 @@ import NavItem from "./nav-item";
 import sidebar from "./sidebar.json";
 import '../index.css';
 import "./index.css";
-import { useSelector } from "react-redux";
-import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { profileThunk } from "../services/user-thunk";
 import { Link } from "react-router-dom";
 
 const NavBar = ({ active = 'home' }) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(profileThunk());
+    }, []);
+
     const { currentUser } = useSelector(state => state.user);
-    const navigate = useNavigate();
-    const handleLogin = () => {
-        navigate("/login")
-    }
-    const handleProfile = () => {
-        navigate("/profile")
+
+    if (currentUser) {
+        console.log(currentUser.avatar);
     }
     return (
         <div className="sticky-top sf-m-top sf-navbar sf-bg-primary">
@@ -21,9 +25,6 @@ const NavBar = ({ active = 'home' }) => {
                 {sidebar.map((sidebarItem) => (
                     <NavItem item={sidebarItem} active={active} />
                 ))}
-            </div>
-            <div className="d-block d-xl-none text-center mt-5 mb-4">
-                <img src="./images/catjam.jpg" className="sf-nav-pfp" />
             </div>
             {
                 !currentUser &&
