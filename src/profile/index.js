@@ -25,11 +25,19 @@ const Profile = () => {
             {currentUser &&
                 <div>
                     <h1 className="sf-secondary">Profile</h1>
-                    <span className="sf-secondary">{currentUser.firstName} {currentUser.lastName}</span>
+                    <div className="sf-secondary">{currentUser.firstName} {currentUser.lastName}</div>
                     <img src={`./images/${currentUser.avatar}`} />
-                    <div className="sf-secondary sf-text-bold">{currentUser.username} <span className="sf-text-normal">@{currentUser.handle}</span></div>
+                    <div className="sf-secondary sf-text-bold">{currentUser.username}
+                        <span className="sf-text-normal">@{currentUser.handle}</span></div>
+                    <div className="sf-secondary">
+                        <div>Followers: {currentUser.followers}</div>
+                        <div>Following: {currentUser.following}</div>
+                        <div>Posts: {currentUser.posts}</div>
+                        <div>Reviews: {currentUser.reviews}</div>
+                    </div>
                     <FancyButton onclick={handleEditProfile} text="Edit Profile" />
                     <FancyButton onclick={handleLogout} text="Logout" />
+
                 </div>
             }
         </div>
