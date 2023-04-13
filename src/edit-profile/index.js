@@ -1,21 +1,34 @@
-import { useSelector } from "react-redux"
-import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux"
+import { useEffect, useState } from "react";
 import "../index.css";
+import FancyButton from "../FancyButton/button";
+import { useNavigate } from "react-router";
+import { profileThunk, updateUserThunk } from "../services/user-thunk";
 
 const EditProfileScreen = () => {
     const { currentUser } = useSelector(state => state.user);
-    const [firstName, setFirstName] = useState(currentUser.firstName);
-    const [lastName, setLastName] = useState(currentUser.lastName);
+    useEffect(() => {
+        dispatch(profileThunk());
+    }, [])
+    let [user, setUser] = useState(currentUser);
+    console.log(user);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     return (
         <div>
             <h1 className="sf-secondary">Edit Profile</h1>
-            {currentUser &&
+            {user &&
                 <div>
                     <label for="firstName">First Name</label>
-                    <input onChange={(e) => setFirstName(e.target.value)} className="form-control" id="firstName" value={lastName}></input>
+                    <input onChange={(e) => setUser({ ...user, firstName: e.target.value })} className="form-control" id="firstName" value={user.firstName}></input>
                     <label for="lastName">Last Name</label>
-                    <input onChange={(e) => setFirstName(e.target.value)} className="form-control" id="lastName" value={lastName}></input>
+                    <input onChange={(e) => setUser({ ...user, lastName: e.target.value })} className="form-control" id="lastName" value={user.lastName}></input>
+                    <FancyButton onclick={async () => {
+                        await dispatch(updateUserThunk(user))
+                        navigate("/profile");
+                    }} text="Save" />
                 </div>
+
             }
         </div>
     )
