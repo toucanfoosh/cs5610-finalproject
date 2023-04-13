@@ -21,6 +21,8 @@ const RegisterScreen = () => {
             email,
             followers: 0,
             following: 0,
+            firstName: "",
+            lastName: "",
             posts: 0,
             reviews: 0,
             bio: "",

@@ -16,6 +16,7 @@ import Login from "./login";
 import RegisterScreen from "./register";
 import SearchScreen from "./search";
 import AlbumDetails from "./search/album-details";
+import EditProfileScreen from "./edit-profile";
 
 const store = configureStore(
     {
@@ -42,8 +43,8 @@ function App() {
                                     <Route path="/home" element={<HomeComponent />} />
                                     <Route path="/search" element={<SearchScreen />} />
                                     <Route path="/search/:searchTerm" element={<SearchScreen />} />
-                                    <Route path="/search/:searchTerm/:pageNumber" element={<SearchScreen />} />
                                     <Route path="/profile" element={<Profile />} />
+                                    <Route path="/edit-profile" element={<EditProfileScreen />} />
                                     <Route path="/search/album/:id" element={<AlbumDetails />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<RegisterScreen />} />
@@ -69,7 +70,7 @@ function App() {
                                     <Route path="/register" element={<NavBar active="Profile" />} />
                                     <Route path="/search" element={<NavBar active="Search" />} />
                                     <Route path="/search/:searchTerm" element={<NavBar active="Search" />} />
-                                    <Route path="/search/:searchTerm/:pageNumber" element={<NavBar active="Search" />} />
+                                    <Route path="/edit-profile" element={<NavBar active="Profile" />} />
                                     <Route path="/search/album/:id" element={<NavBar active="Search" />} />
                                 </Routes>
                             </div>
@@ -79,7 +80,7 @@ function App() {
                                     <Route path="/home" element={<HomeComponent />} />
                                     <Route path="/search" element={<SearchScreen />} />
                                     <Route path="/search/:searchTerm" element={<SearchScreen />} />
-                                    <Route path="/search/:searchTerm/:pageNumber" element={<SearchScreen />} />
+                                    <Route path="/edit-profile" element={<EditProfileScreen />} />
                                     <Route path="/search/album/:id" element={<AlbumDetails />} />
                                     <Route path="/profile" element={<Profile />} />
                                     <Route path="/login" element={<Login />} />

@@ -15,10 +15,6 @@ const NavBar = ({ active = 'home' }) => {
     }, []);
 
     const { currentUser } = useSelector(state => state.user);
-
-    if (currentUser) {
-        console.log(currentUser.avatar);
-    }
     return (
         <div className="sticky-top sf-m-top sf-navbar sf-bg-primary">
             <div className="sf-navbar">
