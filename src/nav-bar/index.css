@@ -7,6 +7,7 @@
 }
 
 .sf-navbar {
+    padding-top: 10px;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -14,15 +15,31 @@
 }
 
 .sf-navbar-item {
-    padding: 2rem 0;
+    /* padding: 2rem 0; */
+    transition: .3s;
+    border-top-right-radius: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.sf-navbar-item:hover {
+    background-color: var(--tertiary-darker);
 }
 
 .sf-navbar-profile {
     bottom: 2vh;
 }
 
-.sf-mobile-item-padding span {
-    padding: 0 10px;
+.sf-mobile-navbar-item {
+    padding: 5px 0;
+    margin: 0 30%;
+    border-radius: 50%;
+    transition: .3s;
+}
+
+.sf-mobile-navbar-item:hover {
+    background-color: var(--tertiary-darker);
 }
 
 .sf-mobile-nav-pfp {
@@ -31,10 +48,14 @@
     border-radius: 50%;
 }
 
-.sf-nav-pfp {
-    width: 1.5rem;
-    height: 1.5rem;
+.sf-mobile-nav-pfp-container {
+    padding: 5px;
     border-radius: 50%;
+    transition: .3s;
+}
+
+.sf-mobile-nav-pfp-container:hover {
+    background-color: var(--tertiary-darker);
 }
 
 .sf-mobile-navbar {
@@ -44,11 +65,14 @@
 }
 
 .sf-nav-profile-full {
-    border: 1px solid var(--accent);
-    border-end-end-radius: 50px;
-    border-end-start-radius: 50px;
-    border-start-end-radius: 50px;
-    border-start-start-radius: 50px;
+    text-decoration: none;
+    border-top: 1px solid var(--tertiary);
+    width: calc(100% + 16px);
+    margin-left: -8px;
+}
+
+.sf-nav-profile-full:hover {
+    background-color: var(--tertiary-darker);
 }
 
 .sf-nav-profile-item {
