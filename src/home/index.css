@@ -9,9 +9,7 @@
 }
 
 .sf-bottom-border {
-    border-bottom: 1px solid var(--secondary);
-    width: calc(100% + 24px);
-    margin-left: -12px;
+    border-bottom: 1px solid var(--tertiary);
 }
 
 .sf-no-link-decor {

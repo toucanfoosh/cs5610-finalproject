@@ -113,3 +113,8 @@ a:active{
 .sf-text-normal {
     font-weight: normal;
 }
+
+.sf-bg-blur {
+    background: var(--primary) opacity(0.9)!important;
+    backdrop-filter: blur(10px);
+}

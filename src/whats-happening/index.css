@@ -8,20 +8,22 @@
     resize: none;
     width: 100%;
     height: 100%;
-    border: 2px solid var(--tertiary);
+    border: 1px solid var(--tertiary);
     border-radius: 5px;
     color: var(--secondary);
-    background-color: var(--primary);
+    background-color: var(--clear);
+    background: opacity(0.5);
     outline: none;
     padding: 5px;
     font-size: 1rem;
+    /* backdrop-filter: blur(6px); */
 }
 
-/* .sf-text-area:focus {
-    border: 2px solid var(--accent);
-    box-shadow: 0 0 0 2px var(--accent);
-} */
+.sf-text-area:focus {
+    border: 1px solid var(--accent);
+}
 
 .sf-wh-container {
+    height: calc(1px + 7.5rem);
     border-bottom: 1px var(--tertiary) solid;
 }

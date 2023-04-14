@@ -34,9 +34,6 @@ function App() {
                 <LoadProfile>
                     <div className="col sf-bg-primary">
                         <div className="d-block d-sm-none">
-                            <div className="sticky-top">
-                                <SideBar />
-                            </div>
                             <div className="ms-md-0 col-12">
                                 <Routes>
                                     <Route index element={<HomeComponent />} />
@@ -88,7 +85,18 @@ function App() {
                                 </Routes>
                             </div>
                             <div className="d-none d-lg-block col-lg-4 col-xl-3 sf-side sf-left-border">
-                                <SideBar />
+
+                                <Routes>
+                                    <Route path="/search" element={
+                                        <EmptyCol />
+                                    } />
+                                    <Route path="/search/:searchTerm" element={
+                                        <EmptyCol />
+                                    } />
+                                    <Route path='*' element={
+                                        <SideBar />
+                                    } />
+                                </Routes>
                             </div>
                             <div className="d-none d-sm-block d-lg-none col sf-side sf-left-border">
                                 <EmptyCol />
@@ -97,7 +105,7 @@ function App() {
                     </div>
                 </LoadProfile>
             </BrowserRouter>
-        </Provider>
+        </Provider >
     );
 }
 

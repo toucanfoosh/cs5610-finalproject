@@ -6,3 +6,10 @@
 .sf-no-text-decor {
     text-decoration: none;
 }
+
+.sf-searchbar-page-container {
+    height: 7.5rem;
+    width: calc(24px + 100%);
+    margin-left: -12px;
+    border-bottom: 1px var(--tertiary) solid;
+}

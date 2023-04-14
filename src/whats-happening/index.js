@@ -32,7 +32,7 @@ const WhatsHappening = () => {
         dispatch(createPostThunk(newPost));
     }
     return (
-        <div className="px-3 py-4 row sf-bg-primary sf-wh-container">
+        <div className="px-3 py-4 row sf-wh-container m-0">
             {
                 error &&
                 <div className="alert alert-danger" role="alert">

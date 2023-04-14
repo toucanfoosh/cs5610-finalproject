@@ -67,17 +67,24 @@ const SearchScreen = () => {
     }
     return (
         <div>
-            <div className="input-group mb-3" size="lg">
-                <input className="form-control"
-                    placeholder="Search"
-                    type="input"
-                    value={search}
-                    onChange={(e) => {
-                        setSearch(e.target.value);
-                    }}
-                />
+            <div className='sf-searchbar-page-container d-flex align-items-center justify-content-center'>
+                <div className='sf-searchbar'>
+                    <input id='search' className="sf-searchbar-text"
+                        placeholder="Search..."
+                        type="input"
+                        value={search}
+                        onChange={(e) => {
+                            setSearch(e.target.value);
+                        }}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                                searchSpotify();
+                            }
+                        }}
+                    />
+                    <button className="sf-searchbar-button" onClick={searchSpotify}><i class="fa fa-search"></i></button>
+                </div>
             </div>
-            <FancyButton onclick={searchSpotify} text="Search"></FancyButton>
             <div className="container mt-3">
                 <div className="row row-cols-4">
                     {
