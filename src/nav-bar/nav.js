@@ -30,7 +30,7 @@ const NavBar = ({ active = 'home' }) => {
                                 <div className="d-block text-center align-self-center sf-tertiary col-xl-4 px-1">
                                     {
                                         currentUser &&
-                                        <img src={`./images/${currentUser.avatar}`} className="sf-pfp" />
+                                        <img src={`http://localhost:3000/images/${currentUser.avatar}`} className="sf-pfp" />
                                     }
                                     {
                                         !currentUser &&
