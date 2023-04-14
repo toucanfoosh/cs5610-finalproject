@@ -57,7 +57,7 @@ function App() {
                                 </Routes>
                             </div>
                         </div>
-                        <div className="row mt-2">
+                        <div className="row">
                             <div className="d-none d-sm-block col-sm-1 col-xl-3 px-2 sf-side sf-right-border">
                                 <Routes>
                                     <Route path="/" element={<NavBar active="Home" />} />
