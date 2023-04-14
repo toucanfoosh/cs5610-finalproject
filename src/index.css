@@ -21,7 +21,7 @@ a,
 a:link,
 a:visited,
 a:hover,
-a:active{
+a:active {
     text-decoration: none;
 }
 
@@ -79,10 +79,6 @@ a:active{
     background-color: var(--accent-darker) !important;
 }
 
-.sf-top-0 {
-    top: 0 !important;
-}
-
 .sf-pfp {
     border-radius: 50%;
     width: 3rem;
@@ -91,9 +87,6 @@ a:active{
 
 .sf-side {
     height: 100vh;
-    position: sticky;
-    position: -webkit-sticky;
-    margin-top: -10px !important;
 }
 
 .sf-right-border {
@@ -115,6 +108,6 @@ a:active{
 }
 
 .sf-bg-blur {
-    background: var(--primary) opacity(0.9)!important;
+    background: var(--primary) opacity(0.9) !important;
     backdrop-filter: blur(10px);
 }

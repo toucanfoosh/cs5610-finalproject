@@ -43,7 +43,7 @@ const SideBar = () => {
     }
     return (
         <div>
-            <div className='sf-top-0 sf-searchbar-container'>
+            <div className='sf-searchbar-container'>
                 <div className="d-flex justify-content-center py-3">
                     <div className='sf-searchbar'>
                         <input onChange={(e) => setSearch(e.target.value, (result) => {

@@ -34,7 +34,7 @@ function App() {
                 <LoadProfile>
                     <div className="col sf-bg-primary">
                         <div className="d-block d-sm-none">
-                            <div className="ms-md-0 col-12">
+                            <div className="col-12">
                                 <Routes>
                                     <Route index element={<HomeComponent />} />
                                     <Route path="/home" element={<HomeComponent />} />
@@ -58,7 +58,7 @@ function App() {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="d-none d-sm-block col-sm-1 col-xl-3 px-2 sf-side sf-right-border">
+                            <div className="d-none d-sm-block col-sm-1 col-xl-3 px-2 sf-side sticky-top sf-right-border">
                                 <Routes>
                                     <Route path="/" element={<NavBar active="Home" />} />
                                     <Route path="/home" element={<NavBar active="Home" />} />
@@ -84,7 +84,7 @@ function App() {
                                     <Route path="/register" element={<RegisterScreen />} />
                                 </Routes>
                             </div>
-                            <div className="d-none d-lg-block col-lg-4 col-xl-3 sf-side sf-left-border">
+                            <div className="d-none d-lg-block col-lg-4 col-xl-3 sf-side sticky-top sf-left-border">
 
                                 <Routes>
                                     <Route path="/search" element={

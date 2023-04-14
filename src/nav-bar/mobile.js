@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 const MobileNavBar = ({ active = 'home' }) => {
     return (
-        <div className="sticky-bottom sf-mobile-navbar">
+        <div className="sf-mobile-navbar">
             <div className="d-flex row">
                 <div className="col-10 row">
                     {sidebar.map((sidebarItem) => (

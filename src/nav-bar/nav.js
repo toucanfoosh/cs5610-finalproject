@@ -16,7 +16,7 @@ const NavBar = ({ active = 'home' }) => {
 
     const { currentUser } = useSelector(state => state.user);
     return (
-        <div className="sticky-top sf-m-top sf-navbar sf-bg-primary">
+        <div className="sf-navbar sf-bg-primary">
             <div className="sf-navbar">
                 {sidebar.map((sidebarItem) => (
                     <NavItem item={sidebarItem} active={active} />
@@ -30,14 +30,14 @@ const NavBar = ({ active = 'home' }) => {
                                 <div className="d-block text-center align-self-center sf-tertiary col-xl-4 px-1">
                                     {
                                         currentUser &&
-                                        <img src={`http://localhost:3000/images/${currentUser.avatar}`} className="sf-pfp" />
+                                        <img src={`http://localhost:3000/images/${currentUser.avatar}`} className="sf-nav-pfp" />
                                     }
                                     {
                                         !currentUser &&
-                                        <img src="./images/catjam.jpg" className="sf-pfp" />
+                                        <img src="./images/catjam.jpg" className="sf-nav-pfp" />
                                     }
                                 </div>
-                                <div className="d-none d-xl-inline text-start col-xl-8 align-items-center">
+                                <div className="d-none d-xl-inline-flex text-start col-xl-8 align-items-center">
                                     {
                                         currentUser &&
                                         <div>
