@@ -63,6 +63,34 @@ export const fullTextSearch = async ({ search, accessToken, offset }) => {
     }
 }
 
+export const miniTextSearch = async ({ searchterm, accessToken }) => {
+    console.log(searchterm);
+    const headers = {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        },
+        params: {
+            q: `${searchterm}`,
+            type: "album",
+            limit: 3
+        }
+    }
+
+    try {
+        const response = await axios.get(
+            `${API_BASE}/search`,
+            headers
+        );
+        return response;
+    } catch (error) {
+        if (error.response.status === 400) {
+            console.log(400);
+            return 400;
+        }
+    }
+}
+
 export const getAlbum = async ({ id, accessToken }) => {
     const headers = {
         headers: {
