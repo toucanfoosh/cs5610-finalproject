@@ -98,7 +98,7 @@ function App() {
                                     } />
                                 </Routes>
                             </div>
-                            <div className="d-none d-sm-block d-lg-none col sf-side sf-left-border">
+                            <div className="d-none d-sm-block d-lg-none col sf-side sticky-top sf-left-border">
                                 <EmptyCol />
                             </div>
                         </div>
