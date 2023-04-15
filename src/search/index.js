@@ -3,6 +3,7 @@ import FancyButton from "../FancyButton/button";
 import { useDispatch, useSelector } from "react-redux";
 import { getAccessTokenThunk } from "../services/search-thunk";
 import { useNavigate, useParams } from "react-router-dom";
+import { useStateWithCallbackLazy } from "use-state-with-callback";
 import { fullTextSearch } from "../services/search-service";
 import "./index.css";
 import { Link } from "react-router-dom";
@@ -15,7 +16,7 @@ const SearchScreen = () => {
     const [searchResults, setSearchResults] = useState({});
     const [searchResultItems, setSearchResultItems] = useState([]);
     const [waiting, setWaiting] = useState(false);
-    const [offset, setOffset] = useState(0);
+    const [offset, setOffset] = useStateWithCallbackLazy(0);
     const navigate = useNavigate();
     const dispatch = useDispatch();
     useEffect(() => {
@@ -25,14 +26,15 @@ const SearchScreen = () => {
         }
         getToken();
         if (searchTerm) {
-            searchSpotify();
+            searchSpotify(0);
         }
     }, [searchTerm]);
 
     const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-    const searchSpotify = async () => {
+    const searchSpotify = async (offsetNum) => {
         window.localStorage.setItem("token", accessToken);
+        console.log(offsetNum);
         if (!search) {
             setSearchResults("");
             return;
@@ -40,7 +42,7 @@ const SearchScreen = () => {
         const credentials = {
             search,
             accessToken,
-            offset
+            offsetNum
         }
         setWaiting(true);
         const results = await fullTextSearch(credentials);
@@ -50,7 +52,7 @@ const SearchScreen = () => {
             return;
         }
         console.log(results.data.albums.items);
-        if (offset > 0) {
+        if (offsetNum > 0) {
             setSearchResultItems(searchResultItems => [
                 ...searchResultItems,
                 ...results.data.albums.items
@@ -78,11 +80,11 @@ const SearchScreen = () => {
                         }}
                         onKeyDown={(e) => {
                             if (e.key === 'Enter') {
-                                searchSpotify();
+                                searchSpotify(0);
                             }
                         }}
                     />
-                    <button className="sf-searchbar-button" onClick={searchSpotify}><i class="fa fa-search"></i></button>
+                    <button className="sf-searchbar-button" onClick={() => searchSpotify(0)}><i class="fa fa-search"></i></button>
                 </div>
             </div>
             <div className="container mt-3">
@@ -109,9 +111,8 @@ const SearchScreen = () => {
                     }
                     {
                         searchResults.items && searchResultItems.length > 0 &&
-                        <FancyButton onclick={async () => {
-                            setOffset(offset => offset + 8)
-                            searchSpotify();
+                        <FancyButton onclick={() => {
+                            setOffset(offset + 8, result => searchSpotify(result));
                         }} text="More Results" />
                     }
                     {

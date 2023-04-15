@@ -35,6 +35,9 @@ const Profile = () => {
                         <div>Posts: {currentUser.posts}</div>
                         <div>Reviews: {currentUser.reviews}</div>
                     </div>
+                    <div className="sf-secondary">
+                        {currentUser.bio}
+                    </div>
                     <FancyButton onclick={handleEditProfile} text="Edit Profile" />
                     <FancyButton onclick={handleLogout} text="Logout" />
 

@@ -21,7 +21,7 @@ const HomeComponent = () => {
         <div className="row">
             <div className="px-0">
                 <div className="sticky-top sf-bg-blur">
-                    <WhatsHappening/>
+                    <WhatsHappening />
                 </div>
                 {
                     loading &&
