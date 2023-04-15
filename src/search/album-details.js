@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getAccessToken, getAlbum } from "../services/search-service";
+import "../index.css";
 
 const AlbumDetails = () => {
     const { id } = useParams();
@@ -25,12 +26,20 @@ const AlbumDetails = () => {
         }
         getToken().then(result => getAlbums(result));
     }, []);
+
+    function convertMS(track) {
+        const minutes = Math.floor(track.duration_ms / 1000 / 60)
+        const seconds = Math.floor((track.duration_ms / 1000) % 60)
+        return (
+            <span>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</span>
+        )
+    }
     return (
         <div>
             {album.data &&
                 <div>
                     <div>
-                        <h1>{album.data.name}</h1>
+                        <h1 className="sf-secondary">{album.data.name}</h1>
                         <div>{album.data.release_date.substring(0, 4)} • {album.data.album_type}</div>
                         <img src={album.data.images[1].url} />
                         <div>
@@ -38,10 +47,15 @@ const AlbumDetails = () => {
                         </div>
                     </div>
                     <div className="mt-2">
-                        <h2>Tracks</h2>
-                        {album.data.tracks.items.map(track =>
-                            <div>{track.name}</div>
-                        )}
+                        <h2 className="sf-secondary">Tracks</h2>
+                        {album.data.tracks.items.map(track => {
+                            return (
+                                <div>
+                                    <span>{track.name}</span>
+                                    <div className="float-end">{convertMS(track)}</div>
+                                </div>
+                            )
+                        })}
                     </div>
                 </div>
             }
