@@ -17,12 +17,14 @@ import RegisterScreen from "./register";
 import SearchScreen from "./search";
 import AlbumDetails from "./search/album-details";
 import EditProfileScreen from "./edit-profile";
+import reviewReducer from "./reducers/reviews/review-reducer";
 
 const store = configureStore(
     {
         reducer: {
             postsData: postReducer,
-            user: userReducer
+            user: userReducer,
+            reviews: reviewReducer
         }
     }
 )

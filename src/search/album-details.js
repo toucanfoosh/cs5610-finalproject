@@ -1,11 +1,17 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getAccessToken, getAlbum } from "../services/search-service";
+import { useDispatch, useSelector } from "react-redux";
+import { findReviewsByAlbumThunk } from "../services/reviews-thunk";
 import "../index.css";
+import FancyButton from "../FancyButton/button";
 
 const AlbumDetails = () => {
     const { id } = useParams();
     const [album, setAlbum] = useState({});
+    const { reviews } = useSelector(state => state.reviews);
+    const [review, setReview] = useState("");
+    const dispatch = useDispatch();
     useEffect(() => {
         const getToken = async () => {
             if (!localStorage.getItem("token")) {
@@ -23,8 +29,11 @@ const AlbumDetails = () => {
             const album = await getAlbum(params);
             setAlbum(album);
             console.log(album.data);
+            return album.data;
         }
-        getToken().then(result => getAlbums(result));
+
+        getToken().then(result => getAlbums(result)).then(albumData => findReviewsByAlbumThunk(albumData.id));
+        console.log(reviews);
     }, []);
 
     function convertMS(track) {
@@ -56,6 +65,11 @@ const AlbumDetails = () => {
                                 </div>
                             )
                         })}
+                    </div>
+                    <div>
+                        <h2 className="sf-secondary">Reviews</h2>
+                        <textarea className="form-control" placeholder={`Review ${album.data.name}`}></textarea>
+                        <FancyButton text="Post Review" />
                     </div>
                 </div>
             }
