@@ -25,7 +25,7 @@ const ThemeSwitcher = ({ darkMode, toggleTheme }) => {
   }, [darkMode]);
 
   return (
-    <div onClick={handleClick}>
+    <div onClick={handleClick} className=''>
       <div className="list-group-item sf-clickable">
         <div className="justify-content-center justify-content-xl-none sf-navbar-item my-xl-0 my-3 mx-xl-4 py-2 py-xl-4">
           <div className="sf-secondary">

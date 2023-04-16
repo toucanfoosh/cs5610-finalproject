@@ -51,7 +51,7 @@ function App() {
                                     <Route path="/register" element={<RegisterScreen />} />
                                 </Routes>
                             </div>
-                            <div className="d-block d-sm-none fixed-bottom">
+                            <div className="d-block d-sm-none fixed-bottom sf-no-highlight">
                                 <Routes>
                                     <Route path="/" element={<MobileNavBar active="Home" />} />
                                     <Route path="/home" element={<MobileNavBar active="Home" />} />
@@ -62,7 +62,7 @@ function App() {
                             </div>
                         </div>
                         <div className="row">
-                            <div className="d-none d-sm-block col-sm-1 col-xl-3 px-2 sf-side sticky-top sf-right-border">
+                            <div className="d-none d-sm-block col-sm-1 col-xl-3 px-2 sf-side sticky-top sf-right-border sf-no-highlight">
                                 <Routes>
                                     <Route path="/" element={<NavBar active="Home" />} />
                                     <Route path="/home" element={<NavBar active="Home" />} />

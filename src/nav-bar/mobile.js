@@ -1,5 +1,7 @@
 import MobileItem from "./mobile-item";
 import sidebar from "./sidebar.json";
+import ThemeSwitcher from "../theme-switcher";
+
 import '../index.css';
 import "./index.css";
 import { Link } from "react-router-dom";
@@ -13,6 +15,7 @@ const MobileNavBar = ({ active = 'home' }) => {
                     {sidebar.map((sidebarItem) => (
                         <MobileItem item={sidebarItem} active={active} />
                     ))}
+                    <ThemeSwitcher />
                 </div>
                 <div className="col-2 text-center d-inline-flex align-items-center justify-content-center">
                     <Link to="/login">
