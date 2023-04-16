@@ -12,6 +12,12 @@ export const findAllUsers = async () => {
     return users;
 };
 
+export const findUserById = async (uid) => {
+    const response = await api.get(`${USERS_URL}/${uid}`);
+    const user = response.data;
+    return user;
+}
+
 export const createUser = async (user) => {
     const response = await api.post(USERS_URL, user);
     const userCreated = response.data;

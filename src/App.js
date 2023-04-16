@@ -19,6 +19,7 @@ import AlbumDetails from "./search/album-details";
 import EditProfileScreen from "./edit-profile";
 import reviewReducer from "./reducers/reviews/review-reducer";
 import themeReducer from "./reducers/theme/theme-reducer";
+import OtherProfile from "./other-profile";
 
 const store = configureStore(
     {
@@ -45,6 +46,7 @@ function App() {
                                     <Route path="/search" element={<SearchScreen />} />
                                     <Route path="/search/:searchTerm" element={<SearchScreen />} />
                                     <Route path="/profile" element={<Profile />} />
+                                    <Route path="/profile/:uid" element={<OtherProfile />} />
                                     <Route path="/edit-profile" element={<EditProfileScreen />} />
                                     <Route path="/search/album/:id" element={<AlbumDetails />} />
                                     <Route path="/login" element={<Login />} />
@@ -56,8 +58,13 @@ function App() {
                                     <Route path="/" element={<MobileNavBar active="Home" />} />
                                     <Route path="/home" element={<MobileNavBar active="Home" />} />
                                     <Route path="/profile" element={<MobileNavBar active="Profile" />} />
+                                    <Route path="/profile/:uid" element={<MobileNavBar active="Profile" />} />
                                     <Route path="/login" element={<MobileNavBar active="Profile" />} />
                                     <Route path="/register" element={<MobileNavBar active="Profile" />} />
+                                    <Route path="/search" element={<MobileNavBar active="Search" />} />
+                                    <Route path="/search/:searchTerm" element={<MobileNavBar active="Search" />} />
+                                    <Route path="/edit-profile" element={<MobileNavBar active="Profile" />} />
+                                    <Route path="/search/album/:id" element={<MobileNavBar active="Search" />} />
                                 </Routes>
                             </div>
                         </div>
@@ -67,6 +74,7 @@ function App() {
                                     <Route path="/" element={<NavBar active="Home" />} />
                                     <Route path="/home" element={<NavBar active="Home" />} />
                                     <Route path="/profile" element={<NavBar active="Profile" />} />
+                                    <Route path="/profile/:uid" element={<NavBar active="Profile" />} />
                                     <Route path="/login" element={<NavBar active="Profile" />} />
                                     <Route path="/register" element={<NavBar active="Profile" />} />
                                     <Route path="/search" element={<NavBar active="Search" />} />
@@ -84,6 +92,7 @@ function App() {
                                     <Route path="/edit-profile" element={<EditProfileScreen />} />
                                     <Route path="/search/album/:id" element={<AlbumDetails />} />
                                     <Route path="/profile" element={<Profile />} />
+                                    <Route path="/profile/:uid" element={<OtherProfile />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<RegisterScreen />} />
                                 </Routes>

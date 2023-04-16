@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getAccessToken, getAlbum } from "../services/search-service";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { createReviewThunk, findReviewsByAlbumThunk } from "../services/reviews-thunk";
 import "../index.css";
 import FancyButton from "../FancyButton/button";
@@ -53,6 +54,7 @@ const AlbumDetails = () => {
             review,
             score,
             albumId: id,
+            albumName: album.data.name,
             userId: currentUser._id,
             username: currentUser.username,
             handle: currentUser.handle
@@ -99,7 +101,7 @@ const AlbumDetails = () => {
                                 {reviews.map(item =>
                                     <li className="list-group-item">
                                         {item.score} <br />
-                                        <div className="float-end">{item.username} @{item.handle}</div>
+                                        <Link to={`/profile/${item.userId}`} className="float-end">{item.username} @{item.handle}</Link>
                                         {item.review}
                                     </li>)
                                 }
@@ -128,7 +130,11 @@ const AlbumDetails = () => {
                                     <input type="radio" value={4} name="stars" />4
                                     <input type="radio" value={5} name="stars" />5
                                 </div>
-                                <textarea defaultValue={review} onChange={(e) => setReview(e.target.value)} className="form-control" placeholder={`Review ${album.data.name}`}></textarea>
+                                <textarea
+                                    defaultValue={review}
+                                    onChange={(e) => setReview(e.target.value)}
+                                    className="form-control"
+                                    placeholder={`Review ${album.data.name}`} />
                                 <FancyButton onclick={handlePostReview} text="Post Review" />
                             </div>
                         }
