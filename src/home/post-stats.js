@@ -30,8 +30,8 @@ const PostStats = ({ stats }) => {
                 </div>
                 <div className="col-3">
                     <Link className="text-secondary sf-no-link-decor" to="#" >
-                        <i className={`fa-heart ${isLiked(stats.liked)}`}></i>
-                        <span className="ms-sm-1 ms-md-3">{stats.likes}</span>
+                        <i className={`fa-heart ${isLiked(stats.liked)} pe-1`}></i>
+                        <span className="">{stats.likes}</span>
                     </Link>
                 </div>
                 <div className="col-3">
