@@ -1,4 +1,4 @@
-import MobileItem from "./mobile-item";
+import NavItem from "./nav-item";
 import sidebar from "./sidebar.json";
 import ThemeSwitcher from "../theme-switcher";
 
@@ -13,14 +13,20 @@ const MobileNavBar = ({ active = 'home' }) => {
             <div className="d-flex row">
                 <div className="col-10 row">
                     {sidebar.map((sidebarItem) => (
-                        <MobileItem item={sidebarItem} active={active} />
+                        <div className="col text-center">
+                            <NavItem item={sidebarItem} active={active} />
+                        </div>
                     ))}
-                    <ThemeSwitcher />
+                    <div className="col text-center">
+                        <ThemeSwitcher />
+                    </div>
                 </div>
-                <div className="col-2 text-center d-inline-flex align-items-center justify-content-center">
+                <div className="col text-center">
                     <Link to="/login">
-                        <div className="sf-mobile-nav-pfp-container">
-                            <img src="./images/catjam.jpg" className="sf-mobile-nav-pfp" alt="profile" />
+                        <div className="justify-content-center sf-navbar-item my-3 py-2">
+                            <div className="sf-secondary">
+                                    <img src="./images/catjam.jpg" className="sf-mobile-nav-pfp" alt="profile" />
+                            </div>
                         </div>
                     </Link>
                 </div>

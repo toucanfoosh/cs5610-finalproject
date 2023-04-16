@@ -31,17 +31,6 @@
     bottom: 2vh;
 }
 
-.sf-mobile-navbar-item {
-    padding: 5px 0;
-    margin: 0 30%;
-    border-radius: 50%;
-    transition: .3s;
-}
-
-.sf-mobile-navbar-item:hover {
-    background-color: var(--tertiary-alt);
-}
-
 .sf-mobile-nav-pfp {
     width: 25px;
     height: 25px;
