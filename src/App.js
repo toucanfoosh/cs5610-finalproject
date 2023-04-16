@@ -18,13 +18,15 @@ import SearchScreen from "./search";
 import AlbumDetails from "./search/album-details";
 import EditProfileScreen from "./edit-profile";
 import reviewReducer from "./reducers/reviews/review-reducer";
+import themeReducer from "./reducers/theme/theme-reducer";
 
 const store = configureStore(
     {
         reducer: {
             postsData: postReducer,
             user: userReducer,
-            reviews: reviewReducer
+            reviews: reviewReducer,
+            theme: themeReducer
         }
     }
 )

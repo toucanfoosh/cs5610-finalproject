@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { profileThunk } from "../services/user-thunk";
 import { Link } from "react-router-dom";
+import ThemeSwitcher from "../theme-switcher";
 
 const NavBar = ({ active = 'home' }) => {
     const dispatch = useDispatch();
@@ -14,6 +15,8 @@ const NavBar = ({ active = 'home' }) => {
         dispatch(profileThunk());
     }, []);
 
+
+
     const { currentUser } = useSelector(state => state.user);
     return (
         <div className="sf-navbar sf-bg-primary">
@@ -21,6 +24,7 @@ const NavBar = ({ active = 'home' }) => {
                 {sidebar.map((sidebarItem) => (
                     <NavItem item={sidebarItem} active={active} />
                 ))}
+                <ThemeSwitcher />
             </div>
             <Link to="/login">
                 <div className="d-block sf-nav-profile-full py-2">

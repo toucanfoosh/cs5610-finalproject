@@ -16,11 +16,5 @@
         "href": "../lists",
         "_id": "789",
         "icon": "fa fa-list"
-    },
-    {
-        "title": "Profile",
-        "href": "../login",
-        "_id": "890",
-        "icon": "fa-regular fa-user"
     }
 ]
