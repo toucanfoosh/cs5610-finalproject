@@ -46,10 +46,18 @@ const SideBar = () => {
             <div className='sf-searchbar-container'>
                 <div className="d-flex justify-content-center py-3">
                     <div className='sf-searchbar'>
-                        <input onChange={(e) => setSearch(e.target.value, (result) => {
-                            console.log(result);
-                            searchSpotify(result);
-                        })} type="text" placeholder='Search...' className="sf-searchbar-text" />
+                        <input
+                            type="text" placeholder='Search...' className="sf-searchbar-text"
+                            onChange={(e) => setSearch(e.target.value, (result) => {
+                                console.log(result);
+                                searchSpotify(result);
+                            })}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    navigate(`/search/${search}`);
+                                }
+                            }}
+                        />
                         <button onClick={() => navigate(`/search/${search}`)} className="sf-searchbar-button"><i class="fa fa-search"></i></button>
                     </div>
                 </div>
