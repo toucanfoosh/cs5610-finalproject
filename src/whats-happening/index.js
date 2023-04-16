@@ -19,6 +19,9 @@ const WhatsHappening = () => {
         handleProfile().catch(console.error);
     }, []);
     const postClickHandler = () => {
+        if (post === "") {
+            return;
+        }
         if (!profile) {
             setError("Must be logged in to post");
             return;

@@ -24,6 +24,9 @@ const userSlice = createSlice({
             state.currentUser = payload;
         },
         [registerThunk.fulfilled]: (state, { payload }) => {
+            if (payload === 404 || payload === 409) {
+                return;
+            }
             state.currentUser = payload;
         },
         [updateUserThunk.fulfilled]: (state, { payload }) => {

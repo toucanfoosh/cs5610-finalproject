@@ -52,7 +52,12 @@ export const profile = async () => {
 };
 
 export const register = async (credentials) => {
-    const response = await api.post(`${USERS_URL}/register`, credentials);
-    const user = response.data;
-    return user;
+    try {
+        const response = await api.post(`${USERS_URL}/register`, credentials);
+        const user = response.data;
+        return user;
+    }
+    catch (error) {
+        return error.response.status;
+    }
 };

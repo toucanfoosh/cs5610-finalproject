@@ -32,14 +32,17 @@ const RegisterScreen = () => {
         }
         const status = await dispatch(registerThunk(newUser));
         console.log(status);
-        if (status.type === "user/register/rejected") {
-            setError("Failed to register");
-            return;
+        if (status.payload === 404) {
+            setError("Missing fields");
+        }
+        else if (status.payload === 409) {
+            setError("Username or handle already exists");
         }
         else {
             setError('');
             navigate("/profile");
         }
+
     }
 
     return (
