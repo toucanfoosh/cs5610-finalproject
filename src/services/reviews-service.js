@@ -15,9 +15,16 @@ export const findReviewsByAlbum = async (aid) => {
 }
 
 export const createReview = async (review) => {
-    const response = await axios.post(REVIEWS_URL, review);
-    const newReview = response.data;
-    return newReview;
+    try {
+        const response = await axios.post(REVIEWS_URL, review);
+        const newReview = response.data;
+        console.log(newReview);
+        return newReview;
+    }
+    catch (error) {
+        return error.response.status;
+    }
+
 };
 
 export const deleteReview = async (rid) => {

@@ -11,6 +11,7 @@ const AlbumDetails = () => {
     const [album, setAlbum] = useState({});
     const { reviews } = useSelector(state => state.reviews);
     const { currentUser } = useSelector(state => state.user);
+    const [error, setError] = useState("");
     const [review, setReview] = useState("");
     const [score, setScore] = useState(0);
     const dispatch = useDispatch();
@@ -37,7 +38,7 @@ const AlbumDetails = () => {
         getToken().then(result => getAlbums(result));
         dispatch(findReviewsByAlbumThunk(id));
         console.log(reviews);
-    }, []);
+    }, [id]);
 
     function convertMS(track) {
         const minutes = Math.floor(track.duration_ms / 1000 / 60)
@@ -52,10 +53,19 @@ const AlbumDetails = () => {
             review,
             score,
             albumId: id,
-            userId: currentUser._id
+            userId: currentUser._id,
+            username: currentUser.username,
+            handle: currentUser.handle
         }
         const result = await dispatch(createReviewThunk(fullReview));
-        console.log(result);
+        if (result.payload === 404) {
+            console.log("heelo");
+            setError("Missing fields");
+        }
+        if (result.payload === 409) {
+            console.log("heelo");
+            setError("Can't review more than once");
+        }
     }
 
     return (
@@ -85,9 +95,15 @@ const AlbumDetails = () => {
                         <h2 className="sf-secondary">Reviews</h2>
                         {
                             reviews && reviews.length > 0 &&
-                            <div>
-                                {JSON.stringify(reviews)}
-                            </div>
+                            <ul className="list-group">
+                                {reviews.map(item =>
+                                    <li className="list-group-item">
+                                        {item.score} <br />
+                                        <div className="float-end">{item.username} @{item.handle}</div>
+                                        {item.review}
+                                    </li>)
+                                }
+                            </ul>
                         }
                         {
                             reviews && reviews.length === 0 &&
@@ -97,15 +113,30 @@ const AlbumDetails = () => {
                         }
 
                         <h2 className="sf-secondary">Leave a Review</h2>
-                        <div onChange={(e) => setScore(e.target.value)}>
-                            <input type="radio" value={1} name="stars" />1
-                            <input type="radio" value={2} name="stars" />2
-                            <input type="radio" value={3} name="stars" />3
-                            <input type="radio" value={4} name="stars" />4
-                            <input type="radio" value={5} name="stars" />5
-                        </div>
-                        <textarea defaultValue={review} onChange={(e) => setReview(e.target.value)} className="form-control" placeholder={`Review ${album.data.name}`}></textarea>
-                        <FancyButton onclick={handlePostReview} text="Post Review" />
+                        {currentUser &&
+                            <div>
+                                {
+                                    error &&
+                                    <div className="alert alert-danger" role="alert">
+                                        {error}
+                                    </div>
+                                }
+                                <div onChange={(e) => setScore(e.target.value)}>
+                                    <input type="radio" value={1} name="stars" />1
+                                    <input type="radio" value={2} name="stars" />2
+                                    <input type="radio" value={3} name="stars" />3
+                                    <input type="radio" value={4} name="stars" />4
+                                    <input type="radio" value={5} name="stars" />5
+                                </div>
+                                <textarea defaultValue={review} onChange={(e) => setReview(e.target.value)} className="form-control" placeholder={`Review ${album.data.name}`}></textarea>
+                                <FancyButton onclick={handlePostReview} text="Post Review" />
+                            </div>
+                        }
+                        {!currentUser &&
+                            <div>
+                                Must be logged in to review
+                            </div>
+                        }
                     </div>
                 </div>
             }

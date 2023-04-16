@@ -21,6 +21,13 @@ export const createReviewThunk = createAsyncThunk(
     "reviews/createReview",
     async (review) => {
         const newReview = await reviewsService.createReview(review);
+        if (review === 404) {
+            return 404;
+        }
+        if (review === 409) {
+            return 409;
+        }
+        console.log(newReview);
         return newReview;
     }
 )
