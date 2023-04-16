@@ -1,10 +1,19 @@
 :root {
-    /* --primary: #ffffff; */
     --primary: #14181b;
-    /* --secondary: #000000; */
     --secondary: #e9e9e9;
-    --tertiary: #676767;
-    --tertiary-darker: #2f2f2f;
+    --tertiary: #727272;
+    --tertiary-alt: #2f2f2f;
+
+    --primary-dark: #14181b;
+    --secondary-dark: #e9e9e9;
+    --tertiary-dark: #727272;
+    --tertiary-alt-dark: #2f2f2f;
+
+    --primary-light: #ffffff;
+    --secondary-light: #000000;
+    --tertiary-light: #565656;
+    --tertiary-alt-light: #c6c6c6;
+
     --accent: #00dc25;
     --accent-darker: #00ac1d;
     --clear: #ffffff00;
@@ -61,12 +70,12 @@ a:active {
     background-color: var(--tertiary) !important;
 }
 
-.sf-tertiary-darker {
-    color: var(--tertiary-darker) !important;
+.sf-tertiary-alt {
+    color: var(--tertiary-alt) !important;
 }
 
-.sf-bg-tertiary-darker {
-    background-color: var(--tertiary-darker) !important;
+.sf-bg-tertiary-alt {
+    background-color: var(--tertiary-alt) !important;
 }
 
 .sf-accent {
@@ -132,5 +141,5 @@ a:active {
 }
 
 .sf-darken-hover:hover {
-    filter: brightness(0.8);
+    filter: brightness(0.9);
 }

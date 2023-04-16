@@ -1,9 +1,9 @@
 @import '../index.css';
 
-.sf-bubbly-button {
+/* .sf-bubbly-button {
   display: inline-block;
   font-size: 1em;
-  padding: 1em 2em;
+  padding: 1em;
   height: 100%;
   width: 100%;
   -webkit-appearance: none;
@@ -96,4 +96,52 @@
     background-position: 0% 90%, 20% 90%, 45% 70%, 60% 110%, 75% 80%, 95% 70%, 110% 10%;
     background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%;
   }
+} */
+
+/* BUTTON 2 */
+
+.sf-bubbly-button {
+  appearance: none;
+  backface-visibility: hidden;
+  background-color: var(--accent);
+  border-radius: 8px;
+  border-style: none;
+  box-shadow: rgba(var(--accent-darker), .15) 0 4px 9px;
+  box-sizing: border-box;
+  color: var(--secondary);
+  cursor: pointer;
+  display: inline-block;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: normal;
+  line-height: 1.5;
+  outline: none;
+  overflow: hidden;
+  padding: 13px 20px;
+  position: relative;
+  text-align: center;
+  text-decoration: none;
+  transform: translate3d(0, 0, 0);
+  transition: all .3s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: top;
+  white-space: nowrap;
+}
+
+.sf-bubbly-button:hover {
+  background-color: var(--accent-darker);
+  opacity: 1;
+  transform: translateY(0);
+  transition-duration: .35s;
+}
+
+.sf-bubbly-button:active {
+  transform: translateY(2px);
+  transition-duration: .35s;
+}
+
+.sf-bubbly-button:hover {
+  box-shadow: rgba(var(--accent-darker), .2) 0 6px 12px;
 }

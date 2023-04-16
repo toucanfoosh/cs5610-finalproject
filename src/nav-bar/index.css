@@ -24,7 +24,7 @@
 }
 
 .sf-navbar-item:hover {
-    background-color: var(--tertiary-darker);
+    background-color: var(--tertiary-alt);
 }
 
 .sf-navbar-profile {
@@ -39,7 +39,7 @@
 }
 
 .sf-mobile-navbar-item:hover {
-    background-color: var(--tertiary-darker);
+    background-color: var(--tertiary-alt);
 }
 
 .sf-mobile-nav-pfp {
@@ -55,7 +55,7 @@
 }
 
 .sf-mobile-nav-pfp-container:hover {
-    background-color: var(--tertiary-darker);
+    background-color: var(--tertiary-alt);
 }
 
 .sf-mobile-navbar {
@@ -72,7 +72,7 @@
 }
 
 .sf-nav-profile-full:hover {
-    background-color: var(--tertiary-darker);
+    background-color: var(--tertiary-alt);
 }
 
 .sf-nav-profile-item {
