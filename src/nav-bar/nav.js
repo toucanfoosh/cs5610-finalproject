@@ -30,11 +30,11 @@ const NavBar = ({ active = 'home' }) => {
                                 <div className="d-block text-center align-self-center sf-tertiary col-xl-4 px-1">
                                     {
                                         currentUser &&
-                                        <img src={`http://localhost:3000/images/${currentUser.avatar}`} className="sf-nav-pfp" />
+                                        <img src={`/images/${currentUser.avatar}`} className="sf-nav-pfp" />
                                     }
                                     {
                                         !currentUser &&
-                                        <img src="./images/catjam.jpg" className="sf-nav-pfp" />
+                                        <img src="/images/catjam.jpg" className="sf-nav-pfp" />
                                     }
                                 </div>
                                 <div className="d-none d-xl-inline-flex text-start col-xl-8 align-items-center">

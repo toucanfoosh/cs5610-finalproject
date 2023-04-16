@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router";
 import { getAccessToken, getAlbum } from "../services/search-service";
 import { useDispatch, useSelector } from "react-redux";
-import { findReviewsByAlbumThunk } from "../services/reviews-thunk";
+import { createReviewThunk, findReviewsByAlbumThunk } from "../services/reviews-thunk";
 import "../index.css";
 import FancyButton from "../FancyButton/button";
 
@@ -10,7 +10,9 @@ const AlbumDetails = () => {
     const { id } = useParams();
     const [album, setAlbum] = useState({});
     const { reviews } = useSelector(state => state.reviews);
+    const { currentUser } = useSelector(state => state.user);
     const [review, setReview] = useState("");
+    const [score, setScore] = useState(0);
     const dispatch = useDispatch();
     useEffect(() => {
         const getToken = async () => {
@@ -32,7 +34,8 @@ const AlbumDetails = () => {
             return album.data;
         }
 
-        getToken().then(result => getAlbums(result)).then(albumData => findReviewsByAlbumThunk(albumData.id));
+        getToken().then(result => getAlbums(result));
+        dispatch(findReviewsByAlbumThunk(id));
         console.log(reviews);
     }, []);
 
@@ -43,6 +46,18 @@ const AlbumDetails = () => {
             <span>{minutes}:{seconds < 10 ? `0${seconds}` : seconds}</span>
         )
     }
+
+    const handlePostReview = async () => {
+        const fullReview = {
+            review,
+            score,
+            albumId: id,
+            userId: currentUser._id
+        }
+        const result = await dispatch(createReviewThunk(fullReview));
+        console.log(result);
+    }
+
     return (
         <div>
             {album.data &&
@@ -68,8 +83,29 @@ const AlbumDetails = () => {
                     </div>
                     <div>
                         <h2 className="sf-secondary">Reviews</h2>
-                        <textarea className="form-control" placeholder={`Review ${album.data.name}`}></textarea>
-                        <FancyButton text="Post Review" />
+                        {
+                            reviews && reviews.length > 0 &&
+                            <div>
+                                {JSON.stringify(reviews)}
+                            </div>
+                        }
+                        {
+                            reviews && reviews.length === 0 &&
+                            <div>
+                                No reviews yet
+                            </div>
+                        }
+
+                        <h2 className="sf-secondary">Leave a Review</h2>
+                        <div onChange={(e) => setScore(e.target.value)}>
+                            <input type="radio" value={1} name="stars" />1
+                            <input type="radio" value={2} name="stars" />2
+                            <input type="radio" value={3} name="stars" />3
+                            <input type="radio" value={4} name="stars" />4
+                            <input type="radio" value={5} name="stars" />5
+                        </div>
+                        <textarea defaultValue={review} onChange={(e) => setReview(e.target.value)} className="form-control" placeholder={`Review ${album.data.name}`}></textarea>
+                        <FancyButton onclick={handlePostReview} text="Post Review" />
                     </div>
                 </div>
             }

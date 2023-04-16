@@ -15,4 +15,12 @@ export const findReviewsByAlbumThunk = createAsyncThunk(
         const reviews = await reviewsService.findReviewsByAlbum(aid);
         return reviews;
     }
+);
+
+export const createReviewThunk = createAsyncThunk(
+    "reviews/createReview",
+    async (review) => {
+        const newReview = await reviewsService.createReview(review);
+        return newReview;
+    }
 )
