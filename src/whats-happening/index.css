@@ -16,14 +16,15 @@
     outline: none;
     padding: 5px;
     font-size: 1rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
     /* backdrop-filter: blur(6px); */
+}
+
+.sf-text-area::-webkit-scrollbar {
+    display: none;
 }
 
 .sf-text-area:focus {
     border: 1px solid var(--accent);
-}
-
-.sf-wh-container {
-    height: calc(1px + 7.5rem);
-    border-bottom: 1px var(--tertiary) solid;
 }

@@ -11,23 +11,26 @@ const PostItem = ({ post }) => {
     }
 
     return (
-        <div className="sf-tertiary p-3">
+        <div className="px-3 py-3 m-0 sf-home-item-container">
             <div className="row">
-                <div className="col-2 col-md-1 align-self-center">
-                    <div className='d-flex justify-content-center'>
-                        <img className="sf-pfp" src={`./images/${post.avatar}`} />
-                    </div>
+                <div className="col-3 col-md-2 align-self-start text-center">
+                    <img className="sf-pfp sf-clickable sf-darken-hover" src={`./images/${post.avatar}`} />
                 </div>
-                <span className="sf-font-bold ccol">
-                    <i className="fa-solid fa-x float-end"
-                        onClick={() => deletePostHandler(post._id)}></i>
-                    {post.username} <span class="fa-solid fa-circle-check sf-accent"></span>
-                    <span className="sf-font-normal"> @{post.handle}</span>
-                    <div className="sf-font-normal">
-                        {post.post}
-                    </div>
-                    <PostStats stats={post} />
-                </span>
+                <div className="col">
+                    <span className="col">
+                        <i className="fa-solid fa-x float-end"
+                            onClick={() => deletePostHandler(post._id)}></i>
+                        <span className="sf-font-bold sf-clickable sf-underline-hover pe-1 sf-secondary ">
+                            {post.username}
+                        </span>
+                        <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
+                        <span className="sf-font-normal sf-clickable sf-tertiary">@{post.handle}</span>
+                        <div className="sf-font-normal sf-secondary pb-1">
+                            {post.post}
+                        </div>
+                        <PostStats stats={post} />
+                    </span>
+                </div>
             </div>
         </div >
     );

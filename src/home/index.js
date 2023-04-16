@@ -33,7 +33,7 @@ const HomeComponent = () => {
                 }
                 {
                     !loading &&
-                    <div className="mb-2 sf-bottom-border list-group ps-0">
+                    <div className="mb-2 list-group ps-0">
                         {posts.map((post) => (
                             <PostItem post={post} />
                         ))}

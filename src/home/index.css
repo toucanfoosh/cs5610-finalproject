@@ -19,3 +19,8 @@
 .sf-bottom-post {
     height: 50vh;
 }
+
+.sf-home-item-container {
+    min-height: calc(1px + 7.5rem);
+    border-bottom: 1px var(--tertiary) solid;
+}

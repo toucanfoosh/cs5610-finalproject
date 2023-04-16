@@ -15,6 +15,12 @@ body {
     max-width: 100%;
     background-color: var(--primary);
     /* overflow-x: hidden; */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }
 
 a,
@@ -110,4 +116,21 @@ a:active {
 .sf-bg-blur {
     background: var(--primary) opacity(0.9) !important;
     backdrop-filter: blur(10px);
+}
+
+.sf-clickable {
+    cursor: pointer;
+}
+
+.sf-underline-hover:hover {
+    text-decoration: underline;
+}
+
+.sf-darken-hover {
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.sf-darken-hover:hover {
+    filter: brightness(0.8);
 }

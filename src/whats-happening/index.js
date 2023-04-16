@@ -1,4 +1,5 @@
 import "./index.css";
+import "../home/index.css"
 import { useDispatch, useSelector } from "react-redux";
 import React, { useEffect, useState } from "react";
 import { createPostThunk } from "../services/posts-thunk";
@@ -32,26 +33,25 @@ const WhatsHappening = () => {
         dispatch(createPostThunk(newPost));
     }
     return (
-        <div className="px-3 py-4 row sf-wh-container m-0">
+        <div className="px-3 py-4 sf-home-item-container m-0">
             {
                 error &&
                 <div className="alert alert-danger" role="alert">
                     {error}
                 </div>
             }
-            <div className="col-9 row">
-                <div className="col-2 col-md-1 align-self-center">
-                    <img className='rounded-circle sf-pfp' src={`./images/catjam.jpg`} />
+            <div className="row">
+                <div className="col-3 col-md-2 align-self-center text-center">
+                    <img className='rounded-circle sf-pfp sf-clickable sf-darken-hover' src={`./images/catjam.jpg`} />
                 </div>
-                <div className="col-1" />
-                <div className="col">
+                <div className="col-7">
                     <textarea onChange={(e) => {
                         setPost(e.target.value);
                     }} className="sf-text-area" placeholder="What's happening?"></textarea>
                 </div>
-            </div>
-            <div className="col">
-                <FancyButton onclick={postClickHandler} text="Post" />
+                <div className="col px-1">
+                    <FancyButton onclick={postClickHandler} text="Post" />
+                </div>
             </div>
         </div>
     )
