@@ -4,11 +4,26 @@ import PostStats from './post-stats';
 import { useDispatch } from 'react-redux';
 import { deletePostThunk } from '../services/posts-thunk';
 import { Link } from 'react-router-dom';
+import { useStateWithCallbackLazy } from 'use-state-with-callback';
+import { findUserById } from '../services/user-service';
+import { updateUserThunk } from '../services/user-thunk';
 
 const PostItem = ({ post }) => {
     const dispatch = useDispatch();
-    const deletePostHandler = (id) => {
-        dispatch(deletePostThunk(id));
+    const [postUser, setPostUser] = useStateWithCallbackLazy({});
+    const handleSubtractPost = async (user) => {
+        const newUser = {
+            ...user,
+            posts: user.posts - 1
+        }
+
+        const updatedUser = await dispatch(updateUserThunk(newUser));
+        console.log(updatedUser);
+    }
+    const deletePostHandler = async (id) => {
+        const user = await findUserById(post.userId);
+        setPostUser(user, result => handleSubtractPost(result));
+        await dispatch(deletePostThunk(id));
     }
 
     return (

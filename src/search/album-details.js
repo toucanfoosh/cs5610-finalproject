@@ -33,8 +33,6 @@ const AlbumDetails = () => {
         }
     }
 
-
-
     useEffect(() => {
         const getToken = async () => {
             if (!localStorage.getItem("token")) {

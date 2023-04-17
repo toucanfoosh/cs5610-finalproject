@@ -5,8 +5,10 @@ import React, { useEffect, useState } from "react";
 import { createPostThunk } from "../services/posts-thunk";
 import FancyButton from "../FancyButton/button";
 import { profileThunk } from "../services/user-thunk";
+import { updateUserThunk } from "../services/user-thunk";
 
 const WhatsHappening = () => {
+    const { currentUser } = useSelector(state => state.user);
     const [post, setPost] = useState("");
     const [profile, setProfile] = useState({});
     const [error, setError] = useState("");
@@ -18,7 +20,7 @@ const WhatsHappening = () => {
         }
         handleProfile().catch(console.error);
     }, []);
-    const postClickHandler = () => {
+    const postClickHandler = async () => {
         if (post === "") {
             return;
         }
@@ -34,7 +36,15 @@ const WhatsHappening = () => {
             avatar: profile.avatar,
             userId: profile._id
         }
-        dispatch(createPostThunk(newPost));
+        await dispatch(createPostThunk(newPost));
+
+        const newUser = {
+            ...currentUser,
+            posts: currentUser.posts + 1
+        }
+
+        const updatedUser = await dispatch(updateUserThunk(newUser));
+        console.log(updatedUser);
     }
     return (
         <div className="px-3 py-4 sf-home-item-container m-0">
