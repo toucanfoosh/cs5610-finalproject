@@ -24,7 +24,6 @@ export const createReview = async (review) => {
     try {
         const response = await axios.post(REVIEWS_URL, review);
         const newReview = response.data;
-        console.log(newReview);
         return newReview;
     }
     catch (error) {
@@ -34,13 +33,14 @@ export const createReview = async (review) => {
 };
 
 export const deleteReview = async (rid) => {
-    const response = await axios.delete(`${REVIEWS_URL} / ${rid}`);
+    const response = await axios.delete(`${REVIEWS_URL}/${rid}`);
     const status = response.data;
     return status;
 };
 
 export const updateReview = async (review) => {
-    const response = await axios.put(`${REVIEWS_URL} / ${review._id}`, review);
+    console.log(review);
+    const response = await axios.put(`${REVIEWS_URL}/${review._id}`, review);
     const status = response.data;
     return status;
 };

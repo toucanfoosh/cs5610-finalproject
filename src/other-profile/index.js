@@ -52,12 +52,13 @@ const OtherProfile = () => {
                     <h2>{profile.username} @{profile.handle}</h2>
                     <img src={`/images/${profile.avatar}`} />
                     <div>{profile.bio}</div>
-                    <h3>Reviews</h3>
+                    <h3>Reviews {currentUser && currentUser.reviews}</h3>
                     {reviews.length > 0 &&
                         <ul className="list-group">
                             {reviews.map(item =>
                                 <li className="list-group-item">
                                     {item.score} <br />
+                                    <div className="float-end">{item.albumName}</div>
                                     <Link to={`/profile/${item.userId}`} className="sf-underline-hover float-end">{item.username} @{item.handle}</Link>
                                     {item.review}
                                 </li>)
@@ -69,7 +70,7 @@ const OtherProfile = () => {
                             No reviews found
                         </div>
                     }
-                    <h3>Posts</h3>
+                    <h3>Posts {currentUser && currentUser.posts}</h3>
                     {posts.length > 0 &&
                         <ul className="list-group">
                             {posts.map(post =>

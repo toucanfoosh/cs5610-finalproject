@@ -31,3 +31,11 @@ export const createReviewThunk = createAsyncThunk(
         return newReview;
     }
 )
+
+export const updateReviewThunk = createAsyncThunk(
+    "reviews/updateReview",
+    async (review) => {
+        const newReview = await reviewsService.updateReview(review);
+        return newReview;
+    }
+)
