@@ -13,6 +13,11 @@ export const findPosts = async () => {
     return posts;
 }
 
+export const findPostsByUser = async (uid) => {
+    const response = await axios.get(`${POSTS_API}/${uid}`);
+    return response.data;
+}
+
 export const deletePost = async (pid) => {
     const response = await axios.delete(`${POSTS_API}/${pid}`);
     return response.data;

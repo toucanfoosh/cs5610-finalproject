@@ -15,7 +15,7 @@ const PostItem = ({ post }) => {
         <div className="px-3 py-3 m-0 sf-home-item-container">
             <div className="row">
                 <div className="col-3 col-md-2 align-self-start text-center">
-                    <img className="sf-pfp sf-clickable sf-darken-hover" src={`./images/${post.avatar}`} />
+                    <img className="sf-pfp sf-clickable sf-darken-hover" src={`/images/${post.avatar}`} />
                 </div>
                 <div className="col">
                     <span className="col">
