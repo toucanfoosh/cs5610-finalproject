@@ -9,9 +9,15 @@ export const findAllReviews = async () => {
 };
 
 export const findReviewsByAlbum = async (aid) => {
-    const response = await axios.get(`${REVIEWS_URL}/${aid}`)
+    const response = await axios.get(`${REVIEWS_URL}/album/${aid}`)
     const reviewsFiltered = response.data;
     return reviewsFiltered;
+}
+
+export const findReviewsByUser = async (uid) => {
+    const response = await axios.get(`${REVIEWS_URL}/user/${uid}`);
+    const reviews = response.data;
+    return reviews;
 }
 
 export const createReview = async (review) => {
@@ -28,13 +34,13 @@ export const createReview = async (review) => {
 };
 
 export const deleteReview = async (rid) => {
-    const response = await axios.delete(`${REVIEWS_URL}/${rid}`);
+    const response = await axios.delete(`${REVIEWS_URL} / ${rid}`);
     const status = response.data;
     return status;
 };
 
 export const updateReview = async (review) => {
-    const response = await axios.put(`${REVIEWS_URL}/${review._id}`, review);
+    const response = await axios.put(`${REVIEWS_URL} / ${review._id}`, review);
     const status = response.data;
     return status;
 };

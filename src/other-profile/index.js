@@ -5,6 +5,8 @@ import { findUserById } from "../services/user-service";
 import { findPostsByUser } from "../services/posts-service";
 import { useStateWithCallbackLazy } from "use-state-with-callback";
 import PostItem from "../home/post-item";
+import { Link } from "react-router-dom";
+import { findReviewsByUser } from "../services/reviews-service";
 
 const OtherProfile = () => {
     const { uid } = useParams();
@@ -26,6 +28,10 @@ const OtherProfile = () => {
         const response = await findPostsByUser(result._id);
         console.log(response);
         setPosts(response);
+
+        const response2 = await findReviewsByUser(result._id);
+        console.log(response2);
+        setReviews(response2);
     }
 
     useEffect(() => {
@@ -47,7 +53,22 @@ const OtherProfile = () => {
                     <img src={`/images/${profile.avatar}`} />
                     <div>{profile.bio}</div>
                     <h3>Reviews</h3>
-
+                    {reviews.length > 0 &&
+                        <ul className="list-group">
+                            {reviews.map(item =>
+                                <li className="list-group-item">
+                                    {item.score} <br />
+                                    <Link to={`/profile/${item.userId}`} className="sf-underline-hover float-end">{item.username} @{item.handle}</Link>
+                                    {item.review}
+                                </li>)
+                            }
+                        </ul>
+                    }
+                    {reviews.length === 0 &&
+                        <div>
+                            No reviews found
+                        </div>
+                    }
                     <h3>Posts</h3>
                     {posts.length > 0 &&
                         <ul className="list-group">
