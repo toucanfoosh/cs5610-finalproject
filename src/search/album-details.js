@@ -101,7 +101,7 @@ const AlbumDetails = () => {
                                 {reviews.map(item =>
                                     <li className="list-group-item">
                                         {item.score} <br />
-                                        <Link to={`/profile/${item.userId}`} className="float-end">{item.username} @{item.handle}</Link>
+                                        <Link to={`/profile/${item.userId}`} className="sf-underline-hover float-end">{item.username} @{item.handle}</Link>
                                         {item.review}
                                     </li>)
                                 }

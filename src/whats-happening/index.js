@@ -31,7 +31,8 @@ const WhatsHappening = () => {
             post,
             username: profile.username,
             handle: profile.handle,
-            avatar: profile.avatar
+            avatar: profile.avatar,
+            userId: profile._id
         }
         dispatch(createPostThunk(newPost));
     }
