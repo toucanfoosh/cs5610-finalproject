@@ -9,8 +9,6 @@ import { findPostsThunk } from "../services/posts-thunk";
 
 const HomeComponent = () => {
     const { posts, loading } = useSelector(state => state.postsData);
-    console.log(posts);
-    console.log(loading);
     const currentUser = useSelector(state => state.user);
     const dispatch = useDispatch();
     useEffect(() => {

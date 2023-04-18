@@ -20,6 +20,7 @@ import EditProfileScreen from "./edit-profile";
 import reviewReducer from "./reducers/reviews/review-reducer";
 import themeReducer from "./reducers/theme/theme-reducer";
 import OtherProfile from "./other-profile";
+import Post from "./post";
 
 const store = configureStore(
     {
@@ -51,6 +52,7 @@ function App() {
                                     <Route path="/search/album/:id" element={<AlbumDetails />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<RegisterScreen />} />
+                                    <Route path="/:username/:pid" element={<Post />} />
                                 </Routes>
                             </div>
                             <div className="d-block d-sm-none fixed-bottom sf-no-highlight">
@@ -65,6 +67,7 @@ function App() {
                                     <Route path="/search/:searchTerm" element={<MobileNavBar active="Search" />} />
                                     <Route path="/edit-profile" element={<MobileNavBar active="Profile" />} />
                                     <Route path="/search/album/:id" element={<MobileNavBar active="Search" />} />
+                                    <Route path="/:username/:pid" element={<MobileNavBar active="Home" />} />
                                 </Routes>
                             </div>
                         </div>
@@ -81,6 +84,8 @@ function App() {
                                     <Route path="/search/:searchTerm" element={<NavBar active="Search" />} />
                                     <Route path="/edit-profile" element={<NavBar active="Profile" />} />
                                     <Route path="/search/album/:id" element={<NavBar active="Search" />} />
+                                    <Route path="/:username/:pid" element={<NavBar active="Home" />} />
+
                                 </Routes>
                             </div>
                             <div className="ms-md-0 d-none d-sm-block col-sm-10 col-lg-7 col-xl-6">
@@ -95,6 +100,7 @@ function App() {
                                     <Route path="/profile/:uid" element={<OtherProfile />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<RegisterScreen />} />
+                                    <Route path="/:username/:pid" element={<Post />} />
                                 </Routes>
                             </div>
                             <div className="d-none d-lg-block col-lg-4 col-xl-3 sf-side sticky-top sf-left-border">
