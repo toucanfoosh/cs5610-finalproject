@@ -48,6 +48,7 @@ const AlbumDetails = () => {
                 token
             }
             const album = await getAlbum(params);
+            console.log(album.data);
             setAlbum(album);
             return album.data;
         }
@@ -87,6 +88,7 @@ const AlbumDetails = () => {
             score,
             albumId: id,
             albumName: album.data.name,
+            albumMainArtist: album.data.artists[0].name,
             userId: currentUser._id,
             username: currentUser.username,
             handle: currentUser.handle

@@ -58,8 +58,7 @@ const OtherProfile = () => {
                             {reviews.map(item =>
                                 <li className="list-group-item">
                                     {item.score} <br />
-                                    <div className="float-end">{item.albumName}</div>
-                                    <Link to={`/profile/${item.userId}`} className="sf-underline-hover float-end">{item.username} @{item.handle}</Link>
+                                    <Link to={`/search/album/${item.albumId}`} className="sf-underline-hover float-end">{item.albumName} by {item.albumMainArtist}</Link>
                                     {item.review}
                                 </li>)
                             }
