@@ -7,12 +7,12 @@
     --primary-dark: #14181b;
     --secondary-dark: #e9e9e9;
     --tertiary-dark: #727272;
-    --tertiary-alt-dark: #2f2f2f;
+    --tertiary-alt-dark: #9d9d9d;
 
     --primary-light: #ffffff;
     --secondary-light: #000000;
     --tertiary-light: #565656;
-    --tertiary-alt-light: #c6c6c6;
+    --tertiary-alt-light: #929292;
 
     --accent: #00dc25;
     --accent-darker: #00ac1d;
@@ -152,4 +152,9 @@ a:active {
     -webkit-user-select: none;
     -ms-user-select: none;
     user-select: none;
+}
+
+.sf-hw-100 {
+    height: 100%;
+    width: 100%;
 }

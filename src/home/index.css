@@ -24,3 +24,8 @@
     min-height: calc(1px + 7.5rem);
     border-bottom: 1px var(--tertiary) solid;
 }
+
+svg path,
+svg rect{
+  fill: var(--accent);
+}

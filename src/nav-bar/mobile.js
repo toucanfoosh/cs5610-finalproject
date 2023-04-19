@@ -25,7 +25,10 @@ const MobileNavBar = ({ active = 'home' }) => {
                     <Link to="/login">
                         <div className="justify-content-center sf-navbar-item my-3 py-2">
                             <div className="sf-secondary">
-                                    <img src="./images/catjam.jpg" className="sf-mobile-nav-pfp" alt="profile" />
+                                <img src="./images/catjam.jpg" className="sf-mobile-nav-pfp" alt="profile" />
+                            </div>
+                            <div className="d-flex justify-content-center">
+                                <div className="sf-navbar-item-hover" />
                             </div>
                         </div>
                     </Link>
