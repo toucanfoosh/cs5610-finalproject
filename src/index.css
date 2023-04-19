@@ -1,22 +1,36 @@
 :root {
-    --primary: #14181b;
-    --secondary: #e9e9e9;
-    --tertiary: #727272;
-    --tertiary-alt: #2f2f2f;
-
-    --primary-dark: #14181b;
-    --secondary-dark: #e9e9e9;
-    --tertiary-dark: #727272;
-    --tertiary-alt-dark: #9d9d9d;
-
-    --primary-light: #ffffff;
-    --secondary-light: #000000;
-    --tertiary-light: #565656;
-    --tertiary-alt-light: #929292;
-
-    --accent: #00dc25;
-    --accent-darker: #00ac1d;
-    --clear: #ffffff00;
+    --primary: rgb(var(--primary-rgb));
+    --secondary: rgb(var(--secondary-rgb));
+    --tertiary: rgb(var(--tertiary-rgb));
+    --tertiary-alt: rgb(var(--tertiary-alt-rgb));
+    --primary-rgb: 255, 255, 255;
+    --secondary-rgb: 0, 0, 0;
+    --tertiary-rgb: 86, 86, 86;
+    --tertiary-alt-light-rgb: 110, 110, 110;
+    
+    --primary-dark: rgb(var(--primary-dark-rgb));
+    --secondary-dark: rgb(var(--secondary-dark-rgb));
+    --tertiary-dark: rgb(var(--tertiary-dark-rgb));
+    --tertiary-alt-dark: rgb(var(--tertiary-alt-dark-rgb));
+    --primary-dark-rgb: 20, 24, 27;
+    --secondary-dark-rgb: 233, 233, 233;
+    --tertiary-dark-rgb: 114, 114, 114;
+    --tertiary-alt-dark-rgb: 65, 65, 65;
+    
+    --primary-light: rgb(var(--primary-light-rgb));
+    --secondary-light: rgb(var(--secondary-light-rgb));
+    --tertiary-light: rgb(var(--tertiary-light-rgb));
+    --tertiary-alt-light: rgb(var(--tertiary-alt-light-rgb));
+    --primary-light-rgb: 255, 255, 255;
+    --secondary-light-rgb: 0, 0, 0;
+    --tertiary-light-rgb: 86, 86, 86;
+    --tertiary-alt-light-rgb: 110, 110, 110;
+    
+    --accent: rgb(var(--accent-rgb));
+    --accent-darker: rgb(var(--accent-darker-rgb));
+    --accent-rgb: 0, 220, 37;
+    --accent-darker-rgb: 0, 172, 29;
+    
 }
 
 html,
@@ -141,7 +155,35 @@ a:active {
 }
 
 .sf-darken-hover:hover {
-    filter: brightness(0.9);
+    filter: brightness(0.95);
+}
+
+.sf-tertiary-alt-hover{
+    transition: 0.3s;
+    color: var(--tertiary-alt);
+}
+
+.sf-tertiary-alt-hover:hover {
+    color: var(--tertiary);
+}
+
+.sf-tertiary-hover {
+    transition: 0.3s;
+    color: var(--tertiary);
+}
+
+.sf-tertiary-hover:hover {
+    color: var(--tertiary-alt);
+}
+
+.sf-large-hover:hover {
+    transition: 0.3s;
+    transform: scale(1.1);
+}
+
+.sf-small-hover:hover {
+    transition: 0.3s;
+    transform: scale(0.9);
 }
 
 .sf-no-highlight {
@@ -169,4 +211,15 @@ a:active {
 
 .sf-z-3 {
     z-index: 3;
+}
+
+.sf-hover-circle {
+    border: 1px solid transparent;
+    border-radius: 50%;
+    transition: 0.3s;
+    background-color: transparent;
+}
+
+.sf-hover-circle:hover {
+    background-color: rgba(var(--tertiary-rgb), 0.1);
 }

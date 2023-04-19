@@ -76,7 +76,7 @@
 }
 
 .sf-nav-profile-full:hover {
-    background-color: var(--tertiary-alt);
+    background-color: rgba(var(--tertiary-alt-rgb), 0.5);
 }
 
 .sf-nav-profile-item {
