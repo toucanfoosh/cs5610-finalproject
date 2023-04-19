@@ -1,4 +1,4 @@
-import axios from axios;
+import axios from 'axios';
 const API_BASE = process.env.REACT_APP_API_BASE;
 const COMMENTS_API = `${API_BASE}/comments`;
 
@@ -9,6 +9,7 @@ export const findAllComments = async () => {
 
 export const findCommentsByPost = async (pid) => {
     const response = await axios.get(`${COMMENTS_API}/posts/${pid}`);
+    console.log(response);
     return response.data;
 }
 
