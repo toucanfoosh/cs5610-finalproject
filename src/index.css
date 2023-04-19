@@ -192,7 +192,6 @@ a:active {
 .sf-no-highlight {
     -webkit-tap-highlight-color: transparent;
     outline-style: none;
-    unselectable: on;
     -moz-user-select: none;
     -webkit-user-select: none;
     -ms-user-select: none;
