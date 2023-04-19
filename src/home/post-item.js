@@ -49,7 +49,7 @@ const PostItem = ({ post }) => {
                     </div>
                     <div className="col">
                         <span className="col">
-                            <i className="fa-solid fa-x float-end sf-clickable sf-darken-hover sf-tertiary"
+                            <i className="fa-solid fa-x float-end sf-clickable sf-darken-hover sf-tertiary sf-z-2"
                                 onClick={() => deletePostHandler(post._id)}></i>
                             <Link to={`/profile/${post.userId}`}>
                                 <span className="sf-font-bold sf-clickable sf-underline-hover pe-1 sf-secondary ">

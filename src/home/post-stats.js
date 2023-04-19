@@ -19,13 +19,13 @@ const PostStats = ({ stats }) => {
                 <div className="col-3">
                     <Link className="text-secondary sf-no-link-decor" to="#">
                         <i className="fa-regular fa-comment"></i>
-                        <span className="ms-sm-1 ms-md-3">{stats.replies}</span>
+                        <span className="ms-sm-1 ms-md-3">{stats.comments}</span>
                     </Link>
                 </div>
                 <div className="col-3">
                     <Link className="text-secondary sf-no-link-decor" to="#">
                         <i className="fas fa-retweet"></i>
-                        <span className="ms-sm-1 ms-md-3">{stats.retuits}</span>
+                        <span className="ms-sm-1 ms-md-3">{stats.reposts}</span>
                     </Link>
                 </div>
                 <div className="col-3">

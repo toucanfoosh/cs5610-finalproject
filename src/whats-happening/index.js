@@ -34,7 +34,8 @@ const WhatsHappening = () => {
             username: profile.username,
             handle: profile.handle,
             avatar: profile.avatar,
-            userId: profile._id
+            userId: profile._id,
+            comments: 0
         }
         await dispatch(createPostThunk(newPost));
 
