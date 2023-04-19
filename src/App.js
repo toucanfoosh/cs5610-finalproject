@@ -21,6 +21,7 @@ import reviewReducer from "./reducers/reviews/review-reducer";
 import themeReducer from "./reducers/theme/theme-reducer";
 import OtherProfile from "./other-profile";
 import Post from "./post";
+import commentReducer from "./reducers/comments/comment-reducer";
 
 const store = configureStore(
     {
@@ -28,6 +29,7 @@ const store = configureStore(
             postsData: postReducer,
             user: userReducer,
             reviews: reviewReducer,
+            comments: commentReducer,
             theme: themeReducer
         }
     }
