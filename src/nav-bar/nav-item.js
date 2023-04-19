@@ -36,6 +36,9 @@ const NavItem = (
                         </div>
                     </div>
                 </div>
+                <div className="d-flex justify-content-center">
+                    <div className="sf-navbar-item-hover" />
+                </div>
             </div>
         </Link >
 

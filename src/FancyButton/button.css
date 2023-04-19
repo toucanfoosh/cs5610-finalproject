@@ -98,50 +98,19 @@
   }
 } */
 
-/* BUTTON 2 */
-
-.sf-bubbly-button {
-  appearance: none;
-  backface-visibility: hidden;
-  background-color: var(--accent);
-  border-radius: 8px;
-  border-style: none;
-  box-shadow: rgba(var(--accent-darker), .15) 0 4px 9px;
-  box-sizing: border-box;
-  color: var(--secondary);
-  cursor: pointer;
-  display: inline-block;
-  font-size: 16px;
-  font-weight: 600;
-  letter-spacing: normal;
-  line-height: 1.5;
-  outline: none;
-  overflow: hidden;
-  padding: 13px 20px;
-  position: relative;
-  text-align: center;
-  text-decoration: none;
-  transform: translate3d(0, 0, 0);
-  transition: all .3s;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  vertical-align: top;
-  white-space: nowrap;
+.sf-shadow {
+	border-radius: 10px;
+	border: 1px solid var(--tertiary);
+  height: 100%;
+  width: 80%;
+	box-shadow: 5px 5px var(--tertiary-alt);
+	transition: box-shadow 300ms ease, transform 500ms ease;
 }
 
-.sf-bubbly-button:hover {
-  background-color: var(--accent-darker);
-  opacity: 1;
-  transform: translateY(0);
-  transition-duration: .35s;
+.sf-shadow:hover {
+	box-shadow: none;
 }
 
-.sf-bubbly-button:active {
-  transform: translateY(2px);
-  transition-duration: .35s;
-}
-
-.sf-bubbly-button:hover {
-  box-shadow: rgba(var(--accent-darker), .2) 0 6px 12px;
+.sf-shadow:active {
+	transform: scale(0.9);
 }
