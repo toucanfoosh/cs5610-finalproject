@@ -22,6 +22,10 @@ const ThemeSwitcher = ({ darkMode, toggleTheme }) => {
       document.documentElement.style.setProperty('--tertiary-alt-rgb', 'var(--tertiary-alt-dark-rgb)');
 
     } else {
+      document.documentElement.style.setProperty('--primary', 'var(--primary-light)');
+      document.documentElement.style.setProperty('--secondary', 'var(--secondary-light)');
+      document.documentElement.style.setProperty('--tertiary', 'var(--tertiary-light)');
+      document.documentElement.style.setProperty('--tertiary-alt', 'var(--tertiary-alt-light)');
       document.documentElement.style.setProperty('--primary-rgb', 'var(--primary-light-rgb)');
       document.documentElement.style.setProperty('--secondary-rgb', 'var(--secondary-light-rgb)');
       document.documentElement.style.setProperty('--tertiary-rgb', 'var(--tertiary-light-rgb)');

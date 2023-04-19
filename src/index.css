@@ -3,9 +3,9 @@
     --secondary: rgb(var(--secondary-rgb));
     --tertiary: rgb(var(--tertiary-rgb));
     --tertiary-alt: rgb(var(--tertiary-alt-rgb));
-    --primary-rgb: 255, 255, 255;
-    --secondary-rgb: 0, 0, 0;
-    --tertiary-rgb: 86, 86, 86;
+    --primary-light-rgb: 255, 255, 255;
+    --secondary-light-rgb: 0, 0, 0;
+    --tertiary-light-rgb: 86, 86, 86;
     --tertiary-alt-light-rgb: 110, 110, 110;
     
     --primary-dark: rgb(var(--primary-dark-rgb));
