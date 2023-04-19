@@ -7,6 +7,7 @@ import { useStateWithCallbackLazy } from "use-state-with-callback";
 import { fullTextSearch } from "../services/search-service";
 import "./index.css";
 import { Link } from "react-router-dom";
+import LoadingIcon from "../loading-icon";
 
 const SearchScreen = () => {
     const { searchTerm } = useParams();
@@ -23,16 +24,16 @@ const SearchScreen = () => {
         const getToken = async () => {
             const token = await dispatch(getAccessTokenThunk());
             setAccessToken(token.payload);
+            if (searchTerm) {
+                searchSpotify(0, token.payload);
+            }
         }
         getToken();
-        if (searchTerm) {
-            searchSpotify(0);
-        }
     }, [searchTerm]);
 
     const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-    const searchSpotify = async (offsetNum) => {
+    const searchSpotify = async (offsetNum, token) => {
         window.localStorage.setItem("token", accessToken);
         console.log(offsetNum);
         if (!search) {
@@ -41,7 +42,7 @@ const SearchScreen = () => {
         }
         const credentials = {
             search,
-            accessToken,
+            accessToken: token,
             offsetNum
         }
         setWaiting(true);
@@ -88,14 +89,20 @@ const SearchScreen = () => {
                 </div>
             </div>
             <div className="container mt-3">
-                <div className="row row-cols-4">
+                <div className="row row-cols-4 justify-content-around">
                     {
+                        waiting &&
+                        <LoadingIcon />
+                    }
+                    {
+                        !waiting &&
                         searchResults === "" &&
                         <div>
                             No results found
                         </div>
                     }
                     {
+                        !waiting &&
                         searchResults.items &&
                         searchResultItems.map(result =>
                             <div className="card">
@@ -110,7 +117,7 @@ const SearchScreen = () => {
                         )
                     }
                     {
-                        searchResults.items && searchResultItems.length > 0 &&
+                        !waiting && searchResults.items && searchResultItems.length > 0 &&
                         <FancyButton onclick={() => {
                             setOffset(offset + 8, result => searchSpotify(result));
                         }} text="More Results" />
@@ -121,7 +128,6 @@ const SearchScreen = () => {
                             No results found
                         </div>
                     }
-
                 </div>
             </div>
         </div>
