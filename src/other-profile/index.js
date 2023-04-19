@@ -7,12 +7,16 @@ import { useStateWithCallbackLazy } from "use-state-with-callback";
 import PostItem from "../home/post-item";
 import { Link } from "react-router-dom";
 import { findReviewsByUser } from "../services/reviews-service";
+import { findReviewsByUserThunk } from "../services/reviews-thunk";
+import { findPostsByUserThunk } from "../services/posts-thunk";
 
 const OtherProfile = () => {
     const { uid } = useParams();
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const { currentUser } = useSelector(state => state.user);
+    const { numPosts } = useSelector(state => state.postsData);
+    const { numReviews } = useSelector(state => state.reviews);
     const [profile, setProfile] = useStateWithCallbackLazy({});
     const [posts, setPosts] = useState([]);
     const [reviews, setReviews] = useState([]);
@@ -25,13 +29,13 @@ const OtherProfile = () => {
 
     const fetchUserPostsAndReviews = async (result) => {
         console.log(profile._id);
-        const response = await findPostsByUser(result._id);
+        const response = await dispatch(findPostsByUserThunk(result._id));
         console.log(response);
-        setPosts(response);
+        setPosts(response.payload);
 
-        const response2 = await findReviewsByUser(result._id);
+        const response2 = await dispatch(findReviewsByUserThunk(result._id));
         console.log(response2);
-        setReviews(response2);
+        setReviews(response2.payload);
     }
 
     useEffect(() => {
@@ -52,7 +56,7 @@ const OtherProfile = () => {
                     <h2>{profile.username} @{profile.handle}</h2>
                     <img src={`/images/${profile.avatar}`} />
                     <div>{profile.bio}</div>
-                    <h3>Reviews {currentUser && currentUser.reviews}</h3>
+                    <h3>Reviews {numReviews}</h3>
                     {reviews.length > 0 &&
                         <ul className="list-group">
                             {reviews.map(item =>
@@ -69,7 +73,7 @@ const OtherProfile = () => {
                             No reviews found
                         </div>
                     }
-                    <h3>Posts {currentUser && currentUser.posts}</h3>
+                    <h3>Posts {numPosts}</h3>
                     {posts.length > 0 &&
                         <ul className="list-group">
                             {posts.map(post =>

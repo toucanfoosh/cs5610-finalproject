@@ -13,8 +13,13 @@ export const findPosts = async () => {
     return posts;
 }
 
+export const findPostById = async (pid) => {
+    const response = await axios.get(`${POSTS_API}/post/${pid}`);
+    return response.data;
+}
+
 export const findPostsByUser = async (uid) => {
-    const response = await axios.get(`${POSTS_API}/${uid}`);
+    const response = await axios.get(`${POSTS_API}/user/${uid}`);
     return response.data;
 }
 

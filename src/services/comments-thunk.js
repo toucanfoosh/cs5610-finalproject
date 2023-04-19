@@ -13,7 +13,6 @@ export const findCommentsByPostThunk = createAsyncThunk(
     "comments/findCommentsByPost",
     async (pid) => {
         const comments = await service.findCommentsByPost(pid);
-        console.log(comments);
         return comments;
     }
 )

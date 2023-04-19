@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createCommentThunk, findCommentsByPostThunk } from "../services/comments-thunk";
 import "../index.css";
+import { findPostByIdThunk, updatePostThunk } from "../services/posts-thunk";
 
 const Post = () => {
     const { currentUser } = useSelector(state => state.user);
@@ -36,6 +37,19 @@ const Post = () => {
 
         const response = await dispatch(createCommentThunk(newComment));
         console.log(response);
+
+        const fullPost = await dispatch(findPostByIdThunk(pid));
+        console.log(fullPost);
+        console.log(fullPost.payload.comments)
+        const newPost = {
+            ...fullPost.payload,
+            comments: fullPost.payload.comments + 1
+        }
+        console.log(newPost);
+        const result = await dispatch(updatePostThunk(newPost));
+        console.log(result);
+
+
     }
 
     return (

@@ -17,6 +17,14 @@ export const findReviewsByAlbumThunk = createAsyncThunk(
     }
 );
 
+export const findReviewsByUserThunk = createAsyncThunk(
+    "reviews/findReviewsByUser",
+    async (uid) => {
+        const reviews = await reviewsService.findReviewsByUser(uid);
+        return reviews;
+    }
+)
+
 export const createReviewThunk = createAsyncThunk(
     "reviews/createReview",
     async (review) => {

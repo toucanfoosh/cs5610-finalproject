@@ -18,15 +18,16 @@ const PostItem = ({ post }) => {
         async function fetchUserById() {
             const user = await findUserById(post.userId);
             setPostUser(user);
-            console.log(user);
         }
+
         fetchUserById();
     }, []);
 
-    const handleSubtractPost = async (user) => {
+    const handleSubtractPost = async (result) => {
+        console.log(result);
         const newUser = {
-            ...user,
-            posts: user.posts - 1
+            ...result,
+            posts: result.posts - 1
         }
 
         const updatedUser = await dispatch(updateUserThunk(newUser));
@@ -35,7 +36,7 @@ const PostItem = ({ post }) => {
 
     const deletePostHandler = async (id) => {
         const user = await findUserById(post.userId);
-        setPostUser(user, result => handleSubtractPost(result));
+        handleSubtractPost(user);
         await dispatch(deletePostThunk(id));
     }
 

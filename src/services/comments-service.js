@@ -9,7 +9,6 @@ export const findAllComments = async () => {
 
 export const findCommentsByPost = async (pid) => {
     const response = await axios.get(`${COMMENTS_API}/posts/${pid}`);
-    console.log(response);
     return response.data;
 }
 
