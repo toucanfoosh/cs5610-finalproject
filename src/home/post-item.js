@@ -50,19 +50,30 @@ const PostItem = ({ post }) => {
                     </div>
                     <div className="col">
                         <span className="col">
-                            <i className="fa-solid fa-x float-end sf-clickable sf-darken-hover sf-tertiary sf-z-2"
-                                onClick={() => deletePostHandler(post._id)}></i>
-                            <Link to={`/profile/${post.userId}`}>
-                                <span className="sf-font-bold sf-clickable sf-underline-hover pe-1 sf-secondary ">
-                                    {post.username}
-                                </span>
-                                <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
-                                <span className="sf-font-normal sf-clickable sf-tertiary">@{post.handle}</span>
-                            </Link>
-                            <div className="sf-font-normal sf-secondary pb-1">
-                                {post.post}
+                            <div className="row">
+                                <div className="col-11">
+                                    <Link to={`/profile/${post.userId}`}>
+                                        <span className="sf-font-bold sf-clickable sf-underline-hover pe-1 sf-secondary ">
+                                            {post.username}
+                                        </span>
+                                        <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
+                                        <span className="sf-font-normal sf-clickable sf-tertiary">@{post.handle}</span>
+                                    </Link>
+                                    <div className="sf-font-normal sf-secondary pb-1">
+                                        {post.post}
+                                    </div>
+                                    <PostStats stats={post} />
+                                </div>
+                                <div className="col-1 d-flex align-items-top justify-content-center">
+                                    <Link to='#'>
+                                        <div className='row text-center'>
+                                            <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-hw-100"
+                                                onClick={() => deletePostHandler(post._id)}>
+                                            </i>
+                                        </div>
+                                    </Link>
+                                </div>
                             </div>
-                            <PostStats stats={post} />
                         </span>
                     </div>
                 </div>

@@ -41,6 +41,12 @@
     width: 70%;
 }
 
+.active .sf-navbar-item-hover {
+    border: 1px solid var(--accent);
+    width: 70%;
+}
+
+
 .sf-navbar-profile {
     bottom: 2vh;
 }
@@ -76,7 +82,7 @@
 }
 
 .sf-nav-profile-full:hover {
-    background-color: var(--tertiary-alt);
+    background-color: rgba(var(--tertiary-alt-rgb), 0.5);
 }
 
 .sf-nav-profile-item {
