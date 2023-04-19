@@ -46,14 +46,14 @@ const PostItem = ({ post }) => {
             <div className="px-3 py-3 m-0 sf-home-item-container">
                 <div className="row">
                     <div className="col-3 col-md-2 align-self-start text-center">
-                        <img className="sf-pfp sf-clickable sf-darken-hover" src={`/images/${post.avatar}`} />
+                        <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${post.avatar}`} />
                     </div>
                     <div className="col">
                         <span className="col">
                             <div className="row">
                                 <div className="col-11">
                                     <Link to={`/profile/${post.userId}`}>
-                                        <span className="sf-font-bold sf-clickable sf-underline-hover pe-1 sf-secondary ">
+                                        <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
                                             {post.username}
                                         </span>
                                         <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
@@ -62,12 +62,12 @@ const PostItem = ({ post }) => {
                                     <div className="sf-font-normal sf-secondary pb-1">
                                         {post.post}
                                     </div>
-                                    <PostStats stats={post} />
+                                    <PostStats stats={post} postLink={`/${postUser.username}/${post._id}`}/>
                                 </div>
                                 <div className="col-1 d-flex align-items-top justify-content-center">
                                     <Link to='#'>
                                         <div className='row text-center'>
-                                            <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-hw-100"
+                                            <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-anim-3 sf-hw-100"
                                                 onClick={() => deletePostHandler(post._id)}>
                                             </i>
                                         </div>

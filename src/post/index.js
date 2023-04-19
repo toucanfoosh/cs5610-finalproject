@@ -12,8 +12,7 @@ const Post = () => {
     const { postComments, loading } = useSelector(state => state.comments);
     const location = useLocation();
     const dispatch = useDispatch();
-    const { from } = location.state;
-    const { username, pid } = useParams();
+    const { from } = location.state ? location.state : "/"; const { username, pid } = useParams();
     const [comment, setComment] = useState("");
 
     const fetchComments = async () => {
@@ -74,7 +73,7 @@ const Post = () => {
                                     {comment.comment}
                                 </div>
                                 <div className="col">
-                                    <Link className="sf-underline-hover" to={`/profile/${comment.userId}`}>{comment.username} @{comment.handle}</Link>
+                                    <Link className="sf-underline-hover sf-anim-3" to={`/profile/${comment.userId}`}>{comment.username} @{comment.handle}</Link>
                                 </div>
                                 <div className="col">
                                     {!comment.liked && <i class="fa-regular fa-heart"></i>}

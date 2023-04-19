@@ -7,7 +7,7 @@
     --secondary-light-rgb: 0, 0, 0;
     --tertiary-light-rgb: 86, 86, 86;
     --tertiary-alt-light-rgb: 110, 110, 110;
-    
+
     --primary-dark: rgb(var(--primary-dark-rgb));
     --secondary-dark: rgb(var(--secondary-dark-rgb));
     --tertiary-dark: rgb(var(--tertiary-dark-rgb));
@@ -16,7 +16,7 @@
     --secondary-dark-rgb: 233, 233, 233;
     --tertiary-dark-rgb: 114, 114, 114;
     --tertiary-alt-dark-rgb: 65, 65, 65;
-    
+
     --primary-light: rgb(var(--primary-light-rgb));
     --secondary-light: rgb(var(--secondary-light-rgb));
     --tertiary-light: rgb(var(--tertiary-light-rgb));
@@ -25,12 +25,12 @@
     --secondary-light-rgb: 0, 0, 0;
     --tertiary-light-rgb: 86, 86, 86;
     --tertiary-alt-light-rgb: 110, 110, 110;
-    
+
     --accent: rgb(var(--accent-rgb));
     --accent-darker: rgb(var(--accent-darker-rgb));
     --accent-rgb: 0, 220, 37;
     --accent-darker-rgb: 0, 172, 29;
-    
+
 }
 
 html,
@@ -52,6 +52,10 @@ a:visited,
 a:hover,
 a:active {
     text-decoration: none;
+}
+
+.sf-liked {
+    color: rgb(220, 0, 0);
 }
 
 .sf-test {
@@ -151,15 +155,13 @@ a:active {
 
 .sf-darken-hover {
     cursor: pointer;
-    transition: 0.3s;
 }
 
 .sf-darken-hover:hover {
     filter: brightness(0.95);
 }
 
-.sf-tertiary-alt-hover{
-    transition: 0.3s;
+.sf-tertiary-alt-hover {
     color: var(--tertiary-alt);
 }
 
@@ -168,7 +170,6 @@ a:active {
 }
 
 .sf-tertiary-hover {
-    transition: 0.3s;
     color: var(--tertiary);
 }
 
@@ -177,12 +178,14 @@ a:active {
 }
 
 .sf-large-hover:hover {
-    transition: 0.3s;
     transform: scale(1.1);
 }
 
 .sf-small-hover:hover {
-    transition: 0.3s;
+    transform: scale(0.9);
+}
+
+.sf-small-active:active {
     transform: scale(0.9);
 }
 
@@ -214,12 +217,15 @@ a:active {
 }
 
 .sf-hover-circle {
-    border: 1px solid transparent;
+    border: 0px;
     border-radius: 50%;
-    transition: 0.3s;
     background-color: transparent;
 }
 
 .sf-hover-circle:hover {
     background-color: rgba(var(--tertiary-rgb), 0.1);
+}
+
+.sf-anim-3 {
+    transition: 0.3s;
 }

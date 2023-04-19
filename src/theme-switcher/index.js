@@ -48,7 +48,7 @@ const ThemeSwitcher = ({ darkMode, toggleTheme }) => {
             </div>
           </div>
           <div className="d-flex justify-content-center">
-            <div className="sf-navbar-item-hover" />
+            <div className="sf-navbar-item-hover sf-anim-3" />
           </div>
         </div>
       </div>

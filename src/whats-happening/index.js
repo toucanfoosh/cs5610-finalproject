@@ -57,7 +57,7 @@ const WhatsHappening = () => {
             }
             <div className="row">
                 <div className="col-3 col-md-2 align-self-center text-center">
-                    <img className='rounded-circle sf-pfp sf-clickable sf-darken-hover' src={`./images/catjam.jpg`} />
+                    <img className='rounded-circle sf-pfp sf-clickable sf-darken-hover sf-anim-3' src={`./images/catjam.jpg`} />
                 </div>
                 <div className="col-7">
                     <textarea onChange={(e) => {
