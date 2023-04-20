@@ -19,18 +19,35 @@ const OtherProfile = () => {
     const { currentUser } = useSelector(state => state.user);
     const { numPosts } = useSelector(state => state.postsData);
     const { numReviews } = useSelector(state => state.reviews);
-    const [profile, setProfile] = useStateWithCallbackLazy({});
+    const [profile, setProfile] = useStateWithCallbackLazy(undefined);
     const [posts, setPosts] = useState([]);
     const [reviews, setReviews] = useState([]);
+    const followers = [];
+
+    const isFollowing = () => {
+        if (currentUser && profile) {
+            if (profile.followers.includes(currentUser._id)) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     const fetchUser = async () => {
         const response = await findUserById(uid);
         console.log(response);
         setProfile(response, result => fetchUserPostsAndReviews(result));
+        return response;
+    }
+
+    const fetchUserById = async (id) => {
+        const response = await findUserById(id);
+        // console.log(response);
+        return response;
     }
 
     const fetchUserPostsAndReviews = async (result) => {
-        console.log(profile._id);
+        // console.log(profile._id);
         const response = await dispatch(findPostsByUserThunk(result._id));
         console.log(response);
         setPosts(response.payload);
@@ -62,7 +79,14 @@ const OtherProfile = () => {
             const updatedUser = await dispatch(updateUserThunk(newUser));
             console.log(updatedUser);
         }
+    }
 
+    const handleUnfollow = async () => {
+
+    }
+
+    const getUsernamesFromFollowers = async () => {
+        return Promise.all(profile.followers.map((id) => fetchUserById(id)));
     }
 
     useEffect(() => {
@@ -72,7 +96,6 @@ const OtherProfile = () => {
             }
         }
         fetchUser();
-
     }, [uid]);
 
     return (
@@ -83,6 +106,9 @@ const OtherProfile = () => {
                     <h2>{profile.username} @{profile.handle}</h2>
                     <img src={`/images/${profile.avatar}`} />
                     <div>{profile.bio}</div>
+                    <h3>Followers {profile.followers.length}</h3>
+                    {/* {getUsernamesFromFollowers().then(data => data.map(follower => console.log(follower.username)))} */}
+                    <h3> Following {profile.following.length}</h3>
                     <h3>Reviews {numReviews}</h3>
                     {reviews.length > 0 &&
                         <ul className="list-group">
@@ -113,10 +139,13 @@ const OtherProfile = () => {
                             No posts found
                         </div>
                     }
-                    <FancyButton onclick={handleFollow} text="Follow" />
+                    {!isFollowing() &&
+                        <FancyButton onclick={handleFollow} text="Follow" />}
+                    {isFollowing() &&
+                        <FancyButton onclick={handleUnfollow} text="Unfollow" />}
                 </div>
             }
-        </div>
+        </div >
     )
 }
 

@@ -61,9 +61,6 @@ const PostStats = ({ stats, postLink }) => {
                 const status = await dispatch(updateUserThunk(updatedUser));
                 console.log(status);
             }
-
-
-
         } else {
             console.log("must be logged in to like");
         }
