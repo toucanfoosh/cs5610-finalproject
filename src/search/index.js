@@ -11,8 +11,7 @@ import LoadingIcon from "../loading-icon";
 
 const SearchScreen = () => {
     const { searchTerm } = useParams();
-
-    const [search, setSearch] = useState(searchTerm);
+    const [search, setSearch] = useState(searchTerm || "");
     const [accessToken, setAccessToken] = useState("");
     const [searchResults, setSearchResults] = useState({});
     const [searchResultItems, setSearchResultItems] = useState([]);
@@ -20,20 +19,22 @@ const SearchScreen = () => {
     const [offset, setOffset] = useStateWithCallbackLazy(0);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     useEffect(() => {
         const getToken = async () => {
             const token = await dispatch(getAccessTokenThunk());
             setAccessToken(token.payload);
-            if (searchTerm) {
-                searchSpotify(0, token.payload);
-            }
         }
         getToken();
-    }, [searchTerm]);
+        if (search) {
+            searchSpotify(0);
+        }
+    }, [search]);
+
 
     const clamp = (num, min, max) => Math.min(Math.max(num, min), max);
 
-    const searchSpotify = async (offsetNum, token) => {
+    const searchSpotify = async (offsetNum) => {
         window.localStorage.setItem("token", accessToken);
         console.log(offsetNum);
         if (!search) {
@@ -42,7 +43,7 @@ const SearchScreen = () => {
         }
         const credentials = {
             search,
-            accessToken: token,
+            accessToken,
             offsetNum
         }
         setWaiting(true);
@@ -89,7 +90,7 @@ const SearchScreen = () => {
                 </div>
             </div>
             <div className="container mt-3">
-                <div className="row row-cols-4 justify-content-around">
+                <div className="row row-cols-4 justify-content-center">
                     {
                         waiting &&
                         <LoadingIcon />
