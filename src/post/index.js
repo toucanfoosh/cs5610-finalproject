@@ -12,7 +12,8 @@ const Post = () => {
     const { postComments, loading } = useSelector(state => state.comments);
     const location = useLocation();
     const dispatch = useDispatch();
-    const { from } = location.state ? location.state : "/"; const { username, pid } = useParams();
+    const { from } = location.state ? location.state : "/";
+    const { username, pid } = useParams();
     const [comment, setComment] = useState("");
 
     const fetchComments = async () => {
@@ -53,7 +54,7 @@ const Post = () => {
 
     return (
         <div className="row">
-            <Link className="col-1" to={`${from}`}><i class="fa-solid fa-arrow-left"></i></Link>
+            {from && <Link className="col-1" to={`${from}`}><i class="fa-solid fa-arrow-left"></i></Link>}
             <h1 className="col-11">Post</h1>
             <h1 className="">Comments</h1>
             <ul className="list-group">
