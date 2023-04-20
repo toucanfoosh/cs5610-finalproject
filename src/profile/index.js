@@ -30,8 +30,8 @@ const Profile = () => {
                     <div className="sf-secondary sf-text-bold">{currentUser.username}
                         <span className="sf-text-normal">@{currentUser.handle}</span></div>
                     <div className="sf-secondary">
-                        <div>Followers: {currentUser.followers}</div>
-                        <div>Following: {currentUser.following}</div>
+                        <div>Followers: {currentUser.followers.length}</div>
+                        <div>Following: {currentUser.following.length}</div>
                         <div>Posts: {currentUser.posts}</div>
                         <div>Reviews: {currentUser.reviews}</div>
                     </div>

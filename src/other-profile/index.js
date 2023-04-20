@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import { findReviewsByUser } from "../services/reviews-service";
 import { findReviewsByUserThunk } from "../services/reviews-thunk";
 import { findPostsByUserThunk } from "../services/posts-thunk";
+import FancyButton from "../FancyButton/button";
+import { updateUserThunk } from "../services/user-thunk";
 
 const OtherProfile = () => {
     const { uid } = useParams();
@@ -36,6 +38,31 @@ const OtherProfile = () => {
         const response2 = await dispatch(findReviewsByUserThunk(result._id));
         console.log(response2);
         setReviews(response2.payload);
+    }
+
+    const handleFollow = async () => {
+        if (profile && currentUser) {
+            const { followers } = Object.assign({ followers: [] }, profile.followers);
+            followers.push(currentUser._id);
+            const newProfile = {
+                ...profile,
+                followers
+            }
+
+            const response = await dispatch(updateUserThunk(newProfile));
+            console.log(response);
+
+            const { following } = Object.assign({ following: [] }, profile.following);
+            following.push(profile._id);
+            const newUser = {
+                ...currentUser,
+                following
+            }
+
+            const updatedUser = await dispatch(updateUserThunk(newUser));
+            console.log(updatedUser);
+        }
+
     }
 
     useEffect(() => {
@@ -86,6 +113,7 @@ const OtherProfile = () => {
                             No posts found
                         </div>
                     }
+                    <FancyButton onclick={handleFollow} text="Follow" />
                 </div>
             }
         </div>
