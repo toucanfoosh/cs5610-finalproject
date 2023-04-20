@@ -59,7 +59,7 @@ const PostItem = ({ post }) => {
                                         <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
                                         <span className="sf-font-normal sf-clickable sf-tertiary">@{post.handle}</span>
                                     </Link>
-                                    <div className="sf-font-normal sf-secondary pb-1">
+                                    <div className="sf-font-normal sf-secondary pb-1 text-break">
                                         {post.post}
                                     </div>
                                     <PostStats stats={post} postLink={`/${postUser.username}/${post._id}`}/>

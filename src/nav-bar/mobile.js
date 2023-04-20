@@ -9,6 +9,9 @@ import "./index.css";
 import { Link } from "react-router-dom";
 
 
+function IsActive(active) {
+    return (active === 'Profile') ? 'active' : ''
+}
 const MobileNavBar = ({ active = 'home' }) => {
     const dispatch = useDispatch();
 
@@ -32,7 +35,7 @@ const MobileNavBar = ({ active = 'home' }) => {
                     </div>
                 </div>
                 <div className="col text-center">
-                    <Link to="/login">
+                    <Link to="/login" className={`${IsActive(active)}`}>
                         <div className="justify-content-center sf-navbar-item my-3 py-2">
                             <div className="sf-secondary">
                                 {

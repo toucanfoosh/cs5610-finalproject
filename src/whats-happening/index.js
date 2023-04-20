@@ -39,6 +39,8 @@ const WhatsHappening = () => {
             repostUsers: [],
             comments: 0
         }
+        var getValue = document.getElementById("postbox");
+        getValue.value = "";
         await dispatch(createPostThunk(newPost));
 
         const newUser = {
@@ -64,7 +66,7 @@ const WhatsHappening = () => {
                 <div className="col-7">
                     <textarea onChange={(e) => {
                         setPost(e.target.value);
-                    }} className="sf-text-area" placeholder="What's happening?"></textarea>
+                    }} className="sf-text-area" placeholder="What's happening?" id="postbox"></textarea>
                 </div>
                 <div className="col px-1">
                     <FancyButton onclick={postClickHandler} text="Post" />
