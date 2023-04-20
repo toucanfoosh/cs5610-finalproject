@@ -15,9 +15,8 @@ const NavBar = ({ active = 'home' }) => {
         dispatch(profileThunk());
     }, []);
 
-
-
     const { currentUser } = useSelector(state => state.user);
+
     return (
         <div className="sf-navbar sf-bg-primary">
             <div className="sf-navbar">

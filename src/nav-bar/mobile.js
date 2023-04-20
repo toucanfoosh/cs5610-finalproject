@@ -1,13 +1,23 @@
 import NavItem from "./nav-item";
 import sidebar from "./sidebar.json";
 import ThemeSwitcher from "../theme-switcher";
-
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { profileThunk } from "../services/user-thunk";
 import '../index.css';
 import "./index.css";
 import { Link } from "react-router-dom";
 
 
 const MobileNavBar = ({ active = 'home' }) => {
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(profileThunk());
+    }, []);
+
+    const { currentUser } = useSelector(state => state.user);
+
     return (
         <div className="sf-mobile-navbar">
             <div className="d-flex row">
@@ -25,8 +35,14 @@ const MobileNavBar = ({ active = 'home' }) => {
                     <Link to="/login">
                         <div className="justify-content-center sf-navbar-item my-3 py-2">
                             <div className="sf-secondary">
-                                <img src="./images/catjam.jpg" className="sf-mobile-nav-pfp" alt="profile" />
-                            </div>
+                                {
+                                    currentUser &&
+                                    <img src={`/images/${currentUser.avatar}`} className="sf-mobile-nav-pfp" />
+                                }
+                                {
+                                    !currentUser &&
+                                    <img src="/images/catjam.jpg" className="sf-mobile-nav-pfp" />
+                                }                            </div>
                             <div className="d-flex justify-content-center">
                                 <div className="sf-navbar-item-hover" />
                             </div>

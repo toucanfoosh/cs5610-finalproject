@@ -7,8 +7,8 @@ import { updatePostThunk } from "../services/posts-thunk";
 import { updateUserThunk } from "../services/user-thunk";
 
 function copyLink(link) {
-    // console.log("link" + link)
-    // navigator.clipboard.writeText(link);
+    console.log("link" + link)
+    navigator.clipboard.writeText(link);
 }
 
 const PostStats = ({ stats, postLink }) => {
@@ -75,13 +75,13 @@ const PostStats = ({ stats, postLink }) => {
             <div className="mt-4 row">
                 <div className="col-3">
                     <Link className="text-secondary sf-no-link-decor" to={`/${postLink}`}>
-                        <i className="fa-regular fa-comment sf-anim-3 sf-small-hover"></i>
+                        <i className="fa-regular fa-comment sf-anim-3 sf-small-hover pe-1"></i>
                         <span className="ms-sm-1 ms-md-3">{stats.comments}</span>
                     </Link>
                 </div>
                 <div className="col-3">
                     <Link className="text-secondary sf-no-link-decor" to="#">
-                        <i className="fas fa-retweet sf-anim-3 sf-small-hover"></i>
+                        <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1"></i>
                         <span className="ms-sm-1 ms-md-3">{stats.reposts}</span>
                     </Link>
                 </div>
@@ -92,10 +92,7 @@ const PostStats = ({ stats, postLink }) => {
                     </Link>
                 </div>
                 <div className="col-3">
-                    <Link className="text-secondary sf-no-link-decor" to="#" onClick={copyLink(`http://localhost:3000${postLink}`)}>
-                        {/* http://localhost:3000/faosldkjfhf/643f500154771083e7f76c38 */}
-                        {/* http://localhost:3000//toucanfish/6440431208e1affcb9e243a9 */}
-                        {/* http://localhost:3000/toucanfish/6440431208e1affcb9e243a9 */}
+                    <Link className="text-secondary sf-no-link-decor" to="#" onClick={() => copyLink(`http://localhost:3000${postLink}`)}>
                         <i className="fa fa-arrow-up-from-bracket sf-anim-3 sf-small-hover"></i>
                     </Link>
                 </div>
