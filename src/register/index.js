@@ -19,8 +19,8 @@ const RegisterScreen = () => {
             password,
             handle,
             email,
-            followers: 0,
-            following: 0,
+            followers: [],
+            following: [],
             firstName: "",
             lastName: "",
             posts: 0,
@@ -28,7 +28,9 @@ const RegisterScreen = () => {
             bio: "",
             avatar: "catjam.jpg",
             banner: "catjam.jpg",
-            website: ""
+            website: "",
+            likes: [],
+            reposts: []
         }
         const status = await dispatch(registerThunk(newUser));
         console.log(status);
