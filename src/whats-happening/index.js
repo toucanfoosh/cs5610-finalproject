@@ -36,7 +36,7 @@ const WhatsHappening = () => {
             avatar: profile.avatar,
             userId: profile._id,
             likeUsers: [],
-            repostUser: [],
+            repostUsers: [],
             comments: 0
         }
         await dispatch(createPostThunk(newPost));

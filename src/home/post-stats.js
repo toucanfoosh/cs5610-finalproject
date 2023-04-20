@@ -1,24 +1,75 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
 import '../index.css';
-
-function isLiked(liked) {
-    return (liked ? 'fa-solid sf-liked' : 'fa-regular');
-}
-
-function changeLikedValue(stats) {
-    return stats.liked ? stats.likes - 1 : stats.likes + 1;
-}
+import { updatePostThunk } from "../services/posts-thunk";
+import { updateUserThunk } from "../services/user-thunk";
 
 function copyLink(link) {
-    console.log("link" + link)
-    navigator.clipboard.writeText(link);
+    // console.log("link" + link)
+    // navigator.clipboard.writeText(link);
 }
 
 const PostStats = ({ stats, postLink }) => {
     const dispatch = useDispatch();
+    const { currentUser } = useSelector(state => state.user);
+
+    function isLiked(liked) {
+        if (currentUser) {
+            return liked.includes(currentUser._id) ? 'fa-solid sf-liked' : 'fa-regular';
+        }
+        else {
+            return 'fa-regular';
+        }
+    }
+
+    async function changeLikedValue(stats) {
+        if (currentUser) {
+            console.log(currentUser);
+            if (stats.likeUsers.includes(currentUser._id)) {
+                const newLikeUsers = stats.likeUsers.filter((e) => e != currentUser._id);
+                const newStats = {
+                    ...stats,
+                    likes: stats.likes - 1,
+                    likeUsers: newLikeUsers
+                }
+                const response = await dispatch(updatePostThunk(newStats));
+                console.log(response);
+            }
+            else {
+                const { likeUsers } = Object.assign({ likeUsers: [] }, stats.likeUsers);
+                console.log(likeUsers);
+                likeUsers.push(currentUser._id);
+                console.log(likeUsers);
+                const newStats = {
+                    ...stats,
+                    likes: stats.likes + 1,
+                    likeUsers
+                }
+                const response = await dispatch(updatePostThunk(newStats));
+                console.log(response);
+
+                const { liked } = Object.assign({ liked: [] }, currentUser.liked);
+                liked.push(stats._id);
+
+                const updatedUser = {
+                    ...currentUser,
+                    liked
+                }
+
+                const status = await dispatch(updateUserThunk(updatedUser));
+                console.log(status);
+            }
+
+
+
+        } else {
+            console.log("must be logged in to like");
+        }
+
+    }
+
     return (
         <div>
             <div className="mt-4 row">
@@ -35,16 +86,16 @@ const PostStats = ({ stats, postLink }) => {
                     </Link>
                 </div>
                 <div className="col-3">
-                    <Link className="text-secondary sf-no-link-decor" to="#" >
-                        <i className={`fa-heart ${isLiked(stats.liked)} pe-1 sf-anim-3 sf-small-hover`}></i>
+                    <Link onClick={() => changeLikedValue(stats)} className="text-secondary sf-no-link-decor" to="#" >
+                        <i className={`fa-heart ${isLiked(stats.likeUsers)} pe-1 sf-anim-3 sf-small-hover`}></i>
                         <span className="">{stats.likes}</span>
                     </Link>
                 </div>
                 <div className="col-3">
                     <Link className="text-secondary sf-no-link-decor" to="#" onClick={copyLink(`http://localhost:3000${postLink}`)}>
-                    {/* http://localhost:3000/faosldkjfhf/643f500154771083e7f76c38 */}
-                    {/* http://localhost:3000//toucanfish/6440431208e1affcb9e243a9 */}
-                    {/* http://localhost:3000/toucanfish/6440431208e1affcb9e243a9 */}
+                        {/* http://localhost:3000/faosldkjfhf/643f500154771083e7f76c38 */}
+                        {/* http://localhost:3000//toucanfish/6440431208e1affcb9e243a9 */}
+                        {/* http://localhost:3000/toucanfish/6440431208e1affcb9e243a9 */}
                         <i className="fa fa-arrow-up-from-bracket sf-anim-3 sf-small-hover"></i>
                     </Link>
                 </div>
