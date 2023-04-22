@@ -8,6 +8,7 @@ import { getAccessTokenThunk } from '../services/search-thunk';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useStateWithCallbackLazy } from 'use-state-with-callback';
+import LoadingIcon from '../loading-icon';
 
 const SideBar = () => {
     const navigate = useNavigate();
@@ -16,6 +17,7 @@ const SideBar = () => {
     const [accessToken, setAccessToken] = useState("");
     const [searchResults, setSearchResults] = useState({});
     const [searchResultItems, setSearchResultItems] = useState({});
+    const [loading, setLoading] = useState(false);
     const [hasBorder, setHasBorder] = useState(false);
     useEffect(() => {
         const getToken = async () => {
@@ -26,7 +28,9 @@ const SideBar = () => {
     }, []);
     const searchSpotify = async (searchterm) => {
         window.localStorage.setItem("token", accessToken);
+        setLoading(true);
         if (!searchterm) {
+            setLoading(false);
             setSearchResults("");
             return;
         }
@@ -35,6 +39,7 @@ const SideBar = () => {
             accessToken,
         }
         const results = await miniTextSearch(credentials);
+        setLoading(false);
         console.log(results);
         if (results === 400) {
             return;
@@ -70,23 +75,32 @@ const SideBar = () => {
             <div className='d-flex justify-content-center sf-card-container'>
                 <div className={`sf-card ${hasBorder ? 'sf-card-border' : ''} sf-bg-primary`}>
                     {
-                        searchResults.items &&
-                        searchResultItems.map(result =>
-                            <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
-                                <div className='sf-result p-2 sf-result-hover flex-column flex-xl-row'>
-                                    <img src={result.images[0].url} className="sf-card-img img-fluid"></img>
-                                    <div className="sf-card-body pt-1 pt-xl-0 ps-xl-3 text-center text-xl-start text-truncate">
-                                        <div className="sf-result-text sf-secondary sf-text-bold text-truncate">{result.name}</div>
-                                        <div className="sf-result-text sf-tertiary text-truncate">{result.artists[0].name}</div>
-                                    </div>
-                                </div>
-                            </Link>
-                        )
+                        loading &&
+                        <LoadingIcon />
                     }
                     {
-                        searchResults.items && searchResultItems.length === 0 &&
-                        <div className='text-center p-3'>
-                            No results found
+                        !loading &&
+                        <div>
+                            {
+                                searchResults.items &&
+                                searchResultItems.map(result =>
+                                    <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
+                                        <div className='sf-result p-2 sf-result-hover flex-column flex-xl-row'>
+                                            <img src={result.images[0].url} className="sf-card-img img-fluid"></img>
+                                            <div className="sf-card-body pt-1 pt-xl-0 ps-xl-3 text-center text-xl-start text-truncate">
+                                                <div className="sf-result-text sf-secondary sf-text-bold text-truncate">{result.name}</div>
+                                                <div className="sf-result-text sf-tertiary text-truncate">{result.artists[0].name}</div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                )
+                            }
+                            {
+                                searchResults.items && searchResultItems.length === 0 &&
+                                <div className='text-center p-3'>
+                                    No results found
+                                </div>
+                            }
                         </div>
                     }
                 </div>
