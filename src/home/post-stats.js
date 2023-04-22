@@ -88,9 +88,12 @@ const PostStats = ({ stats, postLink }) => {
                 // update repostUsers
                 const { repostUsers } = Object.assign({ repostUsers: [] }, stats.repostUsers);
                 repostUsers.push(currentUser._id);
+
+                const { reposts } = Object.assign({ reposts: [] }, stats.reposts);
+                reposts.push(repost.payload._id);
                 const newOriginalPost = {
                     ...stats,
-                    reposts: stats.reposts + 1,
+                    reposts,
                     repostUsers
                 }
 
@@ -116,7 +119,7 @@ const PostStats = ({ stats, postLink }) => {
                 <div className="col-3">
                     <Link onClick={() => handleRepost()} className="text-secondary sf-no-link-decor" to="#">
                         <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1"></i>
-                        <span className="ms-sm-1 ms-md-3">{stats.reposts}</span>
+                        <span className="ms-sm-1 ms-md-3">{stats.reposts.length}</span>
                     </Link>
                 </div>
                 <div className="col-3">

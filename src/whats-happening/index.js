@@ -37,6 +37,7 @@ const WhatsHappening = () => {
             userId: profile._id,
             likeUsers: [],
             repostUsers: [],
+            reposts: [],
             comments: 0
         }
         var getValue = document.getElementById("postbox");

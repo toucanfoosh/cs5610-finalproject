@@ -58,6 +58,17 @@ const PostItem = ({ post }) => {
 
             const response = await dispatch(updatePostThunk(updatedPost));
             console.log(response);
+
+
+        }
+    }
+
+    const deleteReposts = async () => {
+        if (post.type === "post" && post.reposts.length > 0) {
+            for (const element of post.reposts) {
+                const response = await dispatch(deletePostThunk(element));
+                console.log(response);
+            }
         }
     }
 
@@ -69,7 +80,9 @@ const PostItem = ({ post }) => {
 
         const user = await findUserById(post.userId);
         handleSubtractPost(user);
+        await deleteReposts();
         await dispatch(deletePostThunk(id));
+
     }
 
     return (
