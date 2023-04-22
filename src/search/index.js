@@ -112,17 +112,17 @@ const SearchScreen = () => {
                                 <div className="p-1">
                                     <div className="sf-result-container sf-result-hover d-flex align-items-center">
                                         <div className="sf-result-body-container d-flex sf-w-100">
-                                            <div className="">
+                                            <div className="col-9 d-flex">
                                                 <img src={result.images[0].url} className="sf-result-img p-2" />
-                                            </div>
-                                            <div className="row d-flex justify-content-between sf-w-100">
-                                                <div className="sf-flex-col ps-4 col-9 justify-content-center align-items-start text-truncate">
-                                                    <div className="sf-secondary sf-text-bold text-truncate">{result.name}</div>
+                                                <div className="ps-3 sf-flex-col justify-content-center align-items-start text-truncate sf-result-body">
+                                                    <div className="sf-w-100 sf-secondary sf-text-bold text-truncate">{result.name}</div>
                                                     <div className="sf-tertiary text-truncate">{result.artists[0].name}</div>
                                                 </div>
-                                                <div className="sf-flex-col pe-4 col-3 d-flex justify-content-center align-items-end text-truncate">
-                                                    <div className="sf-secondary sf-text-bold text-truncate">Rating: #/5</div>
-                                                    <div className="sf-tertiary text-truncate"># reviews</div>
+                                            </div>
+                                            <div className="sf-flex-col col-3 sf-review-stats d-flex justify-content-center align-items-end">
+                                                <div className="sf-flex-col pe-3 text-truncate">
+                                                    <div className="sf-secondary sf-text-bold">Rating: #/5</div>
+                                                    <div className="sf-tertiary"># reviews</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +151,7 @@ const SearchScreen = () => {
                 </div>
                 <div className="sf-bottom-post"></div>
             </div>
-        </div>
+        </div >
     )
 }
 
