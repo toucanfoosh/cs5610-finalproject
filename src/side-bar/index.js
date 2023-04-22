@@ -54,7 +54,7 @@ const SideBar = () => {
                 <div className="d-flex justify-content-center py-3">
                     <div className='sf-searchbar'>
                         <input
-                            type="text" placeholder='Search...' className="sf-searchbar-text"
+                            type="text" placeholder='Search...' className="sf-searchbar-text" autoComplete='off'
                             onChange={(e) => {
                                 setSearch(e.target.value, (result) => {
                                     console.log(result);

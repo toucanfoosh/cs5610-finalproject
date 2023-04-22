@@ -78,6 +78,7 @@ const SearchScreen = () => {
                         placeholder="Search..."
                         type="input"
                         value={search}
+                        autoComplete="off"
                         onChange={(e) => {
                             setSearch(e.target.value);
                         }}
@@ -115,11 +116,11 @@ const SearchScreen = () => {
                                                 <img src={result.images[0].url} className="sf-result-img p-2" />
                                             </div>
                                             <div className="row d-flex justify-content-between sf-w-100">
-                                                <div className="sf-flex-col ps-4 col justify-content-center align-items-start text-truncate">
+                                                <div className="sf-flex-col ps-4 col-9 justify-content-center align-items-start text-truncate">
                                                     <div className="sf-secondary sf-text-bold text-truncate">{result.name}</div>
                                                     <div className="sf-tertiary text-truncate">{result.artists[0].name}</div>
                                                 </div>
-                                                <div className="sf-flex-col pe-4 col d-flex justify-content-center align-items-end text-truncate">
+                                                <div className="sf-flex-col pe-4 col-3 d-flex justify-content-center align-items-end text-truncate">
                                                     <div className="sf-secondary sf-text-bold text-truncate">Rating: #/5</div>
                                                     <div className="sf-tertiary text-truncate"># reviews</div>
                                                 </div>
