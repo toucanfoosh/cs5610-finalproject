@@ -65,6 +65,7 @@ const PostItem = ({ post }) => {
             const newRepostUsers = repostUsers.filter(e => e != postUser._id);
 
             const { reposts } = JSON.parse(JSON.stringify(post));
+            console.log(id);
             const newReposts = reposts.filter(e => e != id);
             const updatedPost = {
                 ...post,
@@ -186,7 +187,7 @@ const PostItem = ({ post }) => {
                                             <Link to='#'>
                                                 <div className='row text-center'>
                                                     <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-anim-3 sf-hw-100"
-                                                        onClick={() => deletePostHandler(post._id)}>
+                                                        onClick={() => deletePostHandler(post)}>
                                                     </i>
                                                 </div>
                                             </Link>
