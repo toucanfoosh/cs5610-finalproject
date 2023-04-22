@@ -38,7 +38,7 @@ const PostStats = ({ stats, postLink }) => {
                 console.log(response);
             }
             else {
-                const { likeUsers } = Object.assign({ likeUsers: [] }, stats.likeUsers);
+                const { likeUsers } = JSON.parse(JSON.stringify(stats))
                 console.log(likeUsers);
                 likeUsers.push(currentUser._id);
                 console.log(likeUsers);
@@ -86,10 +86,10 @@ const PostStats = ({ stats, postLink }) => {
                 // create repost
 
                 // update repostUsers
-                const { repostUsers } = Object.assign({ repostUsers: [] }, stats.repostUsers);
+                const { repostUsers } = JSON.parse(JSON.stringify(stats));
                 repostUsers.push(currentUser._id);
 
-                const { reposts } = Object.assign({ reposts: [] }, stats.reposts);
+                const { reposts } = JSON.parse(JSON.stringify(stats));
                 reposts.push(repost.payload._id);
                 const newOriginalPost = {
                     ...stats,

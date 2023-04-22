@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import FancyButton from "../FancyButton/button";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { createCommentThunk, findCommentsByPostThunk } from "../services/comments-thunk";
+import { createCommentThunk, deleteCommentThunk, findCommentsByPostThunk, updateCommentThunk } from "../services/comments-thunk";
 import "../index.css";
 import { findPostByIdThunk, updatePostThunk } from "../services/posts-thunk";
 import PostItem from "../home/post-item";
@@ -29,15 +29,15 @@ const Post = () => {
         }
     }
 
-    const fetchPost = async () => {
-        const response = await dispatch(findPostByIdThunk(pid));
+    const fetchPost = async (id) => {
+        const response = await dispatch(findPostByIdThunk(id));
         setPost(response.payload);
         return response.payload;
     }
 
     useEffect(() => {
-        fetchPost().then(result => fetchComments(result));
-    }, [postComments]);
+        fetchPost(pid).then(result => fetchComments(result));
+    }, []);
 
     const handlePostComment = async () => {
         if (post.type === "post") {
@@ -64,6 +64,9 @@ const Post = () => {
             console.log(newPost);
             const result = await dispatch(updatePostThunk(newPost));
             console.log(result);
+
+            const changePost = await dispatch(findPostByIdThunk(pid));
+            setPost(changePost.payload);
         }
         else if (post.type === "repost") {
             const newComment = {
@@ -71,8 +74,8 @@ const Post = () => {
                 postId: post.originalPost,
                 username: currentUser.username,
                 handle: currentUser.handle,
+                likeUsers: [],
                 likes: 0,
-                liked: false,
                 comment
             }
 
@@ -89,9 +92,103 @@ const Post = () => {
             console.log(newPost);
             const result = await dispatch(updatePostThunk(newPost));
             console.log(result);
+
+            const changePost = await dispatch(findPostByIdThunk(post.originalPost));
+            setPost(changePost.payload);
         }
 
+    }
 
+    const isLiked = (likeUsers) => {
+        if (currentUser) {
+            return likeUsers.includes(currentUser._id) ? 'fa-solid sf-liked' : 'fa-regular';
+        }
+        else {
+            return 'fa-regular';
+        }
+    }
+
+    const handleCommentLike = async (comment) => {
+        if (currentUser) {
+            if (!comment.likeUsers.includes(currentUser._id)) {
+                const { likeUsers } = JSON.parse(JSON.stringify(comment))
+                console.log(likeUsers);
+                likeUsers.push(currentUser._id);
+                const newComment = {
+                    ...comment,
+                    likes: comment.likes + 1,
+                    likeUsers
+                }
+
+                console.log(newComment);
+
+                const response = await dispatch(updateCommentThunk(newComment));
+                console.log(response);
+
+                if (post.type === "post") {
+                    const updatedComments = await dispatch(findCommentsByPostThunk(pid));
+                }
+                else {
+                    const updatedComments = await dispatch(findCommentsByPostThunk(post.originalPost));
+                }
+            }
+            else {
+                // unlike
+                const newLikeUsers = comment.likeUsers.filter(e => e !== currentUser._id);
+                const newComment = {
+                    ...comment,
+                    likes: comment.likes - 1,
+                    likeUsers: newLikeUsers
+                }
+
+                const response = await dispatch(updateCommentThunk(newComment));
+                console.log(response);
+
+                if (post.type === "post") {
+                    const updatedComments = await dispatch(findCommentsByPostThunk(pid));
+                }
+                else {
+                    const updatedComments = await dispatch(findCommentsByPostThunk(post.originalPost));
+                }
+            }
+        }
+        else {
+            console.log("Must be logged in to like comment");
+        }
+    }
+
+    const handleDeleteComment = async (comment) => {
+        if (post.type === "post") {
+            const response = await dispatch(deleteCommentThunk(comment._id));
+
+            const newPost = {
+                ...post,
+                comments: post.comments - 1
+            }
+
+            const updatedPost = await dispatch(updatePostThunk(newPost));
+
+            const result = await dispatch(findPostByIdThunk(pid));
+            setPost(result.payload);
+
+            const updatedComments = await dispatch(findCommentsByPostThunk(pid));
+        }
+        else {
+            const response = await dispatch(deleteCommentThunk(comment._id));
+            const originalPost = await fetchPost(post.originalPost);
+            console.log(originalPost);
+            const newPost = {
+                ...originalPost,
+                comments: originalPost.comments - 1
+            }
+
+            const updatedPost = await dispatch(updatePostThunk(newPost));
+
+            const result = await dispatch(findPostByIdThunk(post._id));
+            setPost(result.payload);
+
+            const updatedComments = await dispatch(findCommentsByPostThunk(originalPost._id));
+        }
     }
 
     return (
@@ -109,9 +206,10 @@ const Post = () => {
                         </li>
                     </ul>
                 }
-                {!loading &&
-                    postComments.map(comment =>
-                        <li className="list-group-item">
+                {
+                    !loading &&
+                    postComments.map(comment => {
+                        return (<li className="list-group-item">
                             <div className="row">
                                 <div className="col">
                                     {comment.comment}
@@ -120,18 +218,26 @@ const Post = () => {
                                     <Link className="sf-underline-hover sf-anim-3" to={`/profile/${comment.userId}`}>{comment.username} @{comment.handle}</Link>
                                 </div>
                                 <div className="col">
-                                    {!comment.liked && <i class="fa-regular fa-heart"></i>}
-                                    {comment.liked && <i class="fa-solid fa-heart"></i>} {comment.likes}
+                                    <Link onClick={() => handleCommentLike(comment)} className="sf-anim-3">
+                                        <i className={`fa-heart ${isLiked(comment.likeUsers)} pe-1 sf-anim-3 sf-small-hover`}></i>
+                                        {comment.likes}
+                                    </Link>
+                                </div>
+                                <div className="col">
+                                    <Link onClick={() => handleDeleteComment(comment)}>
+                                        <i className="fa-solid fa-x pe-1 sf-anim-3 sf-small-hover"></i>
+                                    </Link>
                                 </div>
                             </div>
 
-                        </li>
+                        </li>)
+                    }
                     )
                 }
             </ul>
             <textarea onChange={(e) => setComment(e.target.value)} placeholder="Leave a comment" className="form-control" />
             <FancyButton onclick={handlePostComment} text="Comment" />
-        </div>
+        </div >
     );
 };
 
