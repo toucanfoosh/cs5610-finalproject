@@ -47,3 +47,35 @@
     margin-left: -12px;
     padding: 1.5rem 0;
 }
+
+.sf-card {
+    border: 1px solid transparent;
+    border-radius: 10px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+}
+
+.sf-card-border {
+    border: 1px solid var(--tertiary);
+}
+
+.sf-card-img {
+    max-height: 7rem;
+    max-width: 7rem;
+    border-radius: 7px;
+}
+
+.sf-result {
+    display: flex;
+    align-items: center;
+}
+
+.sf-card-container {
+    margin-top: -2rem;
+}
+
+.sf-card-body {
+    width: 100%;
+}

@@ -72,7 +72,7 @@ const SearchScreen = () => {
     }
     return (
         <div>
-            <div className='sf-searchbar-page-container sf-bg-blur sticky-top sf-home-item-container d-flex align-items-center justify-content-center'>
+            <div className='sf-searchbar-page-container sf-bg-primary sticky-top sf-home-item-container d-flex align-items-center justify-content-center'>
                 <div className='sf-searchbar'>
                     <input id='search' className="sf-searchbar-text"
                         placeholder="Search..."
@@ -115,13 +115,13 @@ const SearchScreen = () => {
                                                 <img src={result.images[0].url} className="sf-result-img p-2" />
                                             </div>
                                             <div className="row d-flex justify-content-between sf-w-100">
-                                                <div className="sf-flex-col ps-4 col justify-content-center align-items-start">
-                                                    <div className="sf-body-title sf-secondary sf-text-bold text-truncate">{result.name}</div>
-                                                    <div className="sf-body-text sf-tertiary text-truncate">{result.artists[0].name}</div>
+                                                <div className="sf-flex-col ps-4 col justify-content-center align-items-start text-truncate">
+                                                    <div className="sf-secondary sf-text-bold text-truncate">{result.name}</div>
+                                                    <div className="sf-tertiary text-truncate">{result.artists[0].name}</div>
                                                 </div>
-                                                <div className="sf-flex-col pe-4 col d-flex justify-content-center align-items-end">
-                                                    <div className="sf-body-title sf-secondary sf-text-bold text-truncate">Rating: #/5</div>
-                                                    <div className="sf-body-text sf-tertiary text-truncate"># reviews</div>
+                                                <div className="sf-flex-col pe-4 col d-flex justify-content-center align-items-end text-truncate">
+                                                    <div className="sf-secondary sf-text-bold text-truncate">Rating: #/5</div>
+                                                    <div className="sf-tertiary text-truncate"># reviews</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -143,7 +143,7 @@ const SearchScreen = () => {
                     }
                     {
                         searchResults.items && searchResultItems.length === 0 &&
-                        <div className="text-nowrap">
+                        <div className="text-center">
                             No results found
                         </div>
                     }

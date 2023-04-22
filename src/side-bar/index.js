@@ -1,5 +1,6 @@
 import './index.css';
 import '../index.css';
+import '../search/index.css';
 import { useNavigate } from 'react-router';
 import { useEffect, useState } from 'react';
 import { miniTextSearch } from '../services/search-service';
@@ -15,6 +16,7 @@ const SideBar = () => {
     const [accessToken, setAccessToken] = useState("");
     const [searchResults, setSearchResults] = useState({});
     const [searchResultItems, setSearchResultItems] = useState({});
+    const [hasBorder, setHasBorder] = useState(false);
     useEffect(() => {
         const getToken = async () => {
             const token = await dispatch(getAccessTokenThunk());
@@ -48,10 +50,13 @@ const SideBar = () => {
                     <div className='sf-searchbar'>
                         <input
                             type="text" placeholder='Search...' className="sf-searchbar-text"
-                            onChange={(e) => setSearch(e.target.value, (result) => {
-                                console.log(result);
-                                searchSpotify(result);
-                            })}
+                            onChange={(e) => {
+                                setSearch(e.target.value, (result) => {
+                                    console.log(result);
+                                    searchSpotify(result);
+                                });
+                                setHasBorder(e.target.value !== '');
+                            }}
                             onKeyDown={(e) => {
                                 if (e.key === 'Enter') {
                                     navigate(`/search/${search}`);
@@ -62,26 +67,31 @@ const SideBar = () => {
                     </div>
                 </div>
             </div>
-            {
-                searchResults.items &&
-                searchResultItems.map(result =>
-                    <div className="card">
-                        <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
-                            <img src={result.images[0].url} className="card-img"></img>
-                            <div className="card-body">
-                                <div className="card-title sf-text-bold">{result.name}</div>
-                                <div className="card-text">{result.artists[0].name}</div>
-                            </div>
-                        </Link>
-                    </div>
-                )
-            }
-            {
-                searchResults.items && searchResultItems.length === 0 &&
-                <div>
-                    No results found
+            <div className='d-flex justify-content-center sf-card-container'>
+                <div className={`sf-card ${hasBorder ? 'sf-card-border' : ''} sf-bg-primary`}>
+                    {
+                        searchResults.items &&
+                        searchResultItems.map(result =>
+                            <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
+                                <div className='sf-result p-2 sf-result-hover flex-column flex-xl-row'>
+                                    <img src={result.images[0].url} className="sf-card-img img-fluid"></img>
+                                    <div className="sf-card-body pt-1 pt-xl-0 ps-xl-3 text-center text-xl-start text-truncate">
+                                        <div className="sf-result-text sf-secondary sf-text-bold text-truncate">{result.name}</div>
+                                        <div className="sf-result-text sf-tertiary text-truncate">{result.artists[0].name}</div>
+                                    </div>
+                                </div>
+                            </Link>
+                        )
+                    }
+                    {
+                        searchResults.items && searchResultItems.length === 0 &&
+                        <div className='text-center p-3'>
+                            No results found
+                        </div>
+                    }
                 </div>
-            }
+            </div>
+
         </div>
     )
 };
