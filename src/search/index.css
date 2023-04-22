@@ -13,3 +13,22 @@
     margin-left: -12px;
     border-bottom: 1px var(--tertiary) solid;
 }
+
+.sf-results-button-container {
+    height: 4rem;
+    width: 30%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sf-result-container {
+    border: 1px solid var(--tertiary);
+    border-radius: 10px;
+    height: 7rem
+}
+
+.sf-result-img {
+    height: 6rem;
+    width: 6rem;
+}

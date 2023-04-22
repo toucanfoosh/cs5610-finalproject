@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useStateWithCallbackLazy } from "use-state-with-callback";
 import { fullTextSearch } from "../services/search-service";
 import "./index.css";
+import "../index.css";
 import { Link } from "react-router-dom";
 import LoadingIcon from "../loading-icon";
 
@@ -71,7 +72,7 @@ const SearchScreen = () => {
     }
     return (
         <div>
-            <div className='sf-searchbar-page-container sf-home-item-container d-flex align-items-center justify-content-center'>
+            <div className='sf-searchbar-page-container sf-bg-blur sticky-top sf-home-item-container d-flex align-items-center justify-content-center'>
                 <div className='sf-searchbar'>
                     <input id='search' className="sf-searchbar-text"
                         placeholder="Search..."
@@ -90,7 +91,7 @@ const SearchScreen = () => {
                 </div>
             </div>
             <div className="container mt-3">
-                <div className="row row-cols-4 justify-content-center">
+                <div className="col justify-content-center">
                     {
                         waiting &&
                         <LoadingIcon />
@@ -106,30 +107,41 @@ const SearchScreen = () => {
                         !waiting &&
                         searchResults.items &&
                         searchResultItems.map(result =>
-                            <div className="card">
-                                <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
-                                    <img src={result.images[0].url} className="card-img"></img>
-                                    <div className="card-body">
-                                        <div className="card-title sf-text-bold">{result.name}</div>
-                                        <div className="card-text">{result.artists[0].name}</div>
-                                    </div>
-                                </Link>
+                            <div className="p-1">
+                                <div className="sf-result-container row align-items-center">
+                                    <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
+                                        <div className="row">
+                                            <div className="col-3">
+                                                <img src={result.images[0].url} className="sf-result-img" />
+                                            </div>
+                                            <div className="sf-card-body col-9">
+                                                <div className="sf-card-title sf-secondary sf-text-bold text-truncate">{result.name}</div>
+                                                <div className="sf-card-text sf-tertiary text-truncate">{result.artists[0].name}</div>
+                                            </div>
+                                        </div>
+                                    </Link>
+                                </div>
                             </div>
                         )
                     }
+                </div>
+                <div className="d-flex justify-content-center">
                     {
                         !waiting && searchResults.items && searchResultItems.length > 0 &&
-                        <FancyButton onclick={() => {
-                            setOffset(offset + 8, result => searchSpotify(result));
-                        }} text="More Results" />
+                        <div className="sf-results-button-container m-3">
+                            <FancyButton onclick={() => {
+                                setOffset(offset + 8, result => searchSpotify(result));
+                            }} text="More Results" className="sf-results-button" />
+                        </div>
                     }
                     {
                         searchResults.items && searchResultItems.length === 0 &&
-                        <div>
+                        <div className="text-nowrap">
                             No results found
                         </div>
                     }
                 </div>
+                <div className="sf-bottom-post"></div>
             </div>
         </div>
     )

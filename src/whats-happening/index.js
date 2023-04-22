@@ -63,12 +63,12 @@ const WhatsHappening = () => {
                 <div className="col-3 col-md-2 align-self-center text-center">
                     <img className='rounded-circle sf-pfp sf-clickable sf-darken-hover sf-anim-3' src={`./images/catjam.jpg`} />
                 </div>
-                <div className="col-7">
+                <div className="col-6 col-md-7">
                     <textarea onChange={(e) => {
                         setPost(e.target.value);
                     }} className="sf-text-area" placeholder="What's happening?" id="postbox"></textarea>
                 </div>
-                <div className="col px-1">
+                <div className="col-3 px-1">
                     <FancyButton onclick={postClickHandler} text="Post" />
                 </div>
             </div>

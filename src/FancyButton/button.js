@@ -19,10 +19,10 @@ import './button.css';
 //     );
 // };
 
-function FancyButton({ text, onclick, color = "sf-bg-accent" }) {
+function FancyButton({ text, onclick, color = "sf-bg-accent", textColor = "sf-button-text-default"}) {
     return (
       <div className="sf-hw-100 text-center">
-        <button className={`sf-shadow ${color}`} onClick={onclick}><span>{text}</span></button>
+        <button className={`sf-shadow ${color} ${textColor}`} onClick={onclick}><span>{text}</span></button>
       </div>
     )
   }

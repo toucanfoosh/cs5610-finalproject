@@ -41,37 +41,20 @@ function App() {
             <BrowserRouter>
                 <LoadProfile>
                     <div className="col sf-bg-primary">
-                        <div className="d-block d-sm-none">
-                            <div className="col-12">
-                                <Routes>
-                                    <Route index element={<HomeComponent />} />
-                                    <Route path="/home" element={<HomeComponent />} />
-                                    <Route path="/search" element={<SearchScreen />} />
-                                    <Route path="/search/:searchTerm" element={<SearchScreen />} />
-                                    <Route path="/profile" element={<Profile />} />
-                                    <Route path="/profile/:uid" element={<OtherProfile />} />
-                                    <Route path="/edit-profile" element={<EditProfileScreen />} />
-                                    <Route path="/search/album/:id" element={<AlbumDetails />} />
-                                    <Route path="/login" element={<Login />} />
-                                    <Route path="/register" element={<RegisterScreen />} />
-                                    <Route path="/:username/:pid" element={<Post />} />
-                                </Routes>
-                            </div>
-                            <div className="d-block d-sm-none fixed-bottom sf-no-highlight">
-                                <Routes>
-                                    <Route path="/" element={<MobileNavBar active="Home" />} />
-                                    <Route path="/home" element={<MobileNavBar active="Home" />} />
-                                    <Route path="/profile" element={<MobileNavBar active="Profile" />} />
-                                    <Route path="/profile/:uid" element={<MobileNavBar active="Profile" />} />
-                                    <Route path="/login" element={<MobileNavBar active="Profile" />} />
-                                    <Route path="/register" element={<MobileNavBar active="Profile" />} />
-                                    <Route path="/search" element={<MobileNavBar active="Search" />} />
-                                    <Route path="/search/:searchTerm" element={<MobileNavBar active="Search" />} />
-                                    <Route path="/edit-profile" element={<MobileNavBar active="Profile" />} />
-                                    <Route path="/search/album/:id" element={<MobileNavBar active="Search" />} />
-                                    <Route path="/:username/:pid" element={<MobileNavBar active="Home" />} />
-                                </Routes>
-                            </div>
+                        <div className="d-block d-sm-none fixed-bottom sf-no-highlight">
+                            <Routes>
+                                <Route path="/" element={<MobileNavBar active="Home" />} />
+                                <Route path="/home" element={<MobileNavBar active="Home" />} />
+                                <Route path="/profile" element={<MobileNavBar active="Profile" />} />
+                                <Route path="/profile/:uid" element={<MobileNavBar active="Profile" />} />
+                                <Route path="/login" element={<MobileNavBar active="Profile" />} />
+                                <Route path="/register" element={<MobileNavBar active="Profile" />} />
+                                <Route path="/search" element={<MobileNavBar active="Search" />} />
+                                <Route path="/search/:searchTerm" element={<MobileNavBar active="Search" />} />
+                                <Route path="/edit-profile" element={<MobileNavBar active="Profile" />} />
+                                <Route path="/search/album/:id" element={<MobileNavBar active="Search" />} />
+                                <Route path="/:username/:pid" element={<MobileNavBar active="Home" />} />
+                            </Routes>
                         </div>
                         <div className="row">
                             <div className="d-none d-sm-block col-sm-1 col-xl-3 px-2 sf-side sticky-top sf-right-border sf-no-highlight">
@@ -90,7 +73,7 @@ function App() {
 
                                 </Routes>
                             </div>
-                            <div className="ms-md-0 d-none d-sm-block col-sm-10 col-lg-7 col-xl-6">
+                            <div className="col-12 ms-md-0 d-block col-sm-10 col-lg-9 col-xl-6">
                                 <Routes>
                                     <Route index element={<HomeComponent />} />
                                     <Route path="/home" element={<HomeComponent />} />
@@ -105,7 +88,7 @@ function App() {
                                     <Route path="/:username/:pid" element={<Post />} />
                                 </Routes>
                             </div>
-                            <div className="d-none d-lg-block col-lg-4 col-xl-3 sf-side sticky-top sf-left-border">
+                            <div className="d-none d-lg-block col-lg-2 col-xl-3 sf-side sticky-top sf-left-border">
 
                                 <Routes>
                                     <Route path="/search" element={
