@@ -107,21 +107,22 @@ const SearchScreen = () => {
                         !waiting &&
                         searchResults.items &&
                         searchResultItems.map(result =>
-                            <div className="p-1">
-                                <div className="sf-result-container row align-items-center">
-                                    <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
-                                        <div className="row">
-                                            <div className="col-3">
-                                                <img src={result.images[0].url} className="sf-result-img" />
+                            <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
+                                <div className="p-1">
+                                    <div className="sf-result-container sf-result-hover d-flex align-items-center">
+                                        <div className="sf-result-body-container d-flex">
+                                            <div className="">
+                                                <img src={result.images[0].url} className="sf-result-img p-2" />
                                             </div>
-                                            <div className="sf-card-body col-9">
-                                                <div className="sf-card-title sf-secondary sf-text-bold text-truncate">{result.name}</div>
-                                                <div className="sf-card-text sf-tertiary text-truncate">{result.artists[0].name}</div>
+                                            <div className="sf-result-body ps-3 pe-5 col justify-content-center align-items-start">
+                                                <div className="sf-body-title sf-secondary sf-text-bold text-truncate">{result.name}</div>
+                                                <div className="sf-body-text sf-tertiary text-truncate">{result.artists[0].name}</div>
                                             </div>
                                         </div>
-                                    </Link>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
+
                         )
                     }
                 </div>

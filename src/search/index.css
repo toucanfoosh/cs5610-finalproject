@@ -25,10 +25,25 @@
 .sf-result-container {
     border: 1px solid var(--tertiary);
     border-radius: 10px;
-    height: 7rem
+    height: calc(7rem + 2px);
 }
 
 .sf-result-img {
-    height: 6rem;
-    width: 6rem;
+    height: 7rem;
+    width: 7rem;
+    border-radius: 15px;
+}
+
+.sf-result-body-container {
+    /* padding: 0 0.5rem; */
+}
+
+.sf-result-body {
+    display:flex;
+    flex-direction: column;
+}
+
+.sf-result-hover:hover {
+    background-color: rgba(var(--tertiary-rgb), 0.1);
+    border-color: var(--accent);
 }
