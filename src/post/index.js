@@ -37,7 +37,7 @@ const Post = () => {
 
     useEffect(() => {
         fetchPost().then(result => fetchComments(result));
-    }, []);
+    }, [postComments]);
 
     const handlePostComment = async () => {
         if (post.type === "post") {
