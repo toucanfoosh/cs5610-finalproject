@@ -30,7 +30,10 @@ const userSlice = createSlice({
             state.currentUser = payload;
         },
         [updateUserThunk.fulfilled]: (state, { payload }) => {
-            state.currentUser = payload;
+            if (state.currentUser._id === payload._id) {
+                console.log("same user");
+                state.currentUser = payload;
+            }
         },
     },
 });

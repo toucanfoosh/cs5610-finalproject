@@ -9,6 +9,7 @@ import { findUserById } from '../services/user-service';
 import { updateUserThunk } from '../services/user-thunk';
 import { useEffect, useState } from 'react';
 import { findPostById } from '../services/posts-service';
+import { deleteCommentThunk, findCommentsByPostThunk } from '../services/comments-thunk';
 
 const PostItem = ({ post }) => {
     const dispatch = useDispatch();
@@ -48,15 +49,15 @@ const PostItem = ({ post }) => {
 
     const handleDeleteRepost = async (post, id) => {
         if (postUser) {
-            const { repostUsers } = Object.assign({ repostUsers: [] }, post.repostUsers);
-            repostUsers.filter(e => e != postUser._id);
+            const { repostUsers } = JSON.parse(JSON.stringify(post));
+            const newRepostUsers = repostUsers.filter(e => e != postUser._id);
 
-            const { reposts } = Object.assign({ reposts: [] }, post.reposts);
-            reposts.filter(e => e != id);
+            const { reposts } = JSON.parse(JSON.stringify(post));
+            const newReposts = reposts.filter(e => e != id);
             const updatedPost = {
                 ...post,
-                reposts,
-                repostUsers
+                reposts: newReposts,
+                repostUsers: newRepostUsers
             }
 
             const response = await dispatch(updatePostThunk(updatedPost));
@@ -73,6 +74,18 @@ const PostItem = ({ post }) => {
         }
     }
 
+    const deleteComments = async (post) => {
+        console.log(post);
+        if (post.type === "post") {
+            const comments = await dispatch(findCommentsByPostThunk(post._id));
+            console.log(comments);
+
+            for (const comm of comments.payload) {
+                const response = await dispatch(deleteCommentThunk(comm._id));
+            }
+        }
+    }
+
     const deletePostHandler = async (id) => {
         if (post.type === "repost") {
             const response = await handleDeleteRepost(originalPost, id);
@@ -81,8 +94,9 @@ const PostItem = ({ post }) => {
 
         const user = await findUserById(post.userId);
         handleSubtractPost(user);
+        await deleteComments(post);
         await deleteReposts();
-        await dispatch(deletePostThunk(id));
+        await dispatch(deletePostThunk(post._id));
 
     }
 
