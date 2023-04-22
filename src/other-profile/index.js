@@ -22,7 +22,7 @@ const OtherProfile = () => {
     const [profile, setProfile] = useStateWithCallbackLazy(undefined);
     const [posts, setPosts] = useState([]);
     const [reviews, setReviews] = useState([]);
-    const followers = [];
+    const [followers, setFollowers] = useState(undefined);
 
     const isFollowing = () => {
         if (currentUser && profile) {
@@ -85,8 +85,15 @@ const OtherProfile = () => {
 
     }
 
-    const getUsernamesFromFollowers = async () => {
-        return Promise.all(profile.followers.map((id) => fetchUserById(id)));
+    const getUsernamesFromFollowers = async (otherUser) => {
+        return Promise.all(otherUser.followers.map((id) => fetchUserById(id)));
+        for (const element of otherUser.followers) {
+            const user = await fetchUserById(element);
+            console.log(user);
+            followers.push(user.username);
+            console.log(followers);
+        }
+
     }
 
     useEffect(() => {
@@ -95,7 +102,8 @@ const OtherProfile = () => {
                 navigate("/profile");
             }
         }
-        fetchUser();
+        fetchUser().then(result => getUsernamesFromFollowers(result)).then(response => setFollowers(response));
+
     }, [uid]);
 
     return (
@@ -108,6 +116,12 @@ const OtherProfile = () => {
                     <div>{profile.bio}</div>
                     <h3>Followers {profile.followers.length}</h3>
                     {/* {getUsernamesFromFollowers().then(data => data.map(follower => console.log(follower.username)))} */}
+                    {
+                        followers && followers.map(follower =>
+                            <div>
+                                {follower.username}
+                            </div>)
+                    }
                     <h3> Following {profile.following.length}</h3>
                     <h3>Reviews {numReviews}</h3>
                     {reviews.length > 0 &&
