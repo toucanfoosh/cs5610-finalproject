@@ -34,7 +34,7 @@
     border-radius: 15px;
 }
 
-.sf-result-body {
+.sf-flex-col {
     display:flex;
     flex-direction: column;
 }

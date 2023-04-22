@@ -110,13 +110,19 @@ const SearchScreen = () => {
                             <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
                                 <div className="p-1">
                                     <div className="sf-result-container sf-result-hover d-flex align-items-center">
-                                        <div className="sf-result-body-container d-flex">
+                                        <div className="sf-result-body-container d-flex sf-w-100">
                                             <div className="">
                                                 <img src={result.images[0].url} className="sf-result-img p-2" />
                                             </div>
-                                            <div className="sf-result-body ps-3 pe-5 col justify-content-center align-items-start">
-                                                <div className="sf-body-title sf-secondary sf-text-bold text-truncate">{result.name}</div>
-                                                <div className="sf-body-text sf-tertiary text-truncate">{result.artists[0].name}</div>
+                                            <div className="row d-flex justify-content-between sf-w-100">
+                                                <div className="sf-flex-col ps-4 col justify-content-center align-items-start">
+                                                    <div className="sf-body-title sf-secondary sf-text-bold text-truncate">{result.name}</div>
+                                                    <div className="sf-body-text sf-tertiary text-truncate">{result.artists[0].name}</div>
+                                                </div>
+                                                <div className="sf-flex-col pe-4 col d-flex justify-content-center align-items-end">
+                                                    <div className="sf-body-title sf-secondary sf-text-bold text-truncate">Rating: #/5</div>
+                                                    <div className="sf-body-text sf-tertiary text-truncate"># reviews</div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
