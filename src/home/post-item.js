@@ -46,20 +46,21 @@ const PostItem = ({ post }) => {
         console.log(updatedUser);
     }
 
-    const handleDeleteRepost = async (post) => {
+    const handleDeleteRepost = async (post, id) => {
         if (postUser) {
             const { repostUsers } = Object.assign({ repostUsers: [] }, post.repostUsers);
             repostUsers.filter(e => e != postUser._id);
+
+            const { reposts } = Object.assign({ reposts: [] }, post.reposts);
+            reposts.filter(e => e != id);
             const updatedPost = {
                 ...post,
-                reposts: post.reposts - 1,
+                reposts,
                 repostUsers
             }
 
             const response = await dispatch(updatePostThunk(updatedPost));
             console.log(response);
-
-
         }
     }
 
@@ -74,7 +75,7 @@ const PostItem = ({ post }) => {
 
     const deletePostHandler = async (id) => {
         if (post.type === "repost") {
-            const response = await handleDeleteRepost(originalPost);
+            const response = await handleDeleteRepost(originalPost, id);
             console.log(response);
         }
 

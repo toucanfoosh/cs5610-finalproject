@@ -69,7 +69,7 @@ const PostStats = ({ stats, postLink }) => {
 
     const handleRepost = async () => {
         if (currentUser) {
-            if (!stats.repostUsers.includes(currentUser._id)) {
+            if (!stats.repostUsers.includes(currentUser._id) && stats.userId !== currentUser._id) {
                 const newRepost = {
                     originalPost: stats._id,
                     username: currentUser.username,
