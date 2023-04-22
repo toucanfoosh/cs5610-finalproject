@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { createCommentThunk, findCommentsByPostThunk } from "../services/comments-thunk";
 import "../index.css";
 import { findPostByIdThunk, updatePostThunk } from "../services/posts-thunk";
+import PostItem from "../home/post-item";
 
 const Post = () => {
     const { currentUser } = useSelector(state => state.user);
@@ -15,13 +16,27 @@ const Post = () => {
     const { from } = location.state ? location.state : "/";
     const { username, pid } = useParams();
     const [comment, setComment] = useState("");
+    const [post, setPost] = useState(undefined);
 
-    const fetchComments = async () => {
-        const response = await dispatch(findCommentsByPostThunk(pid));
+    const fetchComments = async (post) => {
+        if (post.type === "repost") {
+            const response = await dispatch(findCommentsByPostThunk(post.originalPost));
+            console.log(response);
+        }
+        else {
+            const response = await dispatch(findCommentsByPostThunk(pid));
+            console.log(response);
+        }
+    }
+
+    const fetchPost = async () => {
+        const response = await dispatch(findPostByIdThunk(pid));
+        setPost(response.payload);
+        return response.payload;
     }
 
     useEffect(() => {
-        fetchComments();
+        fetchPost().then(result => fetchComments(result));
     }, []);
 
     const handlePostComment = async () => {
@@ -56,6 +71,7 @@ const Post = () => {
         <div className="row">
             {from && <Link className="col-1" to={`${from}`}><i class="fa-solid fa-arrow-left"></i></Link>}
             <h1 className="col-11">Post</h1>
+            {post && <PostItem post={post} />}
             <h1 className="">Comments</h1>
             <ul className="list-group">
                 {

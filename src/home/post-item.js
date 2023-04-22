@@ -116,7 +116,7 @@ const PostItem = ({ post }) => {
             }
             {
                 postUser && post.type === "repost" && originalPost &&
-                <Link to={`/${originalPost.username}/${originalPost._id}`} state={{ from: location.pathname }}>
+                <Link to={`/${post.username}/${post._id}`} state={{ from: location.pathname }}>
                     <div className="px-3 py-3 m-0 sf-home-item-container">
                         <div className="row">
                             <div>
