@@ -73,7 +73,7 @@ export const miniTextSearch = async ({ searchterm, accessToken }) => {
         params: {
             q: `${searchterm}`,
             type: "album",
-            limit: 3
+            limit: 5
         }
     }
 
