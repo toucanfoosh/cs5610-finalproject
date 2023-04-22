@@ -40,29 +40,56 @@ const Post = () => {
     }, []);
 
     const handlePostComment = async () => {
-        const newComment = {
-            userId: currentUser._id,
-            postId: pid,
-            username: currentUser.username,
-            handle: currentUser.handle,
-            likes: 0,
-            liked: false,
-            comment
-        }
+        if (post.type === "post") {
+            const newComment = {
+                userId: currentUser._id,
+                postId: pid,
+                username: currentUser.username,
+                handle: currentUser.handle,
+                likes: 0,
+                liked: false,
+                comment
+            }
 
-        const response = await dispatch(createCommentThunk(newComment));
-        console.log(response);
+            const response = await dispatch(createCommentThunk(newComment));
+            console.log(response);
 
-        const fullPost = await dispatch(findPostByIdThunk(pid));
-        console.log(fullPost);
-        console.log(fullPost.payload.comments)
-        const newPost = {
-            ...fullPost.payload,
-            comments: fullPost.payload.comments + 1
+            const fullPost = await dispatch(findPostByIdThunk(pid));
+            console.log(fullPost);
+            console.log(fullPost.payload.comments)
+            const newPost = {
+                ...fullPost.payload,
+                comments: fullPost.payload.comments + 1
+            }
+            console.log(newPost);
+            const result = await dispatch(updatePostThunk(newPost));
+            console.log(result);
         }
-        console.log(newPost);
-        const result = await dispatch(updatePostThunk(newPost));
-        console.log(result);
+        else if (post.type === "repost") {
+            const newComment = {
+                userId: currentUser._id,
+                postId: post.originalPost,
+                username: currentUser.username,
+                handle: currentUser.handle,
+                likes: 0,
+                liked: false,
+                comment
+            }
+
+            const response = await dispatch(createCommentThunk(newComment));
+            console.log(response);
+
+            const fullPost = await dispatch(findPostByIdThunk(post.originalPost));
+            console.log(fullPost);
+            console.log(fullPost.payload.comments)
+            const newPost = {
+                ...fullPost.payload,
+                comments: fullPost.payload.comments + 1
+            }
+            console.log(newPost);
+            const result = await dispatch(updatePostThunk(newPost));
+            console.log(result);
+        }
 
 
     }
