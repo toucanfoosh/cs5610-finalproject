@@ -2,17 +2,20 @@ import '../index.css'
 import './index.css'
 import PostStats from './post-stats';
 import { useDispatch } from 'react-redux';
-import { deletePostThunk } from '../services/posts-thunk';
+import { deletePostThunk, updatePostThunk } from '../services/posts-thunk';
 import { Link, useLocation } from 'react-router-dom';
 import { useStateWithCallbackLazy } from 'use-state-with-callback';
 import { findUserById } from '../services/user-service';
 import { updateUserThunk } from '../services/user-thunk';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { findPostById } from '../services/posts-service';
 
 const PostItem = ({ post }) => {
     const dispatch = useDispatch();
     const location = useLocation();
     const [postUser, setPostUser] = useStateWithCallbackLazy({});
+
+    const [originalPost, setOriginalPost] = useState(undefined);
 
     useEffect(() => {
         async function fetchUserById() {
@@ -20,7 +23,16 @@ const PostItem = ({ post }) => {
             setPostUser(user);
         }
 
+        async function fetchOriginalPost() {
+            const response = await findPostById(post.originalPost);
+            setOriginalPost(response);
+        }
+
         fetchUserById();
+
+        if (post.type === "repost") {
+            fetchOriginalPost();
+        }
     }, []);
 
     const handleSubtractPost = async (result) => {
@@ -34,51 +46,119 @@ const PostItem = ({ post }) => {
         console.log(updatedUser);
     }
 
+    const handleDeleteRepost = async (post) => {
+        if (postUser) {
+            const { repostUsers } = Object.assign({ repostUsers: [] }, post.repostUsers);
+            repostUsers.filter(e => e != postUser._id);
+            const updatedPost = {
+                ...post,
+                reposts: post.reposts - 1,
+                repostUsers
+            }
+
+            const response = await dispatch(updatePostThunk(updatedPost));
+            console.log(response);
+        }
+    }
+
     const deletePostHandler = async (id) => {
+        if (post.type === "repost") {
+            const response = await handleDeleteRepost(originalPost);
+            console.log(response);
+        }
+
         const user = await findUserById(post.userId);
         handleSubtractPost(user);
         await dispatch(deletePostThunk(id));
     }
 
     return (
-        postUser &&
-        <Link to={`/${postUser.username}/${post._id}`} state={{ from: location.pathname }}>
-            <div className="px-3 py-3 m-0 sf-home-item-container">
-                <div className="row">
-                    <div className="col-3 col-md-2 align-self-start text-center">
-                        <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${post.avatar}`} />
-                    </div>
-                    <div className="col">
-                        <span className="col">
-                            <div className="row">
-                                <div className="col-11">
-                                    <Link to={`/profile/${post.userId}`}>
-                                        <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
-                                            {post.username}
-                                        </span>
-                                        <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
-                                        <span className="sf-font-normal sf-clickable sf-tertiary">@{post.handle}</span>
-                                    </Link>
-                                    <div className="sf-font-normal sf-secondary pb-1 text-break">
-                                        {post.post}
-                                    </div>
-                                    <PostStats stats={post} postLink={`/${postUser.username}/${post._id}`}/>
-                                </div>
-                                <div className="col-1 d-flex align-items-top justify-content-center">
-                                    <Link to='#'>
-                                        <div className='row text-center'>
-                                            <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-anim-3 sf-hw-100"
-                                                onClick={() => deletePostHandler(post._id)}>
-                                            </i>
-                                        </div>
-                                    </Link>
-                                </div>
+        <div>
+            {
+                postUser && post.type === "post" &&
+                <Link to={`/${postUser.username}/${post._id}`} state={{ from: location.pathname }}>
+                    <div className="px-3 py-3 m-0 sf-home-item-container">
+                        <div className="row">
+                            <div className="col-3 col-md-2 align-self-start text-center">
+                                <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${post.avatar}`} />
                             </div>
-                        </span>
+                            <div className="col">
+                                <span className="col">
+                                    <div className="row">
+                                        <div className="col-11">
+                                            <Link to={`/profile/${post.userId}`}>
+                                                <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
+                                                    {post.username}
+                                                </span>
+                                                <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
+                                                <span className="sf-font-normal sf-clickable sf-tertiary">@{post.handle}</span>
+                                            </Link>
+                                            <div className="sf-font-normal sf-secondary pb-1 text-break">
+                                                {post.post}
+                                            </div>
+                                            <PostStats stats={post} postLink={`/${postUser.username}/${post._id}`} />
+                                        </div>
+                                        <div className="col-1 d-flex align-items-top justify-content-center">
+                                            <Link to='#'>
+                                                <div className='row text-center'>
+                                                    <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-anim-3 sf-hw-100"
+                                                        onClick={() => deletePostHandler(post._id)}>
+                                                    </i>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </Link>
+                </Link>
+            }
+            {
+                postUser && post.type === "repost" && originalPost &&
+                <Link to={`/${originalPost.username}/${originalPost._id}`} state={{ from: location.pathname }}>
+                    <div className="px-3 py-3 m-0 sf-home-item-container">
+                        <div className="row">
+                            <div>
+                                <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1"></i>
+                                <Link to={`/profile/${post.userId}`} className="sf-underline-hover">{post.username} reposted</Link>
+                            </div>
+                            <div className="col-3 col-md-2 align-self-start text-center">
+                                <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${originalPost.avatar}`} />
+                            </div>
+                            <div className="col">
+                                <span className="col">
+                                    <div className="row">
+                                        <div className="col-11">
+                                            <Link to={`/profile/${originalPost.userId}`}>
+                                                <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
+                                                    {originalPost.username}
+                                                </span>
+                                                <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
+                                                <span className="sf-font-normal sf-clickable sf-tertiary">@{originalPost.handle}</span>
+                                            </Link>
+                                            <div className="sf-font-normal sf-secondary pb-1 text-break">
+                                                {originalPost.post}
+                                            </div>
+                                            <PostStats stats={originalPost} postLink={`/${originalPost.username}/${originalPost._id}`} />
+                                        </div>
+                                        <div className="col-1 d-flex align-items-top justify-content-center">
+                                            <Link to='#'>
+                                                <div className='row text-center'>
+                                                    <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-anim-3 sf-hw-100"
+                                                        onClick={() => deletePostHandler(post._id)}>
+                                                    </i>
+                                                </div>
+                                            </Link>
+                                        </div>
+                                    </div>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
+            }
+        </div>
     );
 };
 

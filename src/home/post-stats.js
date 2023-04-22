@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
 import '../index.css';
-import { updatePostThunk } from "../services/posts-thunk";
+import { createPostThunk, updatePostThunk } from "../services/posts-thunk";
 import { updateUserThunk } from "../services/user-thunk";
 
 function copyLink(link) {
@@ -28,7 +28,7 @@ const PostStats = ({ stats, postLink }) => {
         if (currentUser) {
             console.log(currentUser);
             if (stats.likeUsers.includes(currentUser._id)) {
-                const newLikeUsers = stats.likeUsers.filter((e) => e != currentUser._id);
+                const newLikeUsers = stats.likeUsers.filter((e) => e !== currentUser._id);
                 const newStats = {
                     ...stats,
                     likes: stats.likes - 1,
@@ -67,6 +67,43 @@ const PostStats = ({ stats, postLink }) => {
 
     }
 
+    const handleRepost = async () => {
+        if (currentUser) {
+            if (!stats.repostUsers.includes(currentUser._id)) {
+                const newRepost = {
+                    originalPost: stats._id,
+                    username: currentUser.username,
+                    handle: currentUser.handle,
+                    userId: currentUser._id,
+                    type: "repost"
+                }
+
+                console.log(newRepost);
+
+                const repost = await dispatch(createPostThunk(newRepost));
+                console.log(repost);
+
+                // create repost
+
+                // update repostUsers
+                const { repostUsers } = Object.assign({ repostUsers: [] }, stats.repostUsers);
+                repostUsers.push(currentUser._id);
+                const newOriginalPost = {
+                    ...stats,
+                    reposts: stats.reposts + 1,
+                    repostUsers
+                }
+
+                const response = await dispatch(updatePostThunk(newOriginalPost));
+                console.log(response);
+                // update repost count
+
+            }
+        } else {
+            console.log("Must be logged in to repost");
+        }
+    }
+
     return (
         <div>
             <div className="mt-4 row">
@@ -77,7 +114,7 @@ const PostStats = ({ stats, postLink }) => {
                     </Link>
                 </div>
                 <div className="col-3">
-                    <Link className="text-secondary sf-no-link-decor" to="#">
+                    <Link onClick={() => handleRepost()} className="text-secondary sf-no-link-decor" to="#">
                         <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1"></i>
                         <span className="ms-sm-1 ms-md-3">{stats.reposts}</span>
                     </Link>
