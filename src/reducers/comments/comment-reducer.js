@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { createCommentThunk, findCommentsByPostThunk, findCommentsByUserThunk } from "../../services/comments-thunk";
+import { createCommentThunk, deleteCommentThunk, findCommentsByPostThunk, findCommentsByUserThunk } from "../../services/comments-thunk";
 
 const initialState = {
     postComments: [],
@@ -24,6 +24,10 @@ const commentsSlice = createSlice({
         [createCommentThunk.fulfilled]: (state, { payload }) => {
             state.loading = false;
             state.postComments.push(payload);
+        },
+        [deleteCommentThunk.fulfilled]: (state, { payload }) => {
+            state.loading = false;
+            state.postComments = state.postComments.filter(e => e._id !== payload);
         }
     }
 })

@@ -34,7 +34,7 @@ const PostItem = ({ post }) => {
         if (post.type === "repost") {
             fetchOriginalPost();
         }
-    }, []);
+    }, [originalPost]);
 
     const handleSubtractPost = async (result) => {
         console.log(result);

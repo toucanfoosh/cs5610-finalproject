@@ -36,6 +36,16 @@ const PostStats = ({ stats, postLink }) => {
                 }
                 const response = await dispatch(updatePostThunk(newStats));
                 console.log(response);
+
+                const { likes } = JSON.parse(JSON.stringify(currentUser));
+                const newLikes = likes.filter(e => e != currentUser._id);
+
+                const updatedUser = {
+                    ...currentUser,
+                    likes: newLikes
+                }
+
+                const status = await dispatch(updateUserThunk(updatedUser));
             }
             else {
                 const { likeUsers } = JSON.parse(JSON.stringify(stats))
@@ -50,12 +60,13 @@ const PostStats = ({ stats, postLink }) => {
                 const response = await dispatch(updatePostThunk(newStats));
                 console.log(response);
 
-                const { liked } = Object.assign({ liked: [] }, currentUser.liked);
-                liked.push(stats._id);
+                const { likes } = JSON.parse(JSON.stringify(currentUser));
+                console.log(currentUser);
+                likes.push(stats._id);
 
                 const updatedUser = {
                     ...currentUser,
-                    liked
+                    likes
                 }
 
                 const status = await dispatch(updateUserThunk(updatedUser));

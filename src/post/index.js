@@ -40,63 +40,66 @@ const Post = () => {
     }, []);
 
     const handlePostComment = async () => {
-        if (post.type === "post") {
-            const newComment = {
-                userId: currentUser._id,
-                postId: pid,
-                username: currentUser.username,
-                handle: currentUser.handle,
-                likes: 0,
-                liked: false,
-                comment
+        if (currentUser) {
+            if (comment === "") {
+                return;
             }
+            if (post.type === "post") {
+                const newComment = {
+                    userId: currentUser._id,
+                    postId: pid,
+                    username: currentUser.username,
+                    handle: currentUser.handle,
+                    likes: 0,
+                    liked: false,
+                    comment
+                }
 
-            const response = await dispatch(createCommentThunk(newComment));
-            console.log(response);
+                const response = await dispatch(createCommentThunk(newComment));
+                console.log(response);
 
-            const fullPost = await dispatch(findPostByIdThunk(pid));
-            console.log(fullPost);
-            console.log(fullPost.payload.comments)
-            const newPost = {
-                ...fullPost.payload,
-                comments: fullPost.payload.comments + 1
+                const fullPost = await dispatch(findPostByIdThunk(pid));
+                console.log(fullPost);
+                console.log(fullPost.payload.comments)
+                const newPost = {
+                    ...fullPost.payload,
+                    comments: fullPost.payload.comments + 1
+                }
+                console.log(newPost);
+                const result = await dispatch(updatePostThunk(newPost));
+                console.log(result);
+
+                const changePost = await dispatch(findPostByIdThunk(pid));
+                setPost(changePost.payload);
             }
-            console.log(newPost);
-            const result = await dispatch(updatePostThunk(newPost));
-            console.log(result);
+            else if (post.type === "repost") {
+                const newComment = {
+                    userId: currentUser._id,
+                    postId: post.originalPost,
+                    username: currentUser.username,
+                    handle: currentUser.handle,
+                    likeUsers: [],
+                    likes: 0,
+                    comment
+                }
 
-            const changePost = await dispatch(findPostByIdThunk(pid));
-            setPost(changePost.payload);
+                const response = await dispatch(createCommentThunk(newComment));
+                console.log(response);
+
+                const fullPost = await dispatch(findPostByIdThunk(post.originalPost));
+                const newPost = {
+                    ...fullPost.payload,
+                    comments: fullPost.payload.comments + 1
+                }
+                console.log(newPost);
+                const result = await dispatch(updatePostThunk(newPost));
+                console.log(result);
+
+                const changePost = await dispatch(findPostByIdThunk(post._id));
+                console.log(changePost);
+                setPost(changePost.payload);
+            }
         }
-        else if (post.type === "repost") {
-            const newComment = {
-                userId: currentUser._id,
-                postId: post.originalPost,
-                username: currentUser.username,
-                handle: currentUser.handle,
-                likeUsers: [],
-                likes: 0,
-                comment
-            }
-
-            const response = await dispatch(createCommentThunk(newComment));
-            console.log(response);
-
-            const fullPost = await dispatch(findPostByIdThunk(post.originalPost));
-            console.log(fullPost);
-            console.log(fullPost.payload.comments)
-            const newPost = {
-                ...fullPost.payload,
-                comments: fullPost.payload.comments + 1
-            }
-            console.log(newPost);
-            const result = await dispatch(updatePostThunk(newPost));
-            console.log(result);
-
-            const changePost = await dispatch(findPostByIdThunk(post.originalPost));
-            setPost(changePost.payload);
-        }
-
     }
 
     const isLiked = (likeUsers) => {
@@ -171,7 +174,7 @@ const Post = () => {
             const result = await dispatch(findPostByIdThunk(pid));
             setPost(result.payload);
 
-            const updatedComments = await dispatch(findCommentsByPostThunk(pid));
+            // const updatedComments = await dispatch(findCommentsByPostThunk(pid));
         }
         else {
             const response = await dispatch(deleteCommentThunk(comment._id));
@@ -185,15 +188,16 @@ const Post = () => {
             const updatedPost = await dispatch(updatePostThunk(newPost));
 
             const result = await dispatch(findPostByIdThunk(post._id));
+            console.log(result);
             setPost(result.payload);
 
-            const updatedComments = await dispatch(findCommentsByPostThunk(originalPost._id));
+            // const updatedComments = await dispatch(findCommentsByPostThunk(originalPost._id));
         }
     }
 
     return (
         <div className="row">
-            {from && <Link className="col-1" to={`${from}`}><i class="fa-solid fa-arrow-left"></i></Link>}
+            {<Link className="col-1" to={`/`}><i class="fa-solid fa-arrow-left"></i></Link>}
             <h1 className="col-11">Post</h1>
             {post && <PostItem post={post} />}
             <h1 className="">Comments</h1>

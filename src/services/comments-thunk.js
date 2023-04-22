@@ -45,6 +45,6 @@ export const deleteCommentThunk = createAsyncThunk(
     "comments/deleteComment",
     async (cid) => {
         const response = await service.deleteComment(cid);
-        return response;
+        return cid;
     }
 )
