@@ -12,9 +12,6 @@ const HomeComponent = () => {
     const { posts, loading } = useSelector(state => state.postsData);
     const currentUser = useSelector(state => state.user);
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(findPostsThunk())
-    }, [])
 
     return (
         <div className="row">
@@ -30,9 +27,8 @@ const HomeComponent = () => {
                     !loading &&
                     <div className="mb-2 list-group ps-0">
                         {posts.map((post) => (
-                            <PostItem post={post} />
+                            <PostItem post={post._id} />
                         ))}
-                        {/* <div className="sf-test" /> */}
                     </div>
                 }
             </div>

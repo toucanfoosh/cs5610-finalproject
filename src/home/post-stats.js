@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
 import '../index.css';
+import { useStateWithCallbackLazy } from "use-state-with-callback";
 import { createPostThunk, updatePostThunk } from "../services/posts-thunk";
 import { updateUserThunk } from "../services/user-thunk";
+import { findPostById } from "../services/posts-service";
 
 function copyLink(link) {
     console.log("link" + link)
@@ -14,6 +16,7 @@ function copyLink(link) {
 const PostStats = ({ stats, postLink }) => {
     const dispatch = useDispatch();
     const { currentUser } = useSelector(state => state.user);
+    const { posts, loading } = useSelector(state => state.postsData);
 
     function isLiked(liked) {
         if (currentUser) {
@@ -23,6 +26,10 @@ const PostStats = ({ stats, postLink }) => {
             return 'fa-regular';
         }
     }
+
+    useEffect(() => {
+
+    }, [posts])
 
     async function changeLikedValue(stats) {
         if (currentUser) {
@@ -49,9 +56,7 @@ const PostStats = ({ stats, postLink }) => {
             }
             else {
                 const { likeUsers } = JSON.parse(JSON.stringify(stats))
-                console.log(likeUsers);
                 likeUsers.push(currentUser._id);
-                console.log(likeUsers);
                 const newStats = {
                     ...stats,
                     likes: stats.likes + 1,
@@ -70,7 +75,6 @@ const PostStats = ({ stats, postLink }) => {
                 }
 
                 const status = await dispatch(updateUserThunk(updatedUser));
-                console.log(status);
             }
         } else {
             console.log("must be logged in to like");

@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import posts from "./posts.json";
-import { createPostThunk, deletePostThunk, findPostsByUserThunk, findPostsThunk, updatePostThunk } from "../../services/posts-thunk";
+import { createPostThunk, deletePostThunk, findPostByIdThunk, findPostsByUserThunk, findPostsThunk, updatePostThunk } from "../../services/posts-thunk";
 
 const initialState = {
     posts: [],
     loading: true,
-    numPosts: 0
+    numPosts: 0,
+    post: {}
 }
 
 const postsSlice = createSlice({
@@ -24,6 +25,9 @@ const postsSlice = createSlice({
             state.loading = false;
             state.posts = payload;
             state.numPosts = payload.length;
+        },
+        [findPostByIdThunk.fulfilled]: (state, { payload }) => {
+            state.post = payload;
         },
         [findPostsThunk.fulfilled]:
             (state, { payload }) => {

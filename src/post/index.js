@@ -13,10 +13,10 @@ const Post = () => {
     const { postComments, loading } = useSelector(state => state.comments);
     const location = useLocation();
     const dispatch = useDispatch();
-    const { from } = location.state ? location.state : "/";
     const { username, pid } = useParams();
     const [comment, setComment] = useState("");
     const [post, setPost] = useState(undefined);
+
 
     const fetchComments = async (post) => {
         if (post.type === "repost") {
@@ -161,37 +161,35 @@ const Post = () => {
     }
 
     const handleDeleteComment = async (comment) => {
-        if (post.type === "post") {
-            const response = await dispatch(deleteCommentThunk(comment._id));
+        if (currentUser) {
+            if (post.type === "post") {
+                const response = await dispatch(deleteCommentThunk(comment._id));
 
-            const newPost = {
-                ...post,
-                comments: post.comments - 1
+                const newPost = {
+                    ...post,
+                    comments: post.comments - 1
+                }
+
+                const updatedPost = await dispatch(updatePostThunk(newPost));
+
+                const result = await dispatch(findPostByIdThunk(pid));
+                setPost(result.payload);
             }
+            else {
+                const response = await dispatch(deleteCommentThunk(comment._id));
+                const originalPost = await fetchPost(post.originalPost);
+                console.log(originalPost);
+                const newPost = {
+                    ...originalPost,
+                    comments: originalPost.comments - 1
+                }
 
-            const updatedPost = await dispatch(updatePostThunk(newPost));
-
-            const result = await dispatch(findPostByIdThunk(pid));
-            setPost(result.payload);
-
-            // const updatedComments = await dispatch(findCommentsByPostThunk(pid));
-        }
-        else {
-            const response = await dispatch(deleteCommentThunk(comment._id));
-            const originalPost = await fetchPost(post.originalPost);
-            console.log(originalPost);
-            const newPost = {
-                ...originalPost,
-                comments: originalPost.comments - 1
+                const updatedPost = await dispatch(updatePostThunk(newPost));
+                console.log(updatedPost);
+                const result = await dispatch(findPostByIdThunk(post._id));
+                console.log(result);
+                setPost(result.payload);
             }
-
-            const updatedPost = await dispatch(updatePostThunk(newPost));
-
-            const result = await dispatch(findPostByIdThunk(post._id));
-            console.log(result);
-            setPost(result.payload);
-
-            // const updatedComments = await dispatch(findCommentsByPostThunk(originalPost._id));
         }
     }
 
@@ -199,7 +197,7 @@ const Post = () => {
         <div className="row">
             {<Link className="col-1" to={`/`}><i class="fa-solid fa-arrow-left"></i></Link>}
             <h1 className="col-11">Post</h1>
-            {post && <PostItem post={post} />}
+            {post && <PostItem post={pid} />}
             <h1 className="">Comments</h1>
             <ul className="list-group">
                 {

@@ -1,7 +1,7 @@
 import '../index.css'
 import './index.css'
 import PostStats from './post-stats';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { deletePostThunk, updatePostThunk } from '../services/posts-thunk';
 import { Link, useLocation } from 'react-router-dom';
 import { useStateWithCallbackLazy } from 'use-state-with-callback';
@@ -10,31 +10,43 @@ import { updateUserThunk } from '../services/user-thunk';
 import { useEffect, useState } from 'react';
 import { findPostById } from '../services/posts-service';
 import { deleteCommentThunk, findCommentsByPostThunk } from '../services/comments-thunk';
+import { render } from 'react-dom';
 
 const PostItem = ({ post }) => {
     const dispatch = useDispatch();
     const location = useLocation();
+    const { posts } = useSelector(state => state.postsData);
     const [postUser, setPostUser] = useStateWithCallbackLazy({});
-
+    const [fullPost, setFullPost] = useStateWithCallbackLazy(undefined);
     const [originalPost, setOriginalPost] = useState(undefined);
 
+    async function fetchUserById(result) {
+        console.log(result);
+        const user = await findUserById(result.userId);
+        setPostUser(user);
+    }
+
+    async function fetchOriginalPost(result) {
+        const response = await findPostById(result.originalPost);
+        console.log(response);
+        setOriginalPost(response);
+    }
+
+    const fetchFullPost = async () => {
+        console.log("first fetch");
+        const response = await findPostById(post);
+        setFullPost(response, result => {
+            fetchUserById(result);
+            if (result.type === "repost") {
+                fetchOriginalPost(result);
+            }
+        });
+        return response;
+    }
+
     useEffect(() => {
-        async function fetchUserById() {
-            const user = await findUserById(post.userId);
-            setPostUser(user);
-        }
-
-        async function fetchOriginalPost() {
-            const response = await findPostById(post.originalPost);
-            setOriginalPost(response);
-        }
-
-        fetchUserById();
-
-        if (post.type === "repost") {
-            fetchOriginalPost();
-        }
-    }, [originalPost]);
+        fetchFullPost();
+    }, [posts]);
 
     const handleSubtractPost = async (result) => {
         console.log(result);
@@ -66,8 +78,8 @@ const PostItem = ({ post }) => {
     }
 
     const deleteReposts = async () => {
-        if (post.type === "post" && post.reposts.length > 0) {
-            for (const element of post.reposts) {
+        if (fullPost.type === "post" && fullPost.reposts.length > 0) {
+            for (const element of fullPost.reposts) {
                 const response = await dispatch(deletePostThunk(element));
                 console.log(response);
             }
@@ -87,50 +99,50 @@ const PostItem = ({ post }) => {
     }
 
     const deletePostHandler = async (id) => {
-        if (post.type === "repost") {
+        if (fullPost.type === "repost") {
             const response = await handleDeleteRepost(originalPost, id);
             console.log(response);
         }
 
-        const user = await findUserById(post.userId);
+        const user = await findUserById(fullPost.userId);
         handleSubtractPost(user);
-        await deleteComments(post);
+        await deleteComments(fullPost);
         await deleteReposts();
-        await dispatch(deletePostThunk(post._id));
-
+        await dispatch(deletePostThunk(post));
     }
+
 
     return (
         <div>
             {
-                postUser && post.type === "post" &&
-                <Link to={`/${postUser.username}/${post._id}`} state={{ from: location.pathname }}>
+                fullPost && postUser && fullPost.type === "post" &&
+                <Link to={`/${postUser.username}/${post}`} state={{ from: location.pathname }}>
                     <div className="px-3 py-3 m-0 sf-home-item-container">
                         <div className="row">
                             <div className="col-3 col-md-2 align-self-start text-center">
-                                <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${post.avatar}`} />
+                                <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${fullPost.avatar}`} />
                             </div>
                             <div className="col">
                                 <span className="col">
                                     <div className="row">
                                         <div className="col-11">
-                                            <Link to={`/profile/${post.userId}`}>
+                                            <Link to={`/profile/${fullPost.userId}`}>
                                                 <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
-                                                    {post.username}
+                                                    {fullPost.username}
                                                 </span>
                                                 <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
-                                                <span className="sf-font-normal sf-clickable sf-tertiary">@{post.handle}</span>
+                                                <span className="sf-font-normal sf-clickable sf-tertiary">@{fullPost.handle}</span>
                                             </Link>
                                             <div className="sf-font-normal sf-secondary pb-1 text-break">
-                                                {post.post}
+                                                {fullPost.post}
                                             </div>
-                                            <PostStats stats={post} postLink={`/${postUser.username}/${post._id}`} />
+                                            <PostStats stats={fullPost} postLink={`/${postUser.username}/${post}`} />
                                         </div>
                                         <div className="col-1 d-flex align-items-top justify-content-center">
                                             <Link to='#'>
                                                 <div className='row text-center'>
                                                     <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-anim-3 sf-hw-100"
-                                                        onClick={() => deletePostHandler(post._id)}>
+                                                        onClick={() => deletePostHandler(post)}>
                                                     </i>
                                                 </div>
                                             </Link>
@@ -143,13 +155,13 @@ const PostItem = ({ post }) => {
                 </Link>
             }
             {
-                postUser && post.type === "repost" && originalPost &&
-                <Link to={`/${post.username}/${post._id}`} state={{ from: location.pathname }}>
+                fullPost && postUser && fullPost.type === "repost" && originalPost &&
+                <Link to={`/${fullPost.username}/${post}`} state={{ from: location.pathname }}>
                     <div className="px-3 py-3 m-0 sf-home-item-container">
                         <div className="row">
                             <div>
                                 <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1"></i>
-                                <Link to={`/profile/${post.userId}`} className="sf-underline-hover">{post.username} reposted</Link>
+                                <Link to={`/profile/${fullPost.userId}`} className="sf-underline-hover">{fullPost.username} reposted</Link>
                             </div>
                             <div className="col-3 col-md-2 align-self-start text-center">
                                 <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${originalPost.avatar}`} />

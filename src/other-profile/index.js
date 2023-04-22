@@ -59,7 +59,7 @@ const OtherProfile = () => {
 
     const handleFollow = async () => {
         if (profile && currentUser) {
-            const { followers } = Object.assign({ followers: [] }, profile.followers);
+            const { followers } = JSON.parse(JSON.stringify(profile));
             followers.push(currentUser._id);
             const newProfile = {
                 ...profile,
@@ -69,7 +69,7 @@ const OtherProfile = () => {
             const response = await dispatch(updateUserThunk(newProfile));
             console.log(response);
 
-            const { following } = Object.assign({ following: [] }, profile.following);
+            const { following } = JSON.parse(JSON.stringify(profile));
             following.push(profile._id);
             const newUser = {
                 ...currentUser,
@@ -81,19 +81,13 @@ const OtherProfile = () => {
         }
     }
 
+    // TODO: implement unfollowing
     const handleUnfollow = async () => {
 
     }
 
     const getUsernamesFromFollowers = async (otherUser) => {
         return Promise.all(otherUser.followers.map((id) => fetchUserById(id)));
-        for (const element of otherUser.followers) {
-            const user = await fetchUserById(element);
-            console.log(user);
-            followers.push(user.username);
-            console.log(followers);
-        }
-
     }
 
     useEffect(() => {
@@ -144,7 +138,7 @@ const OtherProfile = () => {
                     {posts.length > 0 &&
                         <ul className="list-group">
                             {posts.map(post =>
-                                <PostItem post={post} />
+                                <PostItem post={post._id} />
                             )}
                         </ul>
                     }
