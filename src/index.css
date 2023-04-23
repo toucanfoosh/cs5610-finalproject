@@ -30,7 +30,8 @@
     --accent-darker: rgb(var(--accent-darker-rgb));
     --accent-rgb: 0, 220, 37;
     --accent-darker-rgb: 0, 172, 29;
-
+    --danger: rgb(var(--danger-rgb));
+    --danger-rgb: 255, 66, 66;
 }
 
 html,
@@ -58,12 +59,12 @@ a:active {
     color: rgb(20, 24, 27);
 }
 
-.sf-liked {
-    color: rgb(220, 0, 0);
+.sf-danger {
+    color: var(--danger) !important;
 }
 
-.sf-bg-liked {
-    background-color: rgb(250, 182, 182);
+.sf-bg-danger {
+    background-color: var(--danger) !important;
 }
 
 /* .sf-test {

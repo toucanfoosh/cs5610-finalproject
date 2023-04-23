@@ -81,7 +81,7 @@ const Login = () => {
             </div>
 
             {error && (
-                <div className="position-absolute sf-liked">
+                <div className="position-absolute sf-danger">
                     Sorry, we couldn't find that account.
                 </div>
             )}

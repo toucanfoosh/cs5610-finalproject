@@ -104,7 +104,7 @@ const Post = () => {
 
     const isLiked = (likeUsers) => {
         if (currentUser) {
-            return likeUsers.includes(currentUser._id) ? 'fa-solid sf-liked' : 'fa-regular';
+            return likeUsers.includes(currentUser._id) ? 'fa-solid sf-danger' : 'fa-regular';
         }
         else {
             return 'fa-regular';
