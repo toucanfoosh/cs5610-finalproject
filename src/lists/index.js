@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import FancyButton from "../FancyButton/button";
 import { useEffect, useState } from "react";
-import { createListThunk, findListsByUserThunk } from "../services/lists-thunk";
+import { createListThunk, deleteListThunk, findListsByUserThunk } from "../services/lists-thunk";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
 
@@ -17,7 +17,7 @@ const Lists = () => {
                 userId: currentUser._id,
                 albums: [],
                 name: "Untitled Folio",
-                description: "No description"
+                description: ""
             }
 
             const response = await dispatch(createListThunk(newList));
@@ -37,6 +37,12 @@ const Lists = () => {
             setLists(response.payload);
         }
 
+    }
+
+    const handleDelete = async (id) => {
+        const response = await dispatch(deleteListThunk(id));
+
+        const result = await fetchListsByUser();
     }
 
     useEffect(() => {
@@ -60,7 +66,8 @@ const Lists = () => {
                             {lists.map(list =>
                                 <li className="list-group-item">
                                     <Link to={`/lists/${list._id}`} className="sf-underline-hover">{list.name}</Link>
-                                    <div className="sf-tertiary">{list.description !== "" ? list.description : "No description"}</div>
+                                    <div className="sf-tertiary">{list.description}</div>
+                                    <i onClick={() => handleDelete(list._id)} className="float-end fa-solid fa-x sf-small-hover"></i>
                                 </li>
                             )}
                         </ul>

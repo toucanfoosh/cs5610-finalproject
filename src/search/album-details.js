@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { useNavigate, useParams } from "react-router";
 import { getAccessToken, getAlbum } from "../services/search-service";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,6 +7,7 @@ import { createReviewThunk, findReviewsByAlbumThunk, updateReviewThunk } from ".
 import "../index.css";
 import FancyButton from "../FancyButton/button";
 import { updateUserThunk } from "../services/user-thunk";
+import { createListThunk, findListsByUserThunk, updateListThunk } from "../services/lists-thunk";
 
 const AlbumDetails = () => {
     const { id } = useParams();
@@ -18,7 +19,9 @@ const AlbumDetails = () => {
     const [score, setScore] = useState(0);
     const [oldReviewId, setOldReviewId] = useState("");
     const [alreadyPosted, setAlreadyPosted] = useState(false);
+    const [lists, setLists] = useState([]);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const checkIfAlreadyPosted = (result) => {
         if (result) {
@@ -30,6 +33,13 @@ const AlbumDetails = () => {
                     setOldReviewId(review._id);
                 }
             })
+        }
+    }
+
+    const fetchLists = async () => {
+        if (currentUser) {
+            const response = await dispatch(findListsByUserThunk(currentUser._id));
+            setLists(response.payload);
         }
     }
 
@@ -57,7 +67,10 @@ const AlbumDetails = () => {
         dispatch(findReviewsByAlbumThunk(id)).then(result => {
             checkIfAlreadyPosted(result.payload)
         });
+        fetchLists();
     }, [id, currentUser]);
+
+
 
     function convertMS(track) {
         const minutes = Math.floor(track.duration_ms / 1000 / 60)
@@ -112,6 +125,69 @@ const AlbumDetails = () => {
         console.log(updatedUser);
     }
 
+    const alreadyIncluded = (list) => {
+        for (const album of list.albums) {
+            if (album.albumId === id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    const handleRemoveFromList = async (list) => {
+        // PREREQ: already in list
+        console.log("removing from list");
+        const newAlbums = list.albums.filter(e => e.albumId != id);
+        const newList = {
+            ...list,
+            albums: newAlbums
+        }
+
+        const response = await dispatch(updateListThunk(newList));
+        const update = await fetchLists();
+    }
+
+    const handleAddToList = async (list) => {
+        console.log("adding to list");
+        const newAlbum = {
+            albumId: id,
+            albumName: album.data.name,
+            albumMainArtist: album.data.artists[0].name,
+            albumImage: album.data.images[1].url
+        }
+
+        const { albums } = JSON.parse(JSON.stringify(list));
+        albums.push(newAlbum);
+
+        const newList = {
+            ...list,
+            albums
+        }
+
+        const response = await dispatch(updateListThunk(newList));
+        const result = await fetchLists();
+        console.log(response);
+    }
+
+    const createNewFolio = async () => {
+        if (currentUser) {
+            const newList = {
+                userId: currentUser._id,
+                albums: [],
+                name: "Untitled Folio",
+                description: ""
+            }
+
+            const response = await dispatch(createListThunk(newList));
+            console.log(response.payload);
+
+            const resList = response.payload;
+
+            navigate(`/lists/${resList._id}`);
+        }
+    }
+
+
     return (
         <div>
             {album.data &&
@@ -129,16 +205,49 @@ const AlbumDetails = () => {
                                     <div className="text-capitalize sf-tertiary sf-song-subtext fs-5">{album.data.album_type} • {album.data.release_date.substring(0, 4)}</div>
                                 </div>
                             </div>
-                            <div className="col-2 d-flex align-items-end">
-                                <div class="dropdown">
-                                    <button class="dropbtn">Dropdown</button>
-                                    <div class="dropdown-content">
-                                        <a href="#">Link 1</a>
-                                        <a href="#">Link 2</a>
-                                        <a href="#">Link 3</a>
+                            {
+                                currentUser &&
+                                <div className="col-2 d-flex align-items-end">
+                                    <div class="dropdown">
+                                        <button class="dropbtn">Dropdown</button>
+                                        <div class="dropdown-content">
+                                            {lists.length > 0 && lists.map(list => {
+                                                return (
+                                                    <div>
+                                                        {
+                                                            !alreadyIncluded(list) &&
+                                                            <Link onClick={() => handleAddToList(list)}>
+                                                                <div className="row">
+                                                                    <span className="col-10">{list.name}</span>
+                                                                    <i className="col-2 fa-solid fa-plus"></i>
+                                                                </div>
+                                                            </Link>
+                                                        }
+                                                        {
+                                                            alreadyIncluded(list) &&
+                                                            <Link onClick={() => handleRemoveFromList(list)}>
+                                                                <div className="row">
+                                                                    <span className="col-10">{list.name}</span>
+                                                                    <i className="col-2 fa-solid fa-check"></i>
+                                                                </div>
+                                                            </Link>
+                                                        }
+                                                    </div>
+                                                )
+                                            }
+                                            )}
+                                            {
+                                                lists.length === 0 &&
+                                                <div>
+                                                    <Link onClick={() => createNewFolio()}>
+                                                        Create new folio
+                                                    </Link>
+                                                </div>
+                                            }
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            }
                         </div>
                     </div>
                     <div className="p-3 pb-1 pt-1">
