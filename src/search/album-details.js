@@ -116,21 +116,30 @@ const AlbumDetails = () => {
         <div>
             {album.data &&
                 <div>
-                    <div>
-                        <h1 className="sf-secondary">{album.data.name}</h1>
-                        <div>{album.data.release_date.substring(0, 4)} • {album.data.album_type}</div>
-                        <img src={album.data.images[1].url} />
-                        <div>
-                            {album.data.artists && album.data.artists.map(artist => <span>{artist.name} </span>)}
+                    <div className="ps-2">
+                        <div className="d-flex p-3 ps-0 justify-content-between d-flex row">
+                            <div className="col-1" />
+                            <div className="d-flex col-11">
+                                <img src={album.data.images[1].url} className="sf-song-cover" />
+                                <div className="d-flex ps-3 flex-column justify-content-center">
+                                    <h1 className="sf-secondary sf-song-title m-0">{album.data.name}</h1>
+                                    <div className="sf-accent sf-song-artist">
+                                        {album.data.artists && album.data.artists.map(artist => <span>{artist.name} </span>)}
+                                    </div>
+                                    <div className="text-capitalize sf-tertiary sf-song-subtext fs-5">{album.data.album_type} • {album.data.release_date.substring(0, 4)}</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div className="mt-2">
-                        <h2 className="sf-secondary">Tracks</h2>
-                        {album.data.tracks.items.map(track => {
+                    <div className="p-3 pb-1 pt-1">
+                        {album.data.tracks.items.map((track, index) => {
                             return (
-                                <div>
-                                    <span>{track.name}</span>
-                                    <div className="float-end">{convertMS(track)}</div>
+                                <div className="py-1 row d-flex justify-content-between">
+                                    <div className="d-flex col-11">
+                                        <div className="sf-tertiary pe-2 col-1 d-flex justify-content-end">{index + 1}</div>
+                                        <div className="sf-secondary col-11 text-truncate">{track.name}</div>
+                                    </div>
+                                    <div className="float-end sf-secondary col-1 d-flex justify-content-end">{convertMS(track)}</div>
                                 </div>
                             )
                         })}

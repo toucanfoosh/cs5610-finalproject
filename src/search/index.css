@@ -44,6 +44,23 @@
     border-color: var(--accent);
 }
 
-.sf-review-stats {
+.sf-song-title {
+    font-size: 32px;
+    font-weight: bold;
+}
 
+.sf-song-artist {
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.sf-song-subtext {
+    font-size: 16px;
+    font-weight: normal;
+}
+
+.sf-song-cover {
+    border-radius: 15px;
+    height: 12rem;
+    width: 12rem;
 }

@@ -119,7 +119,7 @@ const SearchScreen = () => {
                                                     <div className="sf-tertiary text-truncate">{result.artists[0].name}</div>
                                                 </div>
                                             </div>
-                                            <div className="sf-flex-col col-3 sf-review-stats d-flex justify-content-center align-items-end">
+                                            <div className="sf-flex-col col-3 d-flex justify-content-center align-items-end">
                                                 <div className="sf-flex-col pe-3 text-truncate">
                                                     <div className="sf-secondary sf-text-bold">Rating: #/5</div>
                                                     <div className="sf-tertiary"># reviews</div>
