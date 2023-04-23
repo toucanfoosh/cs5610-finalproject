@@ -22,6 +22,8 @@ import themeReducer from "./reducers/theme/theme-reducer";
 import OtherProfile from "./other-profile";
 import Post from "./post";
 import commentReducer from "./reducers/comments/comment-reducer";
+import Lists from "./lists";
+import ListDetails from "./list-details/list-details";
 
 const store = configureStore(
     {
@@ -54,6 +56,9 @@ function App() {
                                 <Route path="/edit-profile" element={<MobileNavBar active="Profile" />} />
                                 <Route path="/search/album/:id" element={<MobileNavBar active="Search" />} />
                                 <Route path="/:username/:pid" element={<MobileNavBar active="Home" />} />
+                                <Route path="/lists" element={<MobileNavBar active="Saved" />} />
+                                <Route path="/lists/:lid" element={<MobileNavBar active="Saved" />} />
+
                             </Routes>
                         </div>
                         <div className="row">
@@ -70,6 +75,8 @@ function App() {
                                     <Route path="/edit-profile" element={<NavBar active="Profile" />} />
                                     <Route path="/search/album/:id" element={<NavBar active="Search" />} />
                                     <Route path="/:username/:pid" element={<NavBar active="Home" />} />
+                                    <Route path="/lists" element={<NavBar active="Saved" />} />
+                                    <Route path="/lists/:lid" element={<NavBar active="Saved" />} />
 
                                 </Routes>
                             </div>
@@ -86,6 +93,8 @@ function App() {
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<RegisterScreen />} />
                                     <Route path="/:username/:pid" element={<Post />} />
+                                    <Route path="/lists" element={<Lists />} />
+                                    <Route path="/lists/:lid" element={<ListDetails />} />
                                 </Routes>
                             </div>
                             <div className="d-none d-lg-block col-lg-2 col-xl-3 sf-side sticky-top sf-left-border">

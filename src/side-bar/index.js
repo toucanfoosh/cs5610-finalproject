@@ -31,8 +31,8 @@ const SideBar = () => {
     }, []);
 
     const getNewRelease = async (accessToken) => {
-        const response = await getNewReleases({ limit: 3, accessToken });
-        console.log(response);
+        // const response = await getNewReleases({ limit: 3, accessToken });
+        // console.log(response);
     }
 
     const searchSpotify = async (searchterm) => {
@@ -116,7 +116,7 @@ const SideBar = () => {
                     </div>
                 </div>
             </div >
-            <div>
+            {/* <div>
                 <h1>New Releases</h1>
                 <div className='d-flex justify-content-center sf-card-container'>
                     <div className={`sf-card ${hasBorder ? 'sf-card-border' : ''} sf-bg-primary`}>
@@ -151,7 +151,7 @@ const SideBar = () => {
                         }
                     </div>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 };
