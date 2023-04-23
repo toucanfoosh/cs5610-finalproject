@@ -20,19 +20,16 @@ const PostItem = ({ post }) => {
     const [originalPost, setOriginalPost] = useState(undefined);
 
     async function fetchUserById(result) {
-        console.log(result);
         const user = await findUserById(result.userId);
         setPostUser(user);
     }
 
     async function fetchOriginalPost(result) {
         const response = await findPostById(result.originalPost);
-        console.log(response);
         setOriginalPost(response);
     }
 
     const fetchFullPost = async () => {
-        console.log("first fetch");
         const response = await findPostById(post);
         setFullPost(response, result => {
             fetchUserById(result);
