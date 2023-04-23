@@ -62,11 +62,11 @@ a:active {
     color: rgb(220, 0, 0);
 }
 
-.sf-test {
+/* .sf-test {
     background-color: red;
     width: 100%;
     height: 1000vh;
-}
+} */
 
 .sf-primary {
     color: var(--primary) !important;
@@ -243,4 +243,8 @@ a:active {
 
 .sf-bottom-post {
     height: 50vh;
+}
+
+.sf-vh-100 {
+    height: 100vh;
 }
