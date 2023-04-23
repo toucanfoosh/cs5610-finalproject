@@ -40,7 +40,7 @@ const ListDetails = () => {
 
     return (
         <div>
-            <BackButton />
+            <BackButton path="/lists" />
             <div className="row">
                 <h1>Folio</h1>
                 {

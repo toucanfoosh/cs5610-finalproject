@@ -193,7 +193,7 @@ const AlbumDetails = () => {
         <div>
             {album.data &&
                 <div>
-                    <BackButton />
+                    <BackButton path="/search" />
                     <div className="ps-2">
                         <div className="d-flex p-3 ps-0 justify-content-start d-flex row">
                             <div className="col-1" />

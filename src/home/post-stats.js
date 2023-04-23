@@ -20,7 +20,7 @@ const PostStats = ({ stats, postLink }) => {
 
     function isLiked(liked) {
         if (currentUser) {
-            return liked.includes(currentUser._id) ? 'fa-solid sf-liked' : 'fa-regular';
+            return liked.includes(currentUser._id) ? 'fa-solid sf-danger' : 'fa-regular';
         }
         else {
             return 'fa-regular';

@@ -4,6 +4,8 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import FancyButton from "../FancyButton/button";
 import BackButton from "../back-button";
+import './index.css';
+import '../index.css';
 
 const RegisterScreen = () => {
     const dispatch = useDispatch();
@@ -50,13 +52,7 @@ const RegisterScreen = () => {
 
     return (
         <div>
-            <BackButton />
-            {
-                error &&
-                <div className="alert alert-danger" role="alert">
-                    {error}
-                </div>
-            }
+            <BackButton path="/login" />
             <div className="sf-w-100 sf-vh-100 d-flex flex-column justify-content-center align-items-center">
                 <div className="d-flex flex-column align-items-center">
                     <div className="d-flex flex-column align-items-start pb-4">
@@ -95,6 +91,12 @@ const RegisterScreen = () => {
                         <FancyButton onclick={handleRegister} text="Register" />
                     </div>
                 </div >
+                {
+                    error &&
+                    <div className="position-absolute sf-danger sf-register-error">
+                        One or more fields are missing
+                    </div>
+                }
             </div >
         </div >
     )
