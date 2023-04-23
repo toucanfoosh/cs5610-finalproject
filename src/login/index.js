@@ -43,7 +43,7 @@ const Login = () => {
                     <label for="username">Username</label>
                     <input
                         id="username"
-                        className="sf-form-control fs-3"
+                        className="sf-form-control sf-login-box fs-3"
                         type="text"
                         value={username}
                         onChange={(event) => setUsername(event.target.value)}
@@ -58,7 +58,7 @@ const Login = () => {
                     <label for="password" >Password</label>
                     <input
                         id="password"
-                        className="sf-form-control fs-3"
+                        className="sf-form-control sf-login-box fs-3"
                         type="password"
                         value={password}
                         onChange={(event) => setPassword(event.target.value)}

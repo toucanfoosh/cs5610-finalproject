@@ -248,3 +248,16 @@ a:active {
 .sf-vh-100 {
     height: 100vh;
 }
+
+.sf-form-control {
+    border-radius: 5px;
+    border: 1px solid var(--tertiary-alt);
+    padding: 0 1rem;
+    color: var(--secondary);
+    background-color: var(--primary);
+}
+
+.sf-form-control:focus {
+    outline: none;
+    border: 1px solid var(--accent);
+}
