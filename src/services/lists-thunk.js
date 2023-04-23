@@ -20,7 +20,7 @@ export const findListByIdThunk = createAsyncThunk(
 export const findListsByUserThunk = createAsyncThunk(
     "lists/findListsByUser",
     async (uid) => {
-        const lists = await service.findLists(uid);
+        const lists = await service.findListsByUser(uid);
         return lists;
     }
 );

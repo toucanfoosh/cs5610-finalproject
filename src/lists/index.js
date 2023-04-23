@@ -32,6 +32,7 @@ const Lists = () => {
 
     const fetchListsByUser = async () => {
         if (currentUser) {
+            console.log(currentUser);
             const response = await dispatch(findListsByUserThunk(currentUser._id));
             console.log(response.payload);
             setLists(response.payload);
