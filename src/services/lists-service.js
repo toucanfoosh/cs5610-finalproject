@@ -7,8 +7,13 @@ export const findLists = async () => {
     return response.data;
 }
 
+export const findListById = async (lid) => {
+    const response = await axios.get(`${LISTS_API}/list/${lid}`);
+    return response.data;
+}
+
 export const findListsByUser = async (uid) => {
-    const response = await axios.get(`${LISTS_API}/${uid}`);
+    const response = await axios.get(`${LISTS_API}/user/${uid}`);
     return response.data;
 }
 

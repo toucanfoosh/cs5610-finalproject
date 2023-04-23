@@ -62,6 +62,10 @@ a:active {
     color: rgb(220, 0, 0);
 }
 
+.sf-bg-liked {
+    background-color: rgb(250, 182, 182);
+}
+
 /* .sf-test {
     background-color: red;
     width: 100%;
