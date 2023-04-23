@@ -112,7 +112,7 @@ const SearchScreen = () => {
     }
     return (
         <div>
-            <div className='sf-searchbar-page-container sf-bg-primary sticky-top sf-home-item-container d-flex align-items-center justify-content-center'>
+            <div className='sf-searchbar-page-container sf-bg-blur sticky-top sf-home-item-container d-flex align-items-center justify-content-center'>
                 <div className='sf-searchbar'>
                     <input id='search' className="sf-searchbar-text"
                         placeholder="Search..."
