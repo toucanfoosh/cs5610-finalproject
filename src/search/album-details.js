@@ -119,7 +119,7 @@ const AlbumDetails = () => {
                     <div className="ps-2">
                         <div className="d-flex p-3 ps-0 justify-content-between d-flex row">
                             <div className="col-1" />
-                            <div className="d-flex col-11">
+                            <div className="d-flex col-9">
                                 <img src={album.data.images[1].url} className="sf-song-cover" />
                                 <div className="d-flex ps-3 flex-column justify-content-center">
                                     <h1 className="sf-secondary sf-song-title m-0">{album.data.name}</h1>
@@ -127,6 +127,16 @@ const AlbumDetails = () => {
                                         {album.data.artists && album.data.artists.map(artist => <span>{artist.name} </span>)}
                                     </div>
                                     <div className="text-capitalize sf-tertiary sf-song-subtext fs-5">{album.data.album_type} • {album.data.release_date.substring(0, 4)}</div>
+                                </div>
+                            </div>
+                            <div className="col-2 d-flex align-items-end">
+                                <div class="dropdown">
+                                    <button class="dropbtn">Dropdown</button>
+                                    <div class="dropdown-content">
+                                        <a href="#">Link 1</a>
+                                        <a href="#">Link 2</a>
+                                        <a href="#">Link 3</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
