@@ -9,6 +9,14 @@ export const findListsThunk = createAsyncThunk(
     }
 );
 
+export const findListByIdThunk = createAsyncThunk(
+    "lists/findListById",
+    async (lid) => {
+        const list = await service.findListById(lid);
+        return list;
+    }
+)
+
 export const findListsByUserThunk = createAsyncThunk(
     "lists/findListsByUser",
     async (uid) => {
@@ -29,7 +37,7 @@ export const updateListThunk = createAsyncThunk(
     "lists/updateList",
     async (list) => {
         const updatedList = await service.updateList(list);
-        return updateList;
+        return updatedList;
     }
 );
 
