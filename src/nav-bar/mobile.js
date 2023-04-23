@@ -23,8 +23,8 @@ const MobileNavBar = ({ active = 'home' }) => {
 
     return (
         <div className="sf-mobile-navbar">
-            <div className="row">
-                <div className="col-10 row">
+            <div className="row align-items-end">
+                <div className="col-10 row align-items-end">
                     {sidebar.map((sidebarItem) => (
                         <div className="col text-center">
                             <NavItem item={sidebarItem} active={active} />

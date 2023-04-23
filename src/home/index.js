@@ -16,7 +16,7 @@ const HomeComponent = () => {
     return (
         <div className="row">
             <div className="px-0">
-                <div className="sticky-top sf-bg-primary">
+                <div className="sticky-top sf-bg-blur">
                     <WhatsHappening />
                 </div>
                 {
