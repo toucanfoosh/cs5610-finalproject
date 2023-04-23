@@ -5,6 +5,7 @@ import { profileThunk, loginThunk } from "../services/user-thunk";
 import FancyButton from "../FancyButton/button";
 import './index.css';
 import '../index.css';
+import '../login/index.css'
 
 const Login = () => {
     const { currentUser } = useSelector((state) => state.user);
@@ -40,7 +41,7 @@ const Login = () => {
         <div className="sf-w-100 sf-vh-100 d-flex flex-column justify-content-center align-items-center">
             <div className="d-flex flex-column align-items-center">
                 <div className="d-flex flex-column align-items-start pb-4">
-                    <label for="username">Username</label>
+                    <label for="username" className="sf-secondary">Username</label>
                     <input
                         id="username"
                         className="sf-form-control sf-login-box fs-3"
@@ -55,7 +56,7 @@ const Login = () => {
                     />
                 </div>
                 <div className="d-flex flex-column align-items-start">
-                    <label for="password" >Password</label>
+                    <label for="password" className="sf-secondary">Password</label>
                     <input
                         id="password"
                         className="sf-form-control sf-login-box fs-3"
@@ -81,7 +82,7 @@ const Login = () => {
 
             {error && (
                 <div className="position-absolute sf-liked">
-                    Sorry, we couldn't find that account. 
+                    Sorry, we couldn't find that account.
                 </div>
             )}
             {/* {currentUser && (

@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import { findListByIdThunk, updateListThunk } from "../services/lists-thunk";
 import FancyButton from "../FancyButton/button";
+import BackButton from "../back-button";
 
 const ListDetails = () => {
     const dispatch = useDispatch();
@@ -39,8 +40,8 @@ const ListDetails = () => {
 
     return (
         <div>
+            <BackButton />
             <div className="row">
-                <Link to="/lists"><i className="fa-solid fa-circle-chevron-left"></i></Link>
                 <h1>Folio</h1>
                 {
                     list &&

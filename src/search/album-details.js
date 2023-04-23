@@ -8,6 +8,7 @@ import "../index.css";
 import FancyButton from "../FancyButton/button";
 import { updateUserThunk } from "../services/user-thunk";
 import { createListThunk, findListsByUserThunk, updateListThunk } from "../services/lists-thunk";
+import BackButton from "../back-button";
 
 const AlbumDetails = () => {
     const { id } = useParams();
@@ -192,8 +193,9 @@ const AlbumDetails = () => {
         <div>
             {album.data &&
                 <div>
+                    <BackButton />
                     <div className="ps-2">
-                        <div className="d-flex p-3 ps-0 justify-content-between d-flex row">
+                        <div className="d-flex p-3 ps-0 justify-content-start d-flex row">
                             <div className="col-1" />
                             <div className="d-flex col-9">
                                 <img src={album.data.images[1].url} className="sf-song-cover" />
