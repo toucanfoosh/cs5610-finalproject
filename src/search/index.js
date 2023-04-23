@@ -161,7 +161,7 @@ const SearchScreen = () => {
                                                     </div>
                                                 </div>
                                                 <div className="sf-flex-col col-3 sf-review-stats d-flex justify-content-center align-items-end">
-                                                    <div className="sf-flex-col pe-3 text-truncate">
+                                                    <div className="sf-flex-col pe-3 text-truncate text-end">
                                                         <div className="sf-secondary sf-text-bold">Rating: {result.score !== "-" ? (("" + result.score).length > 4 ? ("" + result.score).slice(0, 4) : result.score) : result.score}/5</div>
                                                         <div className="sf-tertiary">{result.numReviews} reviews</div>
                                                     </div>

@@ -6,6 +6,7 @@ import { createPostThunk } from "../services/posts-thunk";
 import FancyButton from "../FancyButton/button";
 import { profileThunk } from "../services/user-thunk";
 import { updateUserThunk } from "../services/user-thunk";
+import { Link } from "react-router-dom";
 
 const WhatsHappening = () => {
     const { currentUser } = useSelector(state => state.user);
@@ -62,7 +63,9 @@ const WhatsHappening = () => {
             }
             <div className="row">
                 <div className="col-3 col-md-2 align-self-center text-center">
-                    <img className='rounded-circle sf-pfp sf-clickable sf-darken-hover sf-anim-3' src={`./images/catjam.jpg`} />
+                    <Link to="/login">
+                        <img className='rounded-circle sf-pfp sf-clickable sf-darken-hover sf-anim-3' src={`./images/catjam.jpg`} />
+                    </Link>
                 </div>
                 <div className="col-6 col-md-7">
                     <textarea onChange={(e) => {
