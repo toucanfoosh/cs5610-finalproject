@@ -139,7 +139,7 @@ const AlbumDetails = () => {
                                         <div className="sf-tertiary pe-2 col-1 d-flex justify-content-end">{index + 1}</div>
                                         <div className="sf-secondary col-11 text-truncate">{track.name}</div>
                                     </div>
-                                    <div className="float-end sf-secondary col-1 d-flex justify-content-end">{convertMS(track)}</div>
+                                    <div className="sf-tertiary sf-secondary col-1 d-flex justify-content-end">{convertMS(track)}</div>
                                 </div>
                             )
                         })}
