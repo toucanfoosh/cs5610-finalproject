@@ -41,7 +41,7 @@
     width: 70%;
 }
 
-.active .sf-navbar-item-hover {
+.sf-active .sf-navbar-item-hover {
     border: 1px solid var(--accent);
     width: 70%;
 }

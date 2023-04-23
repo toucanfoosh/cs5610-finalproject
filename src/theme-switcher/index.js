@@ -40,7 +40,7 @@ const ThemeSwitcher = ({ darkMode, toggleTheme }) => {
           <div className="sf-secondary">
             <div className="row">
               <div className="text-center text-xl-end sf-tertiary col-xl-5">
-                <span className={`fa-regular ${darkMode ? 'fa-sun' : 'fa-moon'} sf-secondary`}></span>
+                <span className={`fa-solid ${darkMode ? 'fa-sun' : 'fa-moon'} sf-secondary`}></span>
               </div>
               <div className="d-none d-xl-inline text-start col-xl-7">
                 <span>{darkMode ? 'Light' : 'Dark'} Mode</span>

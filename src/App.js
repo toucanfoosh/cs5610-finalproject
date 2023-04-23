@@ -56,8 +56,8 @@ function App() {
                                 <Route path="/edit-profile" element={<MobileNavBar active="Profile" />} />
                                 <Route path="/search/album/:id" element={<MobileNavBar active="Search" />} />
                                 <Route path="/:username/:pid" element={<MobileNavBar active="Home" />} />
-                                <Route path="/lists" element={<MobileNavBar active="Saved" />} />
-                                <Route path="/lists/:lid" element={<MobileNavBar active="Saved" />} />
+                                <Route path="/lists" element={<MobileNavBar active="Folios" />} />
+                                <Route path="/lists/:lid" element={<MobileNavBar active="Folios" />} />
 
                             </Routes>
                         </div>
@@ -75,8 +75,8 @@ function App() {
                                     <Route path="/edit-profile" element={<NavBar active="Profile" />} />
                                     <Route path="/search/album/:id" element={<NavBar active="Search" />} />
                                     <Route path="/:username/:pid" element={<NavBar active="Home" />} />
-                                    <Route path="/lists" element={<NavBar active="Saved" />} />
-                                    <Route path="/lists/:lid" element={<NavBar active="Saved" />} />
+                                    <Route path="/lists" element={<NavBar active="Folios" />} />
+                                    <Route path="/lists/:lid" element={<NavBar active="Folios" />} />
 
                                 </Routes>
                             </div>

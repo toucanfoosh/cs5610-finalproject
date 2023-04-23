@@ -3,18 +3,21 @@
         "title": "Home",
         "href": "../",
         "_id": "234",
-        "icon": "fa fa-home"
+        "icon": "fa fa-home",
+        "activeIcon": "fa-solid fa-house-chimney"
     },
     {
         "title": "Search",
         "href": "../search",
         "_id": "567",
-        "icon": "fa-solid fa-magnifying-glass"
+        "icon": "fa-solid fa-magnifying-glass",
+        "activeIcon": "fa-solid fa-magnifying-glass-arrow-right"
     },
     {
-        "title": "Saved",
+        "title": "Folios",
         "href": "../lists",
         "_id": "789",
-        "icon": "fa fa-list"
+        "icon": "fa-solid fa-folder",
+        "activeIcon": "fa-solid fa-folder-open"
     }
 ]
