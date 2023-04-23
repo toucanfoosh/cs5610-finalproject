@@ -33,7 +33,6 @@ const PostStats = ({ stats, postLink }) => {
 
     async function changeLikedValue(stats) {
         if (currentUser) {
-            console.log(currentUser);
             if (stats.likeUsers.includes(currentUser._id)) {
                 const newLikeUsers = stats.likeUsers.filter((e) => e !== currentUser._id);
                 const newStats = {
@@ -42,10 +41,9 @@ const PostStats = ({ stats, postLink }) => {
                     likeUsers: newLikeUsers
                 }
                 const response = await dispatch(updatePostThunk(newStats));
-                console.log(response);
 
                 const { likes } = JSON.parse(JSON.stringify(currentUser));
-                const newLikes = likes.filter(e => e != currentUser._id);
+                const newLikes = likes.filter(e => e != stats._id);
 
                 const updatedUser = {
                     ...currentUser,
@@ -53,6 +51,7 @@ const PostStats = ({ stats, postLink }) => {
                 }
 
                 const status = await dispatch(updateUserThunk(updatedUser));
+                console.log(status.payload);
             }
             else {
                 const { likeUsers } = JSON.parse(JSON.stringify(stats))
@@ -63,10 +62,8 @@ const PostStats = ({ stats, postLink }) => {
                     likeUsers
                 }
                 const response = await dispatch(updatePostThunk(newStats));
-                console.log(response);
 
                 const { likes } = JSON.parse(JSON.stringify(currentUser));
-                console.log(currentUser);
                 likes.push(stats._id);
 
                 const updatedUser = {
@@ -75,6 +72,7 @@ const PostStats = ({ stats, postLink }) => {
                 }
 
                 const status = await dispatch(updateUserThunk(updatedUser));
+                console.log(status.payload);
             }
         } else {
             console.log("must be logged in to like");
