@@ -101,10 +101,11 @@ const PostItem = ({ post }) => {
             console.log(response);
         }
 
+
+        const user = await findUserById(fullPost.userId);
         if (fullPost.type === "post") {
             await handleSubtractPost(user);
         }
-        const user = await findUserById(fullPost.userId);
 
         await deleteComments(fullPost);
         await deleteReposts();
