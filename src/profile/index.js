@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import FancyButton from "../FancyButton/button";
-import { logoutThunk, profileThunk } from "../services/user-thunk";
+import { logoutThunk } from "../services/user-thunk";
 import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import "../index.css"
@@ -8,6 +8,7 @@ import "../index.css"
 const Profile = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [followers, setFollowers] = useState(undefined);
     const handleLogout = async () => {
         await dispatch(logoutThunk());
         console.log("logged out");
@@ -17,7 +18,7 @@ const Profile = () => {
         navigate("/edit-profile");
     }
     useEffect(() => {
-        dispatch(profileThunk());
+
     }, []);
     const { currentUser } = useSelector(state => state.user);
     return (
@@ -30,7 +31,12 @@ const Profile = () => {
                     <div className="sf-secondary sf-text-bold">{currentUser.username}
                         <span className="sf-text-normal">@{currentUser.handle}</span></div>
                     <div className="sf-secondary">
-                        <div>Followers: {currentUser.followers.length}</div>
+                        <div>Followers {currentUser.followers.length}</div>
+                        {followers && followers.map(follower =>
+                            <div>
+                                {follower.username}
+                            </div>)
+                        }
                         <div>Following: {currentUser.following.length}</div>
                         <div>Posts: {currentUser.posts}</div>
                         <div>Reviews: {currentUser.reviews}</div>

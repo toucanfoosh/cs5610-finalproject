@@ -13,6 +13,10 @@ const HomeComponent = () => {
     const currentUser = useSelector(state => state.user);
     const dispatch = useDispatch();
 
+    useEffect(() => {
+        dispatch(findPostsThunk());
+    }, [])
+
     return (
         <div className="row">
             <div className="px-0">
