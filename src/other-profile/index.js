@@ -23,6 +23,7 @@ const OtherProfile = () => {
     const [posts, setPosts] = useState([]);
     const [reviews, setReviews] = useState([]);
     const [followers, setFollowers] = useState(undefined);
+    const [following, setFollowing] = useState(undefined);
 
     const isFollowing = () => {
         if (currentUser && profile) {
@@ -90,13 +91,20 @@ const OtherProfile = () => {
         return await Promise.all(otherUser.followers.map((id) => fetchUserById(id)));
     }
 
+    const getUsernamesFromFollowing = async (otherUser) => {
+        return await Promise.all(otherUser.following.map((id) => fetchUserById(id)));
+    }
+
     useEffect(() => {
         if (currentUser) {
             if (uid === currentUser._id) {
                 navigate("/profile");
             }
         }
-        fetchUser().then(result => getUsernamesFromFollowers(result)).then(response => setFollowers(response));
+        fetchUser().then(result => {
+            getUsernamesFromFollowers(result).then(response => setFollowers(response));
+            getUsernamesFromFollowing(result).then(response => setFollowing(response));
+        })
 
     }, [uid]);
 
@@ -117,6 +125,12 @@ const OtherProfile = () => {
                             </div>)
                     }
                     <h3> Following {profile.following.length}</h3>
+                    {
+                        following && following.map(followed =>
+                            <div>
+                                {followed.username}
+                            </div>)
+                    }
                     <h3>Reviews {numReviews}</h3>
                     {reviews.length > 0 &&
                         <ul className="list-group">
