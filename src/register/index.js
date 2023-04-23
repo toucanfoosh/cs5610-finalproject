@@ -79,7 +79,7 @@ const RegisterScreen = () => {
                     </div>
                 </div>
                 <div className="d-flex flex-column align-items-center">
-                    <div className="d-flex flex-column align-items-start pb-4">
+                    <div className="d-flex flex-column align-items-start">
                         <label for="email">Email</label>
                         <input onChange={(e) => {
                             setEmail(e.target.value);
