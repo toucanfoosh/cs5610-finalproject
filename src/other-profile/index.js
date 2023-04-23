@@ -87,7 +87,7 @@ const OtherProfile = () => {
     }
 
     const getUsernamesFromFollowers = async (otherUser) => {
-        return Promise.all(otherUser.followers.map((id) => fetchUserById(id)));
+        return await Promise.all(otherUser.followers.map((id) => fetchUserById(id)));
     }
 
     useEffect(() => {

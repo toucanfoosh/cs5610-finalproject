@@ -10,7 +10,6 @@ import { updateUserThunk } from '../services/user-thunk';
 import { useEffect, useState } from 'react';
 import { findPostById } from '../services/posts-service';
 import { deleteCommentThunk, findCommentsByPostThunk } from '../services/comments-thunk';
-import { render } from 'react-dom';
 
 const PostItem = ({ post }) => {
     const dispatch = useDispatch();
@@ -62,11 +61,11 @@ const PostItem = ({ post }) => {
     const handleDeleteRepost = async (post, id) => {
         if (postUser) {
             const { repostUsers } = JSON.parse(JSON.stringify(post));
-            const newRepostUsers = repostUsers.filter(e => e != postUser._id);
+            const newRepostUsers = repostUsers.filter(e => e !== postUser._id);
 
             const { reposts } = JSON.parse(JSON.stringify(post));
             console.log(id);
-            const newReposts = reposts.filter(e => e != id);
+            const newReposts = reposts.filter(e => e !== id);
             const updatedPost = {
                 ...post,
                 reposts: newReposts,
@@ -106,7 +105,7 @@ const PostItem = ({ post }) => {
         }
 
         const user = await findUserById(fullPost.userId);
-        handleSubtractPost(user);
+        await handleSubtractPost(user);
         await deleteComments(fullPost);
         await deleteReposts();
         await dispatch(deletePostThunk(post));
