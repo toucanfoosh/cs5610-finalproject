@@ -23,7 +23,7 @@ const MobileNavBar = ({ active = 'home' }) => {
 
     return (
         <div className="sf-mobile-navbar">
-            <div className="d-flex row">
+            <div className="row">
                 <div className="col-10 row">
                     {sidebar.map((sidebarItem) => (
                         <div className="col text-center">
@@ -36,7 +36,7 @@ const MobileNavBar = ({ active = 'home' }) => {
                 </div>
                 <div className="col text-center">
                     <Link to="/login" className={`${IsActive(active)}`}>
-                        <div className="justify-content-center sf-navbar-item my-3 py-2">
+                        <div className="sf-navbar-item mt-3 pt-2">
                             <div className="sf-secondary">
                                 {
                                     currentUser &&
