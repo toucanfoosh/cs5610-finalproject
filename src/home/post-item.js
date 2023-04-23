@@ -24,6 +24,11 @@ const PostItem = ({ post }) => {
         setPostUser(user);
     }
 
+    async function fetchUserByGivenId(id) {
+        const user = await findUserById(id);
+        return user;
+    }
+
     async function fetchOriginalPost(result) {
         const response = await findPostById(result.originalPost);
         setOriginalPost(response);
@@ -32,6 +37,7 @@ const PostItem = ({ post }) => {
     const fetchFullPost = async () => {
         const response = await findPostById(post);
         setFullPost(response, result => {
+            console.log(result);
             fetchUserById(result);
             if (result.type === "repost") {
                 fetchOriginalPost(result);
@@ -95,6 +101,28 @@ const PostItem = ({ post }) => {
         }
     }
 
+    const deleteLikes = async (post) => {
+        const likes = post.likeUsers;
+        console.log(post);
+        for (const user of likes) {
+            console.log(user);
+            const actualUser = await fetchUserByGivenId(user);
+            console.log(actualUser);
+
+            const newLikes = actualUser.likes.filter(e => e != post._id);
+            console.log(newLikes);
+            const newUser = {
+                ...actualUser,
+                likes: newLikes
+            }
+
+            console.log(newUser);
+
+            const response = await dispatch(updateUserThunk(newUser));
+            console.log(response);
+        }
+    }
+
     const deletePostHandler = async (id) => {
         if (fullPost.type === "repost") {
             const response = await handleDeleteRepost(originalPost, id);
@@ -102,11 +130,12 @@ const PostItem = ({ post }) => {
         }
 
 
-        const user = await findUserById(fullPost.userId);
+
         if (fullPost.type === "post") {
+            await deleteLikes(fullPost);
+            const user = await findUserById(fullPost.userId);
             await handleSubtractPost(user);
         }
-
         await deleteComments(fullPost);
         await deleteReposts();
         await dispatch(deletePostThunk(post));
