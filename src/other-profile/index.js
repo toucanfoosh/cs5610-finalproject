@@ -80,12 +80,40 @@ const OtherProfile = () => {
 
             const updatedUser = await dispatch(updateUserThunk(newUser));
             console.log(updatedUser);
+
+            fetchUser();
         }
     }
 
     // TODO: implement unfollowing
     const handleUnfollow = async () => {
+        if (currentUser && profile) {
+            console.log("hi");
+            if (profile.followers.includes(currentUser._id)) {
+                console.log(currentUser._id);
+                const newFollowers = profile.followers.filter(e => e != currentUser._id);
+                const newProfile = {
+                    ...profile,
+                    followers: newFollowers
+                }
 
+                const response1 = await dispatch(updateUserThunk(newProfile));
+                console.log(response1);
+
+
+                console.log(profile._id);
+                const newFollowing = currentUser.following.filter(e => e != profile._id);
+                const newUser = {
+                    ...currentUser,
+                    following: newFollowing
+                }
+
+                const response2 = await dispatch(updateUserThunk(newUser));
+                console.log(response2);
+            }
+
+            fetchUser();
+        }
     }
 
     const getUsernamesFromFollowers = async (otherUser) => {
@@ -102,14 +130,11 @@ const OtherProfile = () => {
                 navigate("/profile");
             }
         }
-        fetchUser().then(result => {
-            getUsernamesFromFollowers(result).then(response => setFollowers(response));
-            getUsernamesFromFollowing(result).then(response => setFollowing(response));
-        })
-
+        fetchUser()
     }, [uid]);
 
     const Followers = () => {
+        getUsernamesFromFollowers(profile).then(response => setFollowers(response));
         return (
             <div>
                 <h3>Followers {profile.followers.length}</h3>
@@ -124,6 +149,7 @@ const OtherProfile = () => {
     }
 
     const Following = () => {
+        getUsernamesFromFollowing(profile).then(response => setFollowing(response));
         return (
             <div>
                 <h3> Following {profile.following.length}</h3>
@@ -131,7 +157,8 @@ const OtherProfile = () => {
                     following && following.map(followed =>
                         <div>
                             {followed.username}
-                        </div>)
+                        </div>
+                    )
                 }
             </div>
         )
