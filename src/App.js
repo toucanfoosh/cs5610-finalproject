@@ -58,7 +58,6 @@ function App() {
                                 <Route path="/:username/:pid" element={<MobileNavBar active="Home" />} />
                                 <Route path="/lists" element={<MobileNavBar active="Folios" />} />
                                 <Route path="/lists/:lid" element={<MobileNavBar active="Folios" />} />
-
                             </Routes>
                         </div>
                         <div className="row">
