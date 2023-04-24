@@ -47,8 +47,8 @@ function App() {
                             <Routes>
                                 <Route path="/" element={<MobileNavBar active="Home" />} />
                                 <Route path="/home" element={<MobileNavBar active="Home" />} />
-                                <Route path="/profile" element={<MobileNavBar active="Profile" />} />
-                                <Route path="/profile/:uid" element={<MobileNavBar active="Profile" />} />
+                                <Route path="/profile/*" element={<MobileNavBar active="Profile" />} />
+                                <Route path="/profile/other/:uid/*" element={<MobileNavBar active="Profile" />} />
                                 <Route path="/login" element={<MobileNavBar active="Profile" />} />
                                 <Route path="/register" element={<MobileNavBar active="Profile" />} />
                                 <Route path="/search" element={<MobileNavBar active="Search" />} />
@@ -66,8 +66,8 @@ function App() {
                                 <Routes>
                                     <Route path="/" element={<NavBar active="Home" />} />
                                     <Route path="/home" element={<NavBar active="Home" />} />
-                                    <Route path="/profile" element={<NavBar active="Profile" />} />
-                                    <Route path="/profile/:uid" element={<NavBar active="Profile" />} />
+                                    <Route path="/profile/*" element={<NavBar active="Profile" />} />
+                                    <Route path="/profile/other/:uid/*" element={<NavBar active="Profile" />} />
                                     <Route path="/login" element={<NavBar active="Profile" />} />
                                     <Route path="/register" element={<NavBar active="Profile" />} />
                                     <Route path="/search" element={<NavBar active="Search" />} />
@@ -88,8 +88,8 @@ function App() {
                                     <Route path="/search/:searchTerm" element={<SearchScreen />} />
                                     <Route path="/edit-profile" element={<EditProfileScreen />} />
                                     <Route path="/search/album/:id" element={<AlbumDetails />} />
-                                    <Route path="/profile" element={<Profile />} />
-                                    <Route path="/profile/:uid" element={<OtherProfile />} />
+                                    <Route path="/profile/*" element={<Profile />} />
+                                    <Route path="/profile/other/:uid/*" element={<OtherProfile />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<RegisterScreen />} />
                                     <Route path="/:username/:pid" element={<Post />} />

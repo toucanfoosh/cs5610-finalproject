@@ -156,7 +156,7 @@ const PostItem = ({ post }) => {
                                 <span className="col">
                                     <div className="row">
                                         <div className="col-11">
-                                            <Link to={`/profile/${fullPost.userId}`}>
+                                            <Link to={`/profile/other/${fullPost.userId}`}>
                                                 <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
                                                     {fullPost.username}
                                                 </span>
@@ -191,7 +191,7 @@ const PostItem = ({ post }) => {
                         <div className="row">
                             <div>
                                 <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1"></i>
-                                <Link to={`/profile/${fullPost.userId}`} className="sf-underline-hover">{fullPost.username} reposted</Link>
+                                <Link to={`/profile/other/${fullPost.userId}`} className="sf-underline-hover">{fullPost.username} reposted</Link>
                             </div>
                             <div className="col-3 col-md-2 align-self-start text-center">
                                 <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${originalPost.avatar}`} />
@@ -200,7 +200,7 @@ const PostItem = ({ post }) => {
                                 <span className="col">
                                     <div className="row">
                                         <div className="col-11">
-                                            <Link to={`/profile/${originalPost.userId}`}>
+                                            <Link to={`/profile/other/${originalPost.userId}`}>
                                                 <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
                                                     {originalPost.username}
                                                 </span>

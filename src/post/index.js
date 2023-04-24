@@ -217,7 +217,7 @@ const Post = () => {
                                     {comment.comment}
                                 </div>
                                 <div className="col">
-                                    <Link className="sf-underline-hover sf-anim-3" to={`/profile/${comment.userId}`}>{comment.username} @{comment.handle}</Link>
+                                    <Link className="sf-underline-hover sf-anim-3" to={`/profile/other/${comment.userId}`}>{comment.username} @{comment.handle}</Link>
                                 </div>
                                 <div className="col">
                                     <Link onClick={() => handleCommentLike(comment)} className="sf-anim-3">
