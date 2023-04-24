@@ -51,11 +51,9 @@ const OtherProfile = () => {
     const fetchUserPostsAndReviews = async (result) => {
         // console.log(profile._id);
         const response = await dispatch(findPostsByUserThunk(result._id));
-        console.log(response);
         setPosts(response.payload);
 
         const response2 = await dispatch(findReviewsByUserThunk(result._id));
-        console.log(response2);
         setReviews(response2.payload);
     }
 
@@ -88,29 +86,23 @@ const OtherProfile = () => {
     // TODO: implement unfollowing
     const handleUnfollow = async () => {
         if (currentUser && profile) {
-            console.log("hi");
-            if (profile.followers.includes(currentUser._id)) {
-                console.log(currentUser._id);
-                const newFollowers = profile.followers.filter(e => e != currentUser._id);
-                const newProfile = {
-                    ...profile,
-                    followers: newFollowers
-                }
-
-                const response1 = await dispatch(updateUserThunk(newProfile));
-                console.log(response1);
-
-
-                console.log(profile._id);
-                const newFollowing = currentUser.following.filter(e => e != profile._id);
-                const newUser = {
-                    ...currentUser,
-                    following: newFollowing
-                }
-
-                const response2 = await dispatch(updateUserThunk(newUser));
-                console.log(response2);
+            const { followers } = JSON.parse(JSON.stringify(profile));
+            const newFollowers = followers.filter(e => e != currentUser._id);
+            const newProfile = {
+                ...profile,
+                followers: newFollowers
             }
+
+            const response1 = await dispatch(updateUserThunk(newProfile));
+
+            const { following } = JSON.parse(JSON.stringify(currentUser));
+            const newFollowing = following.filter(e => e != profile._id);
+            const newUser = {
+                ...currentUser,
+                following: newFollowing
+            }
+
+            const response2 = await dispatch(updateUserThunk(newUser));
 
             fetchUser();
         }
