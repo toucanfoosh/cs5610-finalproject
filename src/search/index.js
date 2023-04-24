@@ -10,6 +10,7 @@ import "../index.css";
 import { Link } from "react-router-dom";
 import LoadingIcon from "../loading-icon";
 import { findReviewsByAlbumThunk } from "../services/reviews-thunk";
+import { searchUsersThunk } from "../services/user-thunk";
 
 const SearchScreen = () => {
     const { searchTerm } = useParams();
@@ -58,6 +59,7 @@ const SearchScreen = () => {
     }
 
     const handleHoldScore = async (items) => {
+        console.log(items);
         const reviews = await Promise.all(items.map(item => {
             return handleAverageReviews(item.id)
         }));
@@ -74,6 +76,12 @@ const SearchScreen = () => {
 
         console.log(newSearchResultItems);
         setSearchResultItems(newSearchResultItems);
+    }
+
+    const searchLocalDatabase = async (search) => {
+        const results = await dispatch(searchUsersThunk(search));
+        console.log(results.payload);
+        return results.payload;
     }
 
     const searchSpotify = async (offsetNum) => {
@@ -95,6 +103,9 @@ const SearchScreen = () => {
         if (results === 400) {
             return;
         }
+
+        const response = await searchLocalDatabase(search);
+
         console.log(results.data.albums.items);
         if (offsetNum > 0) {
             setSearchResultItems(searchResultItems => [
@@ -104,7 +115,7 @@ const SearchScreen = () => {
         }
         else {
             setSearchResults(results.data.albums);
-            setSearchResultItems(results.data.albums.items, result => handleHoldScore(result));
+            setSearchResultItems([...response, ...results.data.albums.items], result => handleHoldScore(result));
         }
 
         navigate(`/search/${search}`);
@@ -149,27 +160,58 @@ const SearchScreen = () => {
                         searchResults.items &&
                         searchResultItems.map(result => {
                             return (
-                                <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
-                                    <div className="p-1">
-                                        <div className="sf-result-container sf-result-hover d-flex align-items-center">
-                                            <div className="sf-result-body-container d-flex sf-w-100">
-                                                <div className="col-9 d-flex">
-                                                    <img src={result.images[0].url} className="sf-result-img p-2" />
-                                                    <div className="ps-3 sf-flex-col justify-content-center align-items-start text-truncate sf-result-body">
-                                                        <div className="sf-w-100 sf-secondary sf-text-bold text-truncate">{result.name}</div>
-                                                        <div className="sf-tertiary text-truncate">{result.artists[0].name}</div>
-                                                    </div>
-                                                </div>
-                                                <div className="sf-flex-col col-3 sf-review-stats d-flex justify-content-center align-items-end">
-                                                    <div className="sf-flex-col pe-3 text-truncate text-end">
-                                                        <div className="sf-secondary sf-text-bold">Rating: {result.score !== "-" ? (("" + result.score).length > 4 ? ("" + result.score).slice(0, 4) : result.score) : result.score}/5</div>
-                                                        <div className="sf-tertiary">{result.numReviews} reviews</div>
+                                <div>
+                                    {
+                                        // ALBUM
+                                        result.images &&
+                                        <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
+                                            <div className="p-1">
+                                                <div className="sf-result-container sf-result-hover d-flex align-items-center">
+                                                    <div className="sf-result-body-container d-flex sf-w-100">
+                                                        <div className="col-9 d-flex">
+                                                            <img src={result.images[0].url} className="sf-result-img p-2" />
+                                                            <div className="ps-3 sf-flex-col justify-content-center align-items-start text-truncate sf-result-body">
+                                                                <div className="sf-w-100 sf-secondary sf-text-bold text-truncate">{result.name}</div>
+                                                                <div className="sf-tertiary text-truncate">{result.artists[0].name}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="sf-flex-col col-3 sf-review-stats d-flex justify-content-center align-items-end">
+                                                            <div className="sf-flex-col pe-3 text-truncate text-end">
+                                                                <div className="sf-secondary sf-text-bold">Rating: {result.score !== "-" ? (("" + result.score).length > 4 ? ("" + result.score).slice(0, 4) : result.score) : result.score}/5</div>
+                                                                <div className="sf-tertiary">{result.numReviews} reviews</div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </Link>
+                                        </Link>
+                                    }
+                                    {
+                                        // USER
+                                        result.role &&
+                                        <Link className="sf-no-text-decor" to={`/profile/other/${result._id}`}>
+                                            <div className="p1">
+                                                <div className="sf-result-container sf-result-hover d-flex align-items-center">
+                                                    <div className="sf-result-body-container d-flex sf-w-100">
+                                                        <div className="col-9 d-flex">
+                                                            <img src={`/images/${result.avatar}`} className="sf-result-img p-2" />
+                                                            <div className="ps-3 sf-flex-col justify-content-center align-items-start text-truncate sf-result-body">
+                                                                <div className="sf-w-100 sf-secondary sf-text-bold text-truncate">{result.username}</div>
+                                                                <div className="sf-tertiary text-truncate">@{result.handle}</div>
+                                                            </div>
+                                                        </div>
+                                                        <div className="sf-flex-col col-3 sf-review-stats d-flex justify-content-center align-items-end">
+                                                            <div className="sf-flex-col pe-3 text-truncate text-end">
+                                                                <div className="sf-secondary sf-text-bold">Followers {result.followers.length}</div>
+                                                                <div className="sf-secondary sf-text-bold">Following {result.following.length}</div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </Link>
+                                    }
+                                </div>
                             )
                         })
                     }

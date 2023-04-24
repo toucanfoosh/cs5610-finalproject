@@ -9,6 +9,14 @@ export const loginThunk = createAsyncThunk(
     }
 );
 
+export const searchUsersThunk = createAsyncThunk(
+    "user/search",
+    async (search) => {
+        const results = await userService.searchUsers(search);
+        return results;
+    }
+)
+
 export const updateUserThunk = createAsyncThunk(
     "user/updateUser",
     async (user) => {

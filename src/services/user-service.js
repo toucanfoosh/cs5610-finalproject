@@ -18,6 +18,11 @@ export const findUserById = async (uid) => {
     return user;
 }
 
+export const searchUsers = async (search) => {
+    const response = await api.get(`${USERS_URL}/search/${search}`);
+    return response.data;
+}
+
 export const createUser = async (user) => {
     const response = await api.post(USERS_URL, user);
     const userCreated = response.data;
