@@ -5,12 +5,15 @@ import { useNavigate } from "react-router";
 import { useEffect, useState } from "react";
 import { findUserById } from "../services/user-service";
 import "../index.css"
+import './index.css'
 import { BrowserRouter, Link } from "react-router-dom";
 import { findPostsByUserThunk } from "../services/posts-thunk";
 import { findReviewsByUserThunk } from "../services/reviews-thunk";
 import PostItem from "../home/post-item";
 import { Router, Route, Routes } from "react-router";
 import LoadingIcon from "../loading-icon";
+import Tabs from "../tabs";
+import profileItems from "./profile.json";
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -103,6 +106,24 @@ const Profile = () => {
         )
     }
 
+    const Likes = () => {
+        return (
+            <div>
+                <h3>Likes {currentUser.likes}</h3>
+                {
+                    loading &&
+                    <LoadingIcon />
+                }
+                {
+                    !loading &&
+                    {
+                        //TODO: add likes
+                    }
+                }
+            </div>
+        )
+    }
+
     const Posts = () => {
         return (
             <div>
@@ -155,12 +176,20 @@ const Profile = () => {
                         {currentUser.bio}
                     </div>
                     <div className="sf-secondary">
-                        <Routes>
-                            <Route index element={<Posts />} />
-                            <Route path="/followers" element={<Followers />} />
-                            <Route path="/following" element={<Following />} />
-                            <Route path="/reviews" element={<Reviews />} />
-                        </Routes>
+                        <div>
+                            <Routes>
+                                <Route index element={<Tabs props={profileItems} active="Posts" />} />
+                                <Route path="/reviews" element={<Tabs props={profileItems} active="Reviews" />} />
+                                <Route path="/likes" element={<Tabs props={profileItems} active="Likes" />} />
+                            </Routes>
+                        </div>
+                        <div>
+                            <Routes>
+                                <Route index element={<Posts />} />
+                                <Route path="/reviews" element={<Reviews />} />
+                                <Route path="/likes" element={<Likes />} />
+                            </Routes>
+                        </div>
                     </div>
 
                     <FancyButton onclick={handleEditProfile} text="Edit Profile" />
