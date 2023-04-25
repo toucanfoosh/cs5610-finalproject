@@ -30,7 +30,7 @@ const HomeComponent = () => {
                 {
                     !loading &&
                     <div className="mb-2 list-group ps-0">
-                        {posts.map((post) => (
+                        {posts.slice().reverse().map((post) => (
                             <PostItem post={post._id} />
                         ))}
                     </div>

@@ -176,19 +176,19 @@ const PostStats = ({ stats, postLink }) => {
                 <div className="col-3">
                     <Link className="text-secondary sf-no-link-decor" to={`/${postLink}`}>
                         <i className="fa-regular fa-comment sf-anim-3 sf-small-hover pe-1"></i>
-                        <span className="ms-sm-1 ms-md-3">{stats.comments}</span>
+                        <span className="ps-1">{stats.comments}</span>
                     </Link>
                 </div>
                 <div className="col-3">
                     <Link onClick={() => handleRepost()} className="text-secondary sf-no-link-decor" to="#">
                         <i className={`fas fa-retweet sf-anim-3 sf-small-hover pe-1 ${isReposted(stats.repostUsers)}`}></i>
-                        <span className="ms-sm-1 ms-md-3">{stats.reposts.length}</span>
+                        <span className="ps-1">{stats.reposts.length}</span>
                     </Link>
                 </div>
                 <div className="col-3">
                     <Link onClick={() => changeLikedValue(stats)} className="text-secondary sf-no-link-decor" to="#" >
                         <i className={`fa-heart ${isLiked(stats.likeUsers)} pe-1 sf-anim-3 sf-small-hover`}></i>
-                        <span className="">{stats.likes}</span>
+                        <span className="ps-1">{stats.likes}</span>
                     </Link>
                 </div>
                 <div className="col-3">

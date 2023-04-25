@@ -37,7 +37,7 @@ export const Following = ({ currentUser, following }) => {
 export const Likes = ({ currentUser, loading }) => {
     return (
         <div>
-            <h3>Likes {currentUser.likes.length}</h3>
+            <div className="sf-tertiary ps-1 pt-1">{currentUser.likes.length} results</div>
             {
                 loading &&
                 <LoadingIcon />
@@ -45,7 +45,6 @@ export const Likes = ({ currentUser, loading }) => {
             {
                 !loading && currentUser &&
 
-                //TODO: add likes
                 <ul className="mb-2 list-group ps-0">
                     {currentUser.likes.map(like => <PostItem post={like} />)}
                 </ul>
@@ -58,17 +57,30 @@ export const Likes = ({ currentUser, loading }) => {
 export const Posts = ({ currentUser, loading, posts }) => {
     return (
         <div>
-            <h3>Posts {currentUser.posts}</h3>
+            <div className="sf-tertiary ps-1 pt-1">{currentUser.posts + currentUser.reposts.length} results</div>
             {
                 loading &&
                 <LoadingIcon />
             }
             {
                 !loading &&
-                <ul className="mb-2 list-group ps-0">
+                <div className="mb-2 list-group">
                     {posts.map(post => <PostItem post={post._id} />)}
-                </ul>
+                </div>
             }
+        </div>
+    )
+}
+
+export const Albums = ({ currentUser }) => {
+    // const fetchAlbums = async () => {
+    //     if (currentUser) {
+    //         const response = await getAccessToken();
+    //         console.log(response);
+    //     }
+    // }
+    return (
+        <div>
         </div>
     )
 }
@@ -76,7 +88,7 @@ export const Posts = ({ currentUser, loading, posts }) => {
 export const Reviews = ({ currentUser, reviews }) => {
     return (
         <div>
-            <h3>Reviews {currentUser.reviews}</h3>
+            <div className="sf-tertiary ps-1 pt-1">{currentUser.reviews} results</div>
             {
                 reviews &&
                 <ul className="list-group">

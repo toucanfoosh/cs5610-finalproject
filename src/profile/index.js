@@ -79,29 +79,39 @@ const Profile = () => {
     }, [currentUser]);
 
     return (
-        <div>
+        <div className="row">
             {currentUser &&
-                <div className="mt-5">
-                    <div className="row pb-3">
-                        <div className="col-8">
-                            <Header user={currentUser} />
-                        </div>
-                        <div className="d-flex align-items-end justify-content-center col-4 pb-3">
-                            <div className="sf-profile-button">
-                                <FancyButton onclick={handleEditProfile} text="Edit Profile" />
+                <div className="mt-5 px-0">
+                    <div className="pb-2 sticky-top sf-bg-blur sf-bottom-border">
+                        <div className="row">
+                            <div className="col-8">
+                                <Header user={currentUser} />
+                            </div>
+                            <div className="d-flex align-items-end justify-content-center col-4 pb-3">
+                                <div className="sf-profile-button">
+                                    <FancyButton onclick={handleEditProfile} text="Edit Profile" />
+                                </div>
+                                <div className="sf-profile-button">
+                                    <FancyButton onclick={handleLogout} text="Logout" />
+                                </div>
                             </div>
                         </div>
-                        <Body
-                            profileItems={profileItems}
-                            currentUser={currentUser}
-                            loading={loading}
-                            posts={posts}
-                            reviews={reviews}
-                            followers={followers}
-                            following={following}
-                        />
-                        <FancyButton onclick={handleLogout} text="Logout" />
+                        <div>
+                            <Routes>
+                                <Route index element={<Tabs props={profileItems} active="Posts" />} />
+                                <Route path="/reviews" element={<Tabs props={profileItems} active="Reviews" />} />
+                                <Route path="/likes" element={<Tabs props={profileItems} active="Likes" />} />
+                            </Routes>
+                        </div>
                     </div>
+                    <Body
+                        currentUser={currentUser}
+                        loading={loading}
+                        posts={posts}
+                        reviews={reviews}
+                        followers={followers}
+                        following={following}
+                    />
                 </div>
             }
         </div >

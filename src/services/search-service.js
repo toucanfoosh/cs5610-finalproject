@@ -119,6 +119,27 @@ export const getAlbum = async ({ id, accessToken }) => {
     }
 }
 
+export const getArtistAlbums = async ({ id, accessToken }) => {
+    const headers = {
+        headers: {
+            'Content': 'application/json',
+            'Authorization': `Bearer ${accessToken}`,
+        },
+    }
+
+    try {
+        const response = await axios.get(`${API_BASE}/artists/${id}/albums`, headers);
+        console.log(response);
+        return response;
+    }
+    catch (error) {
+        if (error.response.status === 401) {
+            accessToken = await getAccessToken();
+            return getArtistAlbums({ id, accessToken });
+        }
+    }
+}
+
 export const getNewReleases = async ({ limit, accessToken }) => {
     const headers = {
         headers: {

@@ -155,9 +155,9 @@ const PostItem = ({ post }) => {
     const renderPost = (postToRender, isRepost) => (
         <>
             {isRepost &&
-                <div>
-                    <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1"></i>
-                    <Link to={`/profile/other/${fullPost.userId}`} className="sf-underline-hover">{fullPost.username} reposted</Link>
+                <div className='ps-4 pb-2'>
+                    <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1 sf-tertiary"></i>
+                    <Link to={`/profile/other/${fullPost.userId}`} className="sf-tertiary sf-underline-hover">{fullPost.username} reposted</Link>
                 </div>
             }
             <div className="row">
@@ -172,7 +172,7 @@ const PostItem = ({ post }) => {
                                     <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
                                         {postToRender.username}
                                     </span>
-                                    <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
+                                    {postUser.role === "admin" && <span class="fa-solid fa-circle-check sf-accent pe-1"></span>}
                                     <span className="sf-font-normal sf-clickable sf-tertiary">@{postToRender.handle}</span>
                                 </Link>
                                 <div className="sf-font-normal sf-secondary pb-1 text-break">

@@ -225,11 +225,16 @@ const Post = () => {
                                         {comment.likes}
                                     </Link>
                                 </div>
-                                <div className="col">
-                                    <Link onClick={() => handleDeleteComment(comment)}>
-                                        <i className="fa-solid fa-x pe-1 sf-anim-3 sf-small-hover"></i>
-                                    </Link>
-                                </div>
+                                {
+                                    currentUser && (currentUser.role === "admin" || comment.userId === currentUser._id) &&
+                                    <div className="col">
+                                        <Link onClick={() => handleDeleteComment(comment)}>
+                                            <i className="fa-solid fa-x pe-1 sf-anim-3 sf-small-hover"></i>
+                                        </Link>
+                                    </div>
+                                }
+                    
+
                             </div>
 
                         </li>)

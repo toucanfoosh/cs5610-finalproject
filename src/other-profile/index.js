@@ -9,6 +9,7 @@ import FancyButton from "../FancyButton/button";
 import { updateUserThunk } from "../services/user-thunk";
 import Header from "../profile/header";
 import { Body } from "../profile/body";
+import Tabs from "../tabs";
 
 const OtherProfile = () => {
     const { uid } = useParams();
@@ -141,24 +142,32 @@ const OtherProfile = () => {
     ]
 
     return (
-        <div>
+        <div className="row">
             {profile &&
-                <div className="mt-5">
-                    <div className="row pb-3">
-                        <div className="col-8">
-                            <Header user={profile} />
-                        </div>
-                        <div className="d-flex align-items-end justify-content-center col-4 pb-3">
-                            <div className="sf-profile-button">
-                                {!isFollowing() &&
-                                    <FancyButton onclick={handleFollow} text="Follow" />}
-                                {isFollowing() &&
-                                    <FancyButton onclick={handleUnfollow} color="sf-bg-primary" text="Unfollow" />}
+                <div className="mt-5 px-0">
+                    <div className="pb-2 sticky-top sf-bg-blur sf-bottom-border">
+                        <div className="row">
+                            <div className="col-8">
+                                <Header user={profile} />
                             </div>
+                            <div className="d-flex align-items-end justify-content-center col-4 pb-3">
+                                <div className="sf-profile-button">
+                                    {!isFollowing() &&
+                                        <FancyButton onclick={handleFollow} text="Follow" />}
+                                    {isFollowing() &&
+                                        <FancyButton onclick={handleUnfollow} color="sf-bg-primary" text="Unfollow" />}
+                                </div>
+                            </div>
+                        </div>
+                        <div>
+                            <Routes>
+                                <Route index element={<Tabs props={arr} active="Posts" />} />
+                                <Route path="/reviews" element={<Tabs props={arr} active="Reviews" />} />
+                                <Route path="/likes" element={<Tabs props={arr} active="Likes" />} />
+                            </Routes>
                         </div>
                     </div>
                     <Body
-                        profileItems={arr}
                         currentUser={profile}
                         loading={loading}
                         uid={uid}
