@@ -2,16 +2,13 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams, Routes, Route } from "react-router";
 import { findUserById } from "../services/user-service";
-import { findPostsByUser } from "../services/posts-service";
 import { useStateWithCallbackLazy } from "use-state-with-callback";
-import PostItem from "../home/post-item";
-import { Link } from "react-router-dom";
-import { findReviewsByUser } from "../services/reviews-service";
 import { findReviewsByUserThunk } from "../services/reviews-thunk";
 import { findPostsByUserThunk } from "../services/posts-thunk";
 import FancyButton from "../FancyButton/button";
 import { updateUserThunk } from "../services/user-thunk";
-
+import Header from "../profile/header";
+import { Body } from "../profile/body";
 
 const OtherProfile = () => {
     const { uid } = useParams();
@@ -25,6 +22,8 @@ const OtherProfile = () => {
     const [reviews, setReviews] = useState([]);
     const [followers, setFollowers] = useState(undefined);
     const [following, setFollowing] = useState(undefined);
+    const [loading, setLoading] = useState(true);
+
 
     const isFollowing = () => {
         if (currentUser && profile) {
@@ -55,6 +54,7 @@ const OtherProfile = () => {
 
         const response2 = await dispatch(findReviewsByUserThunk(result._id));
         setReviews(response2.payload);
+        setLoading(false);
     }
 
     const handleFollow = async () => {
@@ -125,108 +125,48 @@ const OtherProfile = () => {
         fetchUser()
     }, [uid]);
 
-    const Followers = () => {
-        getUsernamesFromFollowers(profile).then(response => setFollowers(response));
-        return (
-            <div>
-                <h3>Followers {profile.followers.length}</h3>
-                {
-                    followers && followers.map(follower =>
-                        <div>
-                            {follower.username}
-                        </div>)
-                }
-            </div>
-        )
-    }
-
-    const Following = () => {
-        getUsernamesFromFollowing(profile).then(response => setFollowing(response));
-        return (
-            <div>
-                <h3> Following {profile.following.length}</h3>
-                {
-                    following && following.map(followed =>
-                        <div>
-                            {followed.username}
-                        </div>
-                    )
-                }
-            </div>
-        )
-    }
-
-    const Reviews = () => {
-        return (
-            <div>
-                <h3>Reviews {numReviews}</h3>
-                {
-                    reviews.length > 0 &&
-                    <ul className="list-group">
-                        {reviews.map(item =>
-                            <li className="list-group-item">
-                                {item.score} <br />
-                                <Link to={`/search/album/${item.albumId}`} className="sf-underline-hover sf-anim-3 float-end">{item.albumName} by {item.albumMainArtist}</Link>
-                                {item.review}
-                            </li>)
-                        }
-                    </ul>
-                }
-                {
-                    reviews.length === 0 &&
-                    <div>
-                        No reviews found
-                    </div>
-                }
-            </div>
-        )
-    }
-
-    const Posts = () => {
-        return (
-            <div>
-                <h3>Posts {numPosts}</h3>
-                {
-                    posts.length > 0 &&
-                    <ul className="list-group">
-                        {posts.map(post =>
-                            <PostItem post={post._id} />
-                        )}
-                    </ul>
-                }
-                {
-                    posts.length === 0 &&
-                    <div>
-                        No posts found
-                    </div>
-                }
-            </div>
-        )
-    }
+    const arr = [
+        {
+            title: "Posts",
+            path: `/profile/other/${uid}/`
+        },
+        {
+            title: "Reviews",
+            path: `/profile/other/${uid}/reviews`
+        },
+        {
+            title: "Likes",
+            path: `/profile/other/${uid}/likes`
+        }
+    ]
 
     return (
         <div>
             {profile &&
-                <div>
-                    <h1>{profile.firstName} {profile.lastName}</h1>
-                    <h2>{profile.username} @{profile.handle}</h2>
-                    <img src={`/images/${profile.avatar}`} />
-                    <div>{profile.bio}</div>
-                    <Routes>
-                        <Route index element={<Posts />} />
-                        <Route path="/followers" element={<Followers />} />
-                        <Route path="/following" element={<Following />} />
-                        <Route path="/reviews" element={<Reviews />} />
-                    </Routes>
+                <div className="mt-5">
+                    <div className="row pb-3">
+                        <div className="col-8">
+                            <Header user={profile} />
+                        </div>
+                        <div className="d-flex align-items-end justify-content-center col-4 pb-3">
+                            <div className="sf-profile-button">
+                                {!isFollowing() &&
+                                    <FancyButton onclick={handleFollow} text="Follow" />}
+                                {isFollowing() &&
+                                    <FancyButton onclick={handleUnfollow} color="sf-bg-primary" text="Unfollow" />}
+                            </div>
+                        </div>
+                    </div>
+                    <Body
+                        profileItems={arr}
+                        currentUser={profile}
+                        loading={loading}
+                        uid={uid}
+                        posts={posts}
+                        reviews={reviews}
+                        followers={followers}
+                        following={following} />
 
-
-
-
-
-                    {!isFollowing() &&
-                        <FancyButton onclick={handleFollow} text="Follow" />}
-                    {isFollowing() &&
-                        <FancyButton onclick={handleUnfollow} text="Unfollow" />}
                 </div>
             }
         </div >

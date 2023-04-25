@@ -2,11 +2,11 @@ import '../index.css'
 import './index.css'
 import Tab from './tab'
 
-const Tabs = (props, activeTab) => {
+const Tabs = ({props, active}) => {
     return (
-        <div className="sf-tabs">
+        <div className="sf-tabs row">
             {props.map((prop) => (
-                <Tab title={prop.title} active={activeTab} />
+                <Tab prop={prop} activeTab={active} />
             ))}
         </div>
     )

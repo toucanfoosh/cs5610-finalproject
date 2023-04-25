@@ -266,3 +266,23 @@ a:active {
     outline: none;
     border: 1px solid var(--accent);
 }
+
+.sf-navbar-item-hover {
+    border: 1px solid transparent;
+    /* border: 2px solid var(--accent); */
+    transition: width ease .3s, border 0s;
+    margin-top: .75rem;
+    /* translate: -100% 0; */
+    width: 0px;
+}
+
+.sf-navbar-item:hover .sf-navbar-item-hover {
+    border: 1px solid var(--accent);
+    /* transform: translate(100%, 0); */
+    width: 70%;
+}
+
+.sf-active {
+    border: 1px solid var(--accent);
+    width: 70%;
+}

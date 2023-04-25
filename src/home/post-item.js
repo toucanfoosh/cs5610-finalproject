@@ -14,6 +14,7 @@ import { deleteCommentThunk, findCommentsByPostThunk } from '../services/comment
 const PostItem = ({ post }) => {
     const dispatch = useDispatch();
     const location = useLocation();
+    const {currentUser} = useSelector(state => state.user);
     const { posts } = useSelector(state => state.postsData);
     const [postUser, setPostUser] = useStateWithCallbackLazy({});
     const [fullPost, setFullPost] = useStateWithCallbackLazy(undefined);
@@ -37,7 +38,6 @@ const PostItem = ({ post }) => {
     const fetchFullPost = async () => {
         const response = await findPostById(post);
         setFullPost(response, result => {
-            console.log(result);
             fetchUserById(result);
             if (result.type === "repost") {
                 fetchOriginalPost(result);
@@ -77,6 +77,16 @@ const PostItem = ({ post }) => {
 
             const response = await dispatch(updatePostThunk(updatedPost));
             console.log(response);
+
+            const user = JSON.parse(JSON.stringify(postUser));
+            const newUserReposts = user.reposts.filter(e => e.repostId !== id);
+            const newUser = {
+                ...user,
+                reposts: newUserReposts
+            }
+
+            let res= await dispatch(updateUserThunk(newUser));
+            console.log(res);
         }
     }
 
@@ -142,89 +152,61 @@ const PostItem = ({ post }) => {
     }
 
 
+    const renderPost = (postToRender, isRepost) => (
+        <>
+            {isRepost &&
+                <div>
+                    <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1"></i>
+                    <Link to={`/profile/other/${fullPost.userId}`} className="sf-underline-hover">{fullPost.username} reposted</Link>
+                </div>
+            }
+            <div className="row">
+                <div className="col-3 col-md-2 align-self-start text-center">
+                    <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${postToRender.avatar}`} />
+                </div>
+                <div className="col">
+                    <span className="col">
+                        <div className="row">
+                            <div className="col-11">
+                                <Link to={`/profile/other/${postToRender.userId}`}>
+                                    <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
+                                        {postToRender.username}
+                                    </span>
+                                    <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
+                                    <span className="sf-font-normal sf-clickable sf-tertiary">@{postToRender.handle}</span>
+                                </Link>
+                                <div className="sf-font-normal sf-secondary pb-1 text-break">
+                                    {postToRender.post}
+                                </div>
+                                <PostStats stats={postToRender} postLink={`/${postToRender.username}/${postToRender._id}`} />
+                            </div>
+                            {
+                                currentUser && (postToRender.userId === currentUser._id || currentUser.role === "admin") && 
+                                <div className="col-1 d-flex align-items-top justify-content-center">
+                                    <Link to='#'>
+                                        <div className='row text-center'>
+                                            <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-anim-3 sf-hw-100"
+                                                onClick={() => deletePostHandler(post)}>
+                                            </i>
+                                        </div>
+                                    </Link>
+                                </div>
+                            }
+                        </div>
+                    </span>
+                </div>
+            </div>
+        </>
+    );
+
     return (
         <div>
             {
-                fullPost && postUser && fullPost.type === "post" &&
-                <Link to={`/${postUser.username}/${post}`} state={{ from: location.pathname }}>
-                    <div className="px-3 py-3 m-0 sf-home-item-container">
-                        <div className="row">
-                            <div className="col-3 col-md-2 align-self-start text-center">
-                                <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${fullPost.avatar}`} />
-                            </div>
-                            <div className="col">
-                                <span className="col">
-                                    <div className="row">
-                                        <div className="col-11">
-                                            <Link to={`/profile/other/${fullPost.userId}`}>
-                                                <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
-                                                    {fullPost.username}
-                                                </span>
-                                                <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
-                                                <span className="sf-font-normal sf-clickable sf-tertiary">@{fullPost.handle}</span>
-                                            </Link>
-                                            <div className="sf-font-normal sf-secondary pb-1 text-break">
-                                                {fullPost.post}
-                                            </div>
-                                            <PostStats stats={fullPost} postLink={`/${postUser.username}/${post}`} />
-                                        </div>
-                                        <div className="col-1 d-flex align-items-top justify-content-center">
-                                            <Link to='#'>
-                                                <div className='row text-center'>
-                                                    <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-anim-3 sf-hw-100"
-                                                        onClick={() => deletePostHandler(post)}>
-                                                    </i>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                </Link>
-            }
-            {
-                fullPost && postUser && fullPost.type === "repost" && originalPost &&
+                fullPost && postUser &&
                 <Link to={`/${fullPost.username}/${post}`} state={{ from: location.pathname }}>
                     <div className="px-3 py-3 m-0 sf-home-item-container">
-                        <div className="row">
-                            <div>
-                                <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1"></i>
-                                <Link to={`/profile/other/${fullPost.userId}`} className="sf-underline-hover">{fullPost.username} reposted</Link>
-                            </div>
-                            <div className="col-3 col-md-2 align-self-start text-center">
-                                <img className="sf-pfp sf-clickable sf-darken-hover sf-anim-3" src={`/images/${originalPost.avatar}`} />
-                            </div>
-                            <div className="col">
-                                <span className="col">
-                                    <div className="row">
-                                        <div className="col-11">
-                                            <Link to={`/profile/other/${originalPost.userId}`}>
-                                                <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
-                                                    {originalPost.username}
-                                                </span>
-                                                <span class="fa-solid fa-circle-check sf-accent pe-1"></span>
-                                                <span className="sf-font-normal sf-clickable sf-tertiary">@{originalPost.handle}</span>
-                                            </Link>
-                                            <div className="sf-font-normal sf-secondary pb-1 text-break">
-                                                {originalPost.post}
-                                            </div>
-                                            <PostStats stats={originalPost} postLink={`/${originalPost.username}/${originalPost._id}`} />
-                                        </div>
-                                        <div className="col-1 d-flex align-items-top justify-content-center">
-                                            <Link to='#'>
-                                                <div className='row text-center'>
-                                                    <i className="fa-solid fa-x px-1 sf-clickable sf-tertiary-alt-hover sf-large-hover sf-anim-3 sf-hw-100"
-                                                        onClick={() => deletePostHandler(post)}>
-                                                    </i>
-                                                </div>
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </span>
-                            </div>
-                        </div>
+                        {fullPost.type === "post" && renderPost(fullPost, false)}
+                        {fullPost.type === "repost" && originalPost && renderPost(originalPost, true)}
                     </div>
                 </Link>
             }

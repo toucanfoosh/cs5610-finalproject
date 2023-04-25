@@ -9,11 +9,12 @@ import './index.css'
 import { BrowserRouter, Link } from "react-router-dom";
 import { findPostsByUserThunk } from "../services/posts-thunk";
 import { findReviewsByUserThunk } from "../services/reviews-thunk";
-import PostItem from "../home/post-item";
 import { Router, Route, Routes } from "react-router";
 import LoadingIcon from "../loading-icon";
 import Tabs from "../tabs";
 import profileItems from "./profile.json";
+import Header from "./header";
+import { Body } from "./body";
 
 const Profile = () => {
     const dispatch = useDispatch();
@@ -63,6 +64,7 @@ const Profile = () => {
 
     useEffect(() => {
         if (currentUser) {
+            console.log(currentUser);
             getUsernamesFromFollowers().then(result => {
                 setFollowers(result)
             });
@@ -76,128 +78,33 @@ const Profile = () => {
         }
     }, [currentUser]);
 
-    const Followers = () => {
-        return (
-            <div>
-                <h3>Followers {currentUser.followers.length}</h3>
-                {
-                    followers &&
-                    followers.map(follower =>
-                        <Link className="sf-underline-hover" to={`/profile/other/${follower._id}`}>
-                            {follower.username}
-                        </Link>)
-                }
-            </div>
-        )
-    }
-
-    const Following = () => {
-        return (
-            <div>
-                <h3>Following {currentUser.following.length}</h3>
-                {
-                    following &&
-                    following.map(following =>
-                        <Link className="sf-underline-hover" to={`/profile/other/${following._id}`}>
-                            {following.username}
-                        </Link>)
-                }
-            </div>
-        )
-    }
-
-    const Likes = () => {
-        return (
-            <div>
-                <h3>Likes {currentUser.likes}</h3>
-                {
-                    loading &&
-                    <LoadingIcon />
-                }
-                {
-                    !loading &&
-                    {
-                        //TODO: add likes
-                    }
-                }
-            </div>
-        )
-    }
-
-    const Posts = () => {
-        return (
-            <div>
-                <h3>Posts {currentUser.posts}</h3>
-                {
-                    loading &&
-                    <LoadingIcon />
-                }
-                {
-                    !loading &&
-                    <ul className="mb-2 list-group ps-0">
-                        {posts.map(post => <PostItem post={post._id} />)}
-                    </ul>
-                }
-            </div>
-        )
-    }
-
-    const Reviews = () => {
-        return (
-            <div>
-                <h3>Reviews {currentUser.reviews}</h3>
-                {
-                    reviews &&
-                    <ul className="list-group">
-                        {reviews.map(item =>
-                            <li className="list-group-item">
-                                {item.score} <br />
-                                <Link to={`/search/album/${item.albumId}`} className="sf-underline-hover sf-anim-3 float-end">{item.albumName} by {item.albumMainArtist}</Link>
-                                {item.review}
-                            </li>)
-                        }
-                    </ul>
-                }
-            </div>
-        )
-    }
-
     return (
         <div>
             {currentUser &&
-                <div>
-                    <h1 className="sf-secondary">Profile</h1>
-                    <div className="sf-secondary">{currentUser.firstName} {currentUser.lastName}</div>
-                    <img src={`/images/${currentUser.avatar}`} />
-                    <div className="sf-secondary sf-text-bold">{currentUser.username}
-                        <span className="sf-text-normal">@{currentUser.handle}</span>
-                    </div>
-                    <div className="sf-secondary">
-                        {currentUser.bio}
-                    </div>
-                    <div className="sf-secondary">
-                        <div>
-                            <Routes>
-                                <Route index element={<Tabs props={profileItems} active="Posts" />} />
-                                <Route path="/reviews" element={<Tabs props={profileItems} active="Reviews" />} />
-                                <Route path="/likes" element={<Tabs props={profileItems} active="Likes" />} />
-                            </Routes>
+                <div className="mt-5">
+                    <div className="row pb-3">
+                        <div className="col-8">
+                            <Header user={currentUser} />
                         </div>
-                        <div>
-                            <Routes>
-                                <Route index element={<Posts />} />
-                                <Route path="/reviews" element={<Reviews />} />
-                                <Route path="/likes" element={<Likes />} />
-                            </Routes>
+                        <div className="d-flex align-items-end justify-content-center col-4 pb-3">
+                            <div className="sf-profile-button">
+                                <FancyButton onclick={handleEditProfile} text="Edit Profile" />
+                            </div>
                         </div>
+                        <Body
+                            profileItems={profileItems}
+                            currentUser={currentUser}
+                            loading={loading}
+                            posts={posts}
+                            reviews={reviews}
+                            followers={followers}
+                            following={following}
+                        />
+                        <FancyButton onclick={handleLogout} text="Logout" />
                     </div>
-
-                    <FancyButton onclick={handleEditProfile} text="Edit Profile" />
-                    <FancyButton onclick={handleLogout} text="Logout" />
-
                 </div>
             }
-        </div>
+        </div >
     )
 };
 

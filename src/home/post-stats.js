@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import "./index.css";
 import '../index.css';
 import { useStateWithCallbackLazy } from "use-state-with-callback";
-import { createPostThunk, updatePostThunk } from "../services/posts-thunk";
+import { createPostThunk, updatePostThunk, deletePostThunk } from "../services/posts-thunk";
 import { updateUserThunk } from "../services/user-thunk";
 import { findPostById } from "../services/posts-service";
 
@@ -24,6 +24,15 @@ const PostStats = ({ stats, postLink }) => {
         }
         else {
             return 'fa-regular';
+        }
+    }
+
+    function isReposted(reposts) {
+        if (currentUser) {
+            return reposts.includes(currentUser._id) ? 'sf-accent' : '';
+        }
+        else {
+            return '';
         }
     }
 
@@ -82,6 +91,7 @@ const PostStats = ({ stats, postLink }) => {
 
     const handleRepost = async () => {
         if (currentUser) {
+            console.log(currentUser);
             if (!stats.repostUsers.includes(currentUser._id) && stats.userId !== currentUser._id) {
                 const newRepost = {
                     originalPost: stats._id,
@@ -95,6 +105,16 @@ const PostStats = ({ stats, postLink }) => {
 
                 const repost = await dispatch(createPostThunk(newRepost));
                 console.log(repost);
+
+                const user = JSON.parse(JSON.stringify(currentUser));
+                user.reposts.push({repostId: repost.payload._id, originalPost: stats._id});
+                const newUser = {
+                    ...currentUser,
+                    reposts: user.reposts
+                }
+
+                const updatedUser = await dispatch(updateUserThunk(newUser));
+                console.log(updatedUser);
 
                 // create repost
 
@@ -115,6 +135,36 @@ const PostStats = ({ stats, postLink }) => {
                 // update repost count
 
             }
+            else if (stats.repostUsers.includes(currentUser._id)) {
+                // remove repost from currentUser list
+                const user = JSON.parse(JSON.stringify(currentUser));
+                const {repostId} = user.reposts.find(e => e.originalPost === stats._id);
+                console.log(repostId);
+                const newUserReposts = user.reposts.filter(e => e.originalPost !== stats._id);
+                const newUser = {
+                    ...user,
+                    reposts: newUserReposts
+                }
+
+                let res = await dispatch(updateUserThunk(newUser));
+                
+                const {reposts} = JSON.parse(JSON.stringify(stats));
+                const newReposts = reposts.filter(e => e !== repostId);
+
+
+                const {repostUsers} = JSON.parse(JSON.stringify(stats));
+                const newRepostUsers = repostUsers.filter(e => e !== currentUser._id);
+
+                const newPost = {
+                    ...stats,
+                    reposts: newReposts,
+                    repostUsers: newRepostUsers
+                }
+
+                res = await dispatch(updatePostThunk(newPost));
+
+                const deleted = await dispatch(deletePostThunk(repostId));
+            }
         } else {
             console.log("Must be logged in to repost");
         }
@@ -131,7 +181,7 @@ const PostStats = ({ stats, postLink }) => {
                 </div>
                 <div className="col-3">
                     <Link onClick={() => handleRepost()} className="text-secondary sf-no-link-decor" to="#">
-                        <i className="fas fa-retweet sf-anim-3 sf-small-hover pe-1"></i>
+                        <i className={`fas fa-retweet sf-anim-3 sf-small-hover pe-1 ${isReposted(stats.repostUsers)}`}></i>
                         <span className="ms-sm-1 ms-md-3">{stats.reposts.length}</span>
                     </Link>
                 </div>

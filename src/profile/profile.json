@@ -1,11 +1,17 @@
 [
     {
-        "title": "Posts"
+        "title": "Posts",
+        "path": "/profile",
+        "_id": "123"
     },
     {
-        "title": "Reviews"
+        "title": "Reviews",
+        "path": "/profile/reviews",
+        "_id": "456"
     },
     {
-        "title": "Likes"
+        "title": "Likes",
+        "path": "/profile/likes",
+        "_id": "789"
     }
 ]
