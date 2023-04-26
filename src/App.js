@@ -24,6 +24,8 @@ import Post from "./post";
 import commentReducer from "./reducers/comments/comment-reducer";
 import Lists from "./lists";
 import ListDetails from "./list-details/list-details";
+import Followers from "./followers";
+import Following from "./following";
 
 const store = configureStore(
     {
@@ -88,7 +90,11 @@ function App() {
                                     <Route path="/edit-profile" element={<EditProfileScreen />} />
                                     <Route path="/search/album/:id" element={<AlbumDetails />} />
                                     <Route path="/profile/*" element={<Profile />} />
+                                    <Route path="/profile/followers" element={<Followers />} />
+                                    <Route path="/profile/following" element={<Following />} />
                                     <Route path="/profile/other/:uid/*" element={<OtherProfile />} />
+                                    <Route path="/profile/other/:uid/followers" element={<Followers />} />
+                                    <Route path="/profile/other/:uid/following" element={<Following />} />
                                     <Route path="/login" element={<Login />} />
                                     <Route path="/register" element={<RegisterScreen />} />
                                     <Route path="/:username/:pid" element={<Post />} />

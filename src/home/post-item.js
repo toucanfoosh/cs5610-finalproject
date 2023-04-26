@@ -172,7 +172,8 @@ const PostItem = ({ post }) => {
                                     <span className="sf-font-bold sf-clickable sf-underline-hover sf-anim-3 pe-1 sf-secondary ">
                                         {postToRender.username}
                                     </span>
-                                    {postUser.role === "admin" && <span class="fa-solid fa-circle-check sf-accent pe-1"></span>}
+                                    {postUser.role === "admin" && <span className="fa-solid fa-circle-check sf-accent pe-1"></span>}
+                                    {postUser.role === "artist" && <span className="sf-accent fa-solid fa-music pe-1"></span>}
                                     <span className="sf-font-normal sf-clickable sf-tertiary">@{postToRender.handle}</span>
                                 </Link>
                                 <div className="sf-font-normal sf-secondary pb-1 text-break">

@@ -1,0 +1,14 @@
+.sf-folio-preview {
+    border-bottom: 1px solid var(--tertiary);
+    background-color: var(--primary);
+    height: 5rem;
+}
+
+.sf-folio-preview:hover {
+    background-color: rgba(var(--tertiary-rgb), .3);
+}
+
+.sf-folio-preview-button {
+    width: 15rem;
+    height: 7rem;
+}

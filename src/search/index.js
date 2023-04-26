@@ -190,7 +190,7 @@ const SearchScreen = () => {
                                         // USER
                                         result.role &&
                                         <Link className="sf-no-text-decor" to={`/profile/other/${result._id}`}>
-                                            <div className="p1">
+                                            <div className="p-1">
                                                 <div className="sf-result-container sf-result-hover d-flex align-items-center">
                                                     <div className="sf-result-body-container d-flex sf-w-100">
                                                         <div className="col-9 d-flex">
@@ -202,8 +202,8 @@ const SearchScreen = () => {
                                                         </div>
                                                         <div className="sf-flex-col col-3 sf-review-stats d-flex justify-content-center align-items-end">
                                                             <div className="sf-flex-col pe-3 text-truncate text-end">
-                                                                <div className="sf-secondary sf-text-bold">Followers {result.followers.length}</div>
-                                                                <div className="sf-secondary sf-text-bold">Following {result.following.length}</div>
+                                                                <div className="sf-secondary sf-text-bold">Followers: {result.followers.length}</div>
+                                                                <div className="sf-secondary sf-text-bold">Following: {result.following.length}</div>
                                                             </div>
                                                         </div>
                                                     </div>

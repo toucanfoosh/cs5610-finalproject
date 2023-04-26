@@ -4,6 +4,8 @@ import { Link, useParams } from "react-router-dom";
 import { findListByIdThunk, updateListThunk } from "../services/lists-thunk";
 import FancyButton from "../FancyButton/button";
 import BackButton from "../back-button";
+import './index.css'
+import '../index.css'
 
 const ListDetails = () => {
     const dispatch = useDispatch();
@@ -40,43 +42,81 @@ const ListDetails = () => {
 
     return (
         <div>
-            <BackButton path="/lists" />
+            <div className="ps-3 pb-1">
+                <BackButton path="/lists" />
+            </div>
             <div className="row">
-                <h1>Folio</h1>
                 {
                     list &&
                     <div>
-                        <div>
-                            {!editing && <h2>{list.name}</h2>}
-                            {editing && <label for="name">Name</label>}
-                            {editing && <input onChange={(e) => setList({ ...list, name: e.target.value })} className="form-control" value={list.name} id="name" />}
+                        <div className="p-3 pt-5">
+                            <div className="row px-3">
+                                <div className="col">
+                                    {!editing && <h2 className="sf-secondary">{list.name}</h2>}
+                                    {editing &&
+                                        <div className="d-flex flex-column">
+                                            <div className="">
+                                                <label for="name" className="sf-secondary py-3">Name</label>
+                                            </div>
+                                            <div className="">
+                                                <input onChange={(e) => setList({ ...list, name: e.target.value })} className="sf-form-control sf-folio-text-box" value={list.name} id="name" />
+                                            </div>
+                                        </div>
+                                    }
 
-                            {!editing && <div>{list.description}</div>}
-                            {editing && <label for="description">Description</label>}
-                            {editing && <input onChange={(e) => setList({ ...list, description: e.target.value })} className="form-control" value={list.description} id="description" />}
+                                    {!editing && <div className="sf-tertiary">{list.description}</div>}
+                                    {editing &&
+                                        <div className="d-flex flex-column">
+                                            <div>
+                                                <label for="description" className="sf-secondary py-3">Description</label>
+                                            </div>
+                                            <div>
+                                                <input onChange={(e) => setList({ ...list, description: e.target.value })} className="sf-form-control sf-folio-text-box" value={list.description} id="description" />
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                                {!editing &&
+                                    <div className="col-3">
+                                        <FancyButton onclick={toggleEditing} text="Edit" />
+                                    </div>
+                                }
+                                {editing &&
+                                    <div className="row pt-5">
 
+                                        <div className="row">
+                                            <div className="col d-flex flex-column align-items-end">
+                                                <div className="sf-folio-button">
+                                                    <FancyButton onclick={handleEditAndSave} text="Save" />
+                                                </div>
+                                            </div>
+                                            <div className="col d-flex flex-column align-items-start">
+                                                <div className="sf-folio-button">
+                                                    <FancyButton onclick={cancelEdit} text="Cancel" color="sf-bg-liked" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
                             {
                                 !editing &&
-                                <div>
-                                    <h2>Albums</h2>
-                                    <ul className="list-group">
+                                <div className="sf-foilio-bundle-container p-3">
+                                    <div className="sf-folio-bundle row">
                                         {
                                             list.albums.length > 0 &&
                                             list.albums.map(album =>
-                                                <Link className="list-group-item" to={`/search/album/${album.albumId}`}>
-                                                    <img src={album.albumImage} />
-                                                    <h1 className="">{album.albumName}</h1>
-                                                    <div className="">{album.albumMainArtist}</div>
+                                                <Link className="sf-folio-item col-4 pb-4" to={`/search/album/${album.albumId}`}>
+                                                    <img src={album.albumImage} className="sf-folio-item-img img-fluid" />
+                                                    <div className="sf-secondary fw-bold">{album.albumName}</div>
+                                                    <div className="sf-accent">{album.albumMainArtist}</div>
                                                 </Link>
                                             )
                                         }
-                                    </ul>
+                                    </div>
                                 </div>
                             }
                         </div>
-                        {!editing && <FancyButton onclick={toggleEditing} text="Edit" />}
-                        {editing && <FancyButton onclick={handleEditAndSave} text="Save" />}
-                        {editing && <FancyButton onclick={cancelEdit} text="Cancel" color="sf-bg-liked" />}
                     </div>
                 }
             </div>

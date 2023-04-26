@@ -66,49 +66,83 @@
 }
 
 /* Dropdown Button */
-.dropbtn {
-    background-color: #04AA6D;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-}
 
 /* The container <div> - needed to position the dropdown content */
-.dropdown {
+.sf-dropdown {
     position: relative;
-    display: inline-block;
+}
+
+.sf-dropdown-button {
+    height: 4rem;
+    width: 5rem;
 }
 
 /* Dropdown Content (Hidden by Default) */
-.dropdown-content {
-    display: none;
+.sf-dropdown-content {
     position: absolute;
-    background-color: #f1f1f1;
-    min-width: 160px;
-    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-    z-index: 1;
+    background-color: var(--primary);
+    width: 22.5vw;
+    margin-top: 4.5rem;
+    z-index: 100000;
+    border: 1px solid var(--tertiary);
+    border-radius: 15px;
 }
 
 /* Links inside the dropdown */
-.dropdown-content a {
-    color: black;
+.sf-dropdown-content a {
+    color: var(--secondary);
     padding: 12px 16px;
     text-decoration: none;
     display: block;
 }
 
 /* Change color of dropdown links on hover */
-.dropdown-content a:hover {
-    background-color: #ddd;
+.sf-dropdown-content a:hover {
+    background-color: var(--accent);
+    border-radius: 15px;
 }
 
 /* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {
+.sf-dropdown:hover .sf-dropdown-content {
     display: block;
 }
 
-/* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {
-    background-color: #3e8e41;
+.star-rating {
+    display: inline-flex;
+    font-size: 1.5rem;
+}
+
+.star-rating input[type="radio"] {
+    display: none;
+}
+
+.star-rating .fas.fa-star {
+    color: var(--stars);
+    /* Change the default color to --stars */
+}
+
+/* Remove this rule, as it's not needed */
+/* .star-rating input[type="radio"]:checked ~ .fas.fa-star {
+    color: var(--tertiary);
+} */
+
+/* Update this rule to set the color of the hovered star and all previous siblings to --stars */
+.star-rating .fas.fa-star:hover,
+.star-rating .fas.fa-star:hover~.fas.fa-star {
+    color: var(--stars);
+}
+
+/* Add this rule to set the color of the stars following the hovered star to --tertiary */
+.star-rating .fas.fa-star:hover~.fas.fa-star:not(:hover) {
+    color: var(--tertiary);
+}
+
+/* Add this rule to set the color of the checked star and all previous siblings to --stars */
+.star-rating input[type="radio"]:checked~.fas.fa-star {
+    color: var(--stars);
+}
+
+/* Add this rule to set the color of the stars following the checked star to --tertiary */
+.star-rating input[type="radio"]:checked~.fas.fa-star~.fas.fa-star {
+    color: var(--tertiary);
 }

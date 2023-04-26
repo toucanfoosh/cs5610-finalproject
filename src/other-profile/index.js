@@ -70,7 +70,7 @@ const OtherProfile = () => {
             const response = await dispatch(updateUserThunk(newProfile));
             console.log(response);
 
-            const { following } = JSON.parse(JSON.stringify(profile));
+            const { following } = JSON.parse(JSON.stringify(currentUser));
             following.push(profile._id);
             const newUser = {
                 ...currentUser,
@@ -84,7 +84,6 @@ const OtherProfile = () => {
         }
     }
 
-    // TODO: implement unfollowing
     const handleUnfollow = async () => {
         if (currentUser && profile) {
             const { followers } = JSON.parse(JSON.stringify(profile));
@@ -141,6 +140,14 @@ const OtherProfile = () => {
         }
     ]
 
+    const artistArr = [
+        ...arr,
+        {
+            title: "Albums",
+            path: `/profile/other/${uid}/albums`
+        }
+    ]
+
     return (
         <div className="row">
             {profile &&
@@ -150,21 +157,33 @@ const OtherProfile = () => {
                             <div className="col-8">
                                 <Header user={profile} />
                             </div>
-                            <div className="d-flex align-items-end justify-content-center col-4 pb-3">
+                            <div className="d-flex align-items-center justify-content-center col-4 pb-3">
                                 <div className="sf-profile-button">
                                     {!isFollowing() &&
                                         <FancyButton onclick={handleFollow} text="Follow" />}
                                     {isFollowing() &&
-                                        <FancyButton onclick={handleUnfollow} color="sf-bg-primary" text="Unfollow" />}
+                                        <FancyButton onclick={handleUnfollow} color="sf-bg-primary" textColor="sf-secondary" text="Unfollow" />}
                                 </div>
                             </div>
                         </div>
                         <div>
-                            <Routes>
-                                <Route index element={<Tabs props={arr} active="Posts" />} />
-                                <Route path="/reviews" element={<Tabs props={arr} active="Reviews" />} />
-                                <Route path="/likes" element={<Tabs props={arr} active="Likes" />} />
-                            </Routes>
+                            {
+                                profile.role !== "artist" &&
+                                <Routes>
+                                    <Route index element={<Tabs props={arr} active="Posts" />} />
+                                    <Route path="/reviews" element={<Tabs props={arr} active="Reviews" />} />
+                                    <Route path="/likes" element={<Tabs props={arr} active="Likes" />} />
+                                </Routes>
+                            }
+                            {
+                                profile.role === "artist" &&
+                                <Routes>
+                                    <Route index element={<Tabs props={artistArr} active="Posts" />} />
+                                    <Route path="/reviews" element={<Tabs props={artistArr} active="Reviews" />} />
+                                    <Route path="/likes" element={<Tabs props={artistArr} active="Likes" />} />
+                                    <Route path="/albums" element={<Tabs props={artistArr} active="Albums" />} />
+                                </Routes>
+                            }
                         </div>
                     </div>
                     <Body

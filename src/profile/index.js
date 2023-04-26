@@ -78,6 +78,15 @@ const Profile = () => {
         }
     }, [currentUser]);
 
+    const artistProfileItems = [
+        ...profileItems,
+        {
+            "title": "Albums",
+            "path": "/profile/albums",
+            "_id": "890"
+        }
+    ]
+
     return (
         <div className="row">
             {currentUser &&
@@ -87,7 +96,7 @@ const Profile = () => {
                             <div className="col-8">
                                 <Header user={currentUser} />
                             </div>
-                            <div className="d-flex align-items-end justify-content-center col-4 pb-3">
+                            <div className="d-flex align-items-center justify-content-center col-4 pb-3">
                                 <div className="sf-profile-button">
                                     <FancyButton onclick={handleEditProfile} text="Edit Profile" />
                                 </div>
@@ -97,11 +106,26 @@ const Profile = () => {
                             </div>
                         </div>
                         <div>
-                            <Routes>
-                                <Route index element={<Tabs props={profileItems} active="Posts" />} />
-                                <Route path="/reviews" element={<Tabs props={profileItems} active="Reviews" />} />
-                                <Route path="/likes" element={<Tabs props={profileItems} active="Likes" />} />
-                            </Routes>
+
+                                {
+                                    currentUser.role !== "artist" && 
+                                    <Routes>
+                                        <Route index element={<Tabs props={profileItems} active="Posts" />} />
+                                        <Route path="/reviews" element={<Tabs props={profileItems} active="Reviews" />} />
+                                        <Route path="/likes" element={<Tabs props={profileItems} active="Likes" />} />
+                                        <Route path="/albums" element={<Tabs props={profileItems} active="Albums" />} />
+                                    </Routes>
+                                }
+                                {
+                                    currentUser.role === "artist" &&
+                                    <Routes>
+                                        <Route index element={<Tabs props={artistProfileItems} active="Posts" />} />
+                                        <Route path="/reviews" element={<Tabs props={artistProfileItems} active="Reviews" />} />
+                                        <Route path="/likes" element={<Tabs props={artistProfileItems} active="Likes" />} />
+                                        <Route path="/albums" element={<Tabs props={artistProfileItems} active="Albums" />} />
+                                    </Routes>
+                                }
+
                         </div>
                     </div>
                     <Body

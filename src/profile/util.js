@@ -3,18 +3,13 @@ import PostItem from "../home/post-item";
 import LoadingIcon from "../loading-icon";
 import './index.css'
 import '../index.css'
+import {getAccessToken, getArtistAlbums} from "../services/search-service";
+import ReviewItem from "../search/review-item";
+import {useState, useEffect} from "react"
 
 export const Followers = ({ currentUser, followers }) => {
     return (
         <div>
-            <h3>Followers {currentUser.followers.length}</h3>
-            {
-                followers &&
-                followers.map(follower =>
-                    <Link className="sf-underline-hover" to={`/profile/other/${follower._id}`}>
-                        {follower.username}
-                    </Link>)
-            }
         </div>
     )
 }
@@ -72,15 +67,48 @@ export const Posts = ({ currentUser, loading, posts }) => {
     )
 }
 
+
+
 export const Albums = ({ currentUser }) => {
-    // const fetchAlbums = async () => {
-    //     if (currentUser) {
-    //         const response = await getAccessToken();
-    //         console.log(response);
-    //     }
-    // }
+    const [albums, setAlbums] = useState(undefined);
+
+    const fetchAlbums = async () => {
+        if (currentUser) {
+            const response = await getAccessToken();
+
+            const results = await getArtistAlbums({id: currentUser.artistId, accessToken: response});
+            console.log(results);
+            setAlbums(results);
+        }
+    }
+
+    useEffect(() => {
+        fetchAlbums();
+    }, [])
+
+
     return (
         <div>
+            {
+                albums && 
+                albums.data.items.map(result => 
+                    <Link className="sf-no-text-decor" to={`/search/album/${result.id}`}>
+                    <div className="p-1">
+                        <div className="sf-result-container sf-result-hover d-flex align-items-center">
+                            <div className="sf-result-body-container d-flex sf-w-100">
+                                <div className="col-9 d-flex">
+                                    <img src={result.images[0].url} className="sf-result-img p-2" />
+                                    <div className="ps-3 sf-flex-col justify-content-center align-items-start text-truncate sf-result-body">
+                                        <div className="sf-w-100 sf-secondary sf-text-bold text-truncate">{result.name}</div>
+                                        <div className="sf-tertiary text-truncate">{result.artists[0].name}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </Link>
+                )
+            }
         </div>
     )
 }
@@ -91,15 +119,11 @@ export const Reviews = ({ currentUser, reviews }) => {
             <div className="sf-tertiary ps-1 pt-1">{currentUser.reviews} results</div>
             {
                 reviews &&
-                <ul className="list-group">
-                    {reviews.map(item =>
-                        <li className="list-group-item">
-                            {item.score} <br />
-                            <Link to={`/search/album/${item.albumId}`} className="sf-underline-hover sf-anim-3 float-end">{item.albumName} by {item.albumMainArtist}</Link>
-                            {item.review}
-                        </li>)
-                    }
-                </ul>
+                <div>
+                    {reviews.map(review =>
+                        <ReviewItem item={review} show={true}/>
+                    )}
+                </div>
             }
         </div>
     )

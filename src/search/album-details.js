@@ -9,6 +9,7 @@ import FancyButton from "../FancyButton/button";
 import { updateUserThunk } from "../services/user-thunk";
 import { createListThunk, findListsByUserThunk, updateListThunk } from "../services/lists-thunk";
 import BackButton from "../back-button";
+import ReviewItem from "./review-item";
 
 const AlbumDetails = () => {
     const { id } = useParams();
@@ -23,6 +24,11 @@ const AlbumDetails = () => {
     const [lists, setLists] = useState([]);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [showLists, setShowLists] = useState(false);
+
+    const toggleShowLists = () => {
+        setShowLists(!showLists);
+    }
 
     const checkIfAlreadyPosted = (result) => {
         if (result) {
@@ -193,11 +199,11 @@ const AlbumDetails = () => {
         <div>
             {album.data &&
                 <div>
-                    <BackButton path="/search" />
+                    <BackButton path="/search" on />
                     <div className="ps-2">
-                        <div className="d-flex p-3 ps-0 justify-content-start d-flex row">
+                        <div className="d-flex p-3 px-0 justify-content-start d-flex row">
                             <div className="col-1" />
-                            <div className="d-flex col-9">
+                            <div className="d-flex col-8">
                                 <img src={album.data.images[1].url} className="sf-song-cover" />
                                 <div className="d-flex ps-3 flex-column justify-content-center">
                                     <h1 className="sf-secondary sf-song-title m-0">{album.data.name}</h1>
@@ -209,28 +215,36 @@ const AlbumDetails = () => {
                             </div>
                             {
                                 currentUser &&
-                                <div className="col-2 d-flex align-items-end">
-                                    <div class="dropdown">
-                                        <button class="dropbtn">Dropdown</button>
-                                        <div class="dropdown-content">
+                                <div className="col-3 d-flex align-items-end justify-content-center">
+                                    <div className="sf-dropdown d-flex justify-content-center">
+                                        <div className="fs-1 sf-hw-100">
+                                            <div className="sf-dropdown-button">
+                                                <FancyButton
+                                                    text={`${showLists ? "x" : "+"}`}
+                                                    onclick={toggleShowLists}
+                                                    color={`${showLists ? "sf-bg-danger" : "sf-bg-accent"}`}
+                                                    textColor={`${showLists ? "sf-secondary" : "sf-primary"}`} />
+                                            </div>
+                                        </div>
+                                        <div class={`sf-dropdown-content ${showLists ? "d-block" : "d-none"}`}>
                                             {lists.length > 0 && lists.map(list => {
                                                 return (
                                                     <div>
                                                         {
                                                             !alreadyIncluded(list) &&
                                                             <Link onClick={() => handleAddToList(list)}>
-                                                                <div className="row">
-                                                                    <span className="col-10">{list.name}</span>
-                                                                    <i className="col-2 fa-solid fa-plus"></i>
+                                                                <div className="row d-flex justify-content-between">
+                                                                    <div className="col-9 text-truncate">{list.name}</div>
+                                                                    <div className="col-2 pe-3"><i className="fa-solid fa-plus"></i></div>
                                                                 </div>
                                                             </Link>
                                                         }
                                                         {
                                                             alreadyIncluded(list) &&
                                                             <Link onClick={() => handleRemoveFromList(list)}>
-                                                                <div className="row">
-                                                                    <span className="col-10">{list.name}</span>
-                                                                    <i className="col-2 fa-solid fa-check"></i>
+                                                                <div className="row d-flex justify-content-between">
+                                                                    <div className="col-9 text-truncate">{list.name}</div>
+                                                                    <div className="col-2 pe-3"><i className="fa-solid fa-check"></i></div>
                                                                 </div>
                                                             </Link>
                                                         }
@@ -242,7 +256,7 @@ const AlbumDetails = () => {
                                                 lists.length === 0 &&
                                                 <div>
                                                     <Link onClick={() => createNewFolio()}>
-                                                        Create new folio
+                                                        Create new Folio
                                                     </Link>
                                                 </div>
                                             }
@@ -266,18 +280,14 @@ const AlbumDetails = () => {
                         })}
                     </div>
                     <div>
-                        <h2 className="sf-secondary">Reviews</h2>
+                        <h2 className="row px-4 pt-3 pb-0 sf-secondary">Reviews</h2>
                         {
                             reviews && reviews.length > 0 &&
-                            <ul className="list-group">
-                                {reviews.map(item =>
-                                    <li className="list-group-item">
-                                        {item.score} <br />
-                                        <Link to={`/profile/other/${item.userId}`} className="sf-underline-hover sf-anim-3 float-end">{item.username} @{item.handle}</Link>
-                                        {item.review}
-                                    </li>
+                            <div className="row">
+                                {reviews.map(review =>
+                                    <ReviewItem item={review} />
                                 )}
-                            </ul>
+                            </div>
                         }
                         {
                             reviews && reviews.length === 0 &&
@@ -288,65 +298,82 @@ const AlbumDetails = () => {
 
                         {
                             currentUser && alreadyPosted &&
-                            <div>
-                                <h2 className="sf-secondary">Edit Your Review</h2>
+                            <div className="row">
+                                <h2 className="sf-secondary pt-2">Edit Your Review</h2>
                                 {
                                     error &&
                                     <div className="alert alert-danger" role="alert">
                                         {error}
                                     </div>
                                 }
-                                <div onChange={(e) => setScore(e.target.value)}>
-                                    <input type="radio" value={1} name="stars" />1
-                                    <input type="radio" value={2} name="stars" />2
-                                    <input type="radio" value={3} name="stars" />3
-                                    <input type="radio" value={4} name="stars" />4
-                                    <input type="radio" value={5} name="stars" />5
+                                <div className="col-8 d-flex flex-column">
+                                    <div className="py-2">
+                                        <div class="star-rating" onChange={(e) => setScore(e.target.value)}>
+                                            <input type="radio" value="1" name="stars" id="star1" /><label for="star1" class="fas fa-star sf-clickable"></label>
+                                            <input type="radio" value="2" name="stars" id="star2" /><label for="star2" class="fas fa-star sf-clickable"></label>
+                                            <input type="radio" value="3" name="stars" id="star3" /><label for="star3" class="fas fa-star sf-clickable"></label>
+                                            <input type="radio" value="4" name="stars" id="star4" /><label for="star4" class="fas fa-star sf-clickable"></label>
+                                            <input type="radio" value="5" name="stars" id="star5" /><label for="star5" class="fas fa-star sf-clickable"></label>
+                                        </div>
+                                    </div>
+                                    <div className="">
+                                        <textarea
+                                            defaultValue={review}
+                                            onChange={(e) => setReview(e.target.value)}
+                                            className="sf-form-control sf-w-100 py-2 px-3"
+                                            placeholder={`Review ${album.data.name}`} />
+                                    </div>
                                 </div>
-                                <textarea
-                                    defaultValue={review}
-                                    onChange={(e) => setReview(e.target.value)}
-                                    className="form-control"
-                                    placeholder={`Review ${album.data.name}`} />
-                                <FancyButton onclick={handleEditReview} text="Save Edits" />
+                                <div className="col-4 p-3">
+                                    <FancyButton onclick={handleEditReview} text="Save Edits" />
+                                </div>
                             </div>
                         }
                         {
                             currentUser && !alreadyPosted &&
 
-                            <div>
-                                <h2 className="sf-secondary">Leave a Review</h2>
+                            <div className="row">
+                                <h2 className="sf-secondary pt-2">Leave a Review</h2>
                                 {
                                     error &&
                                     <div className="alert alert-danger" role="alert">
                                         {error}
                                     </div>
                                 }
-                                <div onChange={(e) => setScore(e.target.value)}>
-                                    <input type="radio" value={1} name="stars" />1
-                                    <input type="radio" value={2} name="stars" />2
-                                    <input type="radio" value={3} name="stars" />3
-                                    <input type="radio" value={4} name="stars" />4
-                                    <input type="radio" value={5} name="stars" />5
+                                <div className="col-8 d-flex flex-column">
+                                    <div className="py-2">
+                                        <div class="star-rating" onChange={(e) => setScore(e.target.value)}>
+                                            <input type="radio" value="1" name="stars" id="star1" /><label for="star1" class="fas fa-star sf-clickable"></label>
+                                            <input type="radio" value="2" name="stars" id="star2" /><label for="star2" class="fas fa-star sf-clickable"></label>
+                                            <input type="radio" value="3" name="stars" id="star3" /><label for="star3" class="fas fa-star sf-clickable"></label>
+                                            <input type="radio" value="4" name="stars" id="star4" /><label for="star4" class="fas fa-star sf-clickable"></label>
+                                            <input type="radio" value="5" name="stars" id="star5" /><label for="star5" class="fas fa-star sf-clickable"></label>
+                                        </div>
+                                    </div>
+                                    <div className="">
+                                        <textarea
+                                            defaultValue={review}
+                                            onChange={(e) => setReview(e.target.value)}
+                                            className="sf-form-control sf-w-100"
+                                            placeholder={`Review ${album.data.name}`} />
+                                    </div>
                                 </div>
-                                <textarea
-                                    defaultValue={review}
-                                    onChange={(e) => setReview(e.target.value)}
-                                    className="form-control"
-                                    placeholder={`Review ${album.data.name}`} />
-                                <FancyButton onclick={handlePostReview} text="Post Review" />
+                                <div className="col-4 p-3">
+                                    <FancyButton onclick={handlePostReview} text="Post Review" />
+                                </div>
                             </div>
                         }
                         {!currentUser &&
                             <div>
-                                <h2 className="sf-secondary">Leave a Review</h2>
+                                <h2 className="sf-secondary pt-2">Leave a Review</h2>
                                 Must be logged in to review
                             </div>
                         }
                     </div>
+                    <div className="sf-bottom-post" />
                 </div>
             }
-        </div>
+        </div >
     )
 }
 

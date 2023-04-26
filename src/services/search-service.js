@@ -122,7 +122,7 @@ export const getAlbum = async ({ id, accessToken }) => {
 export const getArtistAlbums = async ({ id, accessToken }) => {
     const headers = {
         headers: {
-            'Content': 'application/json',
+            'Content-Type': 'application/json',
             'Authorization': `Bearer ${accessToken}`,
         },
     }

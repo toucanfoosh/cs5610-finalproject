@@ -1,0 +1,16 @@
+.sf-folio-item-img {
+    max-width: 20vw;
+    max-height: 20vw;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.sf-folio-text-box {
+    width: 100%;
+    height: 5rem;
+}
+
+.sf-folio-button {
+    width: 25vw;
+    height: 5rem;
+}

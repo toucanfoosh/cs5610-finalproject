@@ -55,6 +55,13 @@
     display: flex;
     flex-direction: column;
     margin-bottom: 1rem;
+    overflow: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+.sf-card::-webkit-scrollbar {
+    display: none;
 }
 
 .sf-card-border {
@@ -74,6 +81,7 @@
 
 .sf-card-container {
     margin-top: -2rem;
+    max-height: 80vh;
 }
 
 .sf-card-body {

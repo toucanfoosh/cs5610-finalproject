@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { createListThunk, deleteListThunk, findListsByUserThunk } from "../services/lists-thunk";
 import { useNavigate } from "react-router";
 import { Link } from "react-router-dom";
+import './index.css'
+import '../index.css'
 
 const Lists = () => {
     const dispatch = useDispatch();
@@ -51,37 +53,50 @@ const Lists = () => {
     }, [currentUser])
     return (
         <div>
-            <h1>Your Folios</h1>
+            <h1 className="pt-4 sf-secondary text-center">Your Folios</h1>
             {
                 !currentUser &&
-                <div>
+                <div className="sf-secondary p-3">
                     Log in to view Folios
                 </div>
             }
             {
                 currentUser &&
                 <div>
+                    <div className="row pb-3 sf-bottom-border">
+                        <div className="d-flex justify-content-center">
+                            <div className="p-3 sf-folio-preview-button">
+                                <FancyButton onclick={createNewList} text="Create New Folio" />
+                            </div>
+                        </div>
+                    </div>
                     {
                         lists.length > 0 &&
-                        <ul className="list-group">
+                        <div className="">
                             {lists.map(list =>
-                                <li className="list-group-item">
-                                    <Link to={`/lists/${list._id}`} className="sf-underline-hover">{list.name}</Link>
-                                    <div className="sf-tertiary">{list.description}</div>
-                                    <i onClick={() => handleDelete(list._id)} className="float-end fa-solid fa-x sf-small-hover"></i>
-                                </li>
+                                <Link to={`/lists/${list._id}`} className="row">
+                                    <div className="sf-folio-preview p-3 d-flex justify-content-between">
+                                        <div className="col-11 sf-folio-preview-text">
+                                            <div className="sf-secondary fw-bold text-truncate">{list.name}</div>
+                                            <div className="sf-tertiary text-truncate">{list.description}</div>
+                                        </div>
+                                        <div className="d-flex justify-content-end">
+                                            <i onClick={() => handleDelete(list._id)} className="fa-solid fa-x sf-small-hover sf-secondary"></i>
+                                        </div>
+                                    </div>
+                                </Link>
                             )}
-                        </ul>
+                        </div>
                     }
                     {
                         lists.length === 0 &&
-                        <div>
+                        <div className="sf-secondary">
                             No folios found.
                         </div>
                     }
-                    <FancyButton onclick={createNewList} text="+" />
                 </div>
             }
+            <div className="sf-bottom-post"></div>
         </div >
     )
 }

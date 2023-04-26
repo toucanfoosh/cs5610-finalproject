@@ -99,18 +99,22 @@
 } */
 
 .sf-shadow {
-	border-radius: 10px;
-	border: 1px solid var(--tertiary);
+  border-radius: 10px;
+  border: 1px solid var(--tertiary);
   height: 100%;
   width: 80%;
-	box-shadow: 5px 5px var(--tertiary-alt);
-	transition: box-shadow 300ms ease, transform 500ms ease;
+  box-shadow: 5px 5px var(--tertiary-alt);
+  transition: box-shadow 300ms ease, transform 500ms ease;
 }
 
 .sf-shadow:hover {
-	box-shadow: none;
+  box-shadow: none;
 }
 
 .sf-shadow:active {
-	transform: scale(0.9);
+  transform: scale(0.9);
+}
+
+.sf-dropdown {
+  border-radius: 50%;
 }

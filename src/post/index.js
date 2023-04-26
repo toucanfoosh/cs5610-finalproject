@@ -5,8 +5,10 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createCommentThunk, deleteCommentThunk, findCommentsByPostThunk, updateCommentThunk } from "../services/comments-thunk";
 import "../index.css";
+import "./index.css";
 import { findPostByIdThunk, updatePostThunk } from "../services/posts-thunk";
 import PostItem from "../home/post-item";
+import BackButton from "../back-button";
 
 const Post = () => {
     const { currentUser } = useSelector(state => state.user);
@@ -195,11 +197,12 @@ const Post = () => {
 
     return (
         <div className="row">
-            {<Link className="col-1" to={`/`}><i class="fa-solid fa-arrow-left"></i></Link>}
-            <h1 className="col-11">Post</h1>
-            {post && <PostItem post={pid} />}
-            <h1 className="">Comments</h1>
-            <ul className="list-group">
+            <BackButton path="/" />
+            {post &&
+                <div className="pt-5 pb-3 px-0">
+                    <PostItem post={pid} />
+                </div>}
+            <div className="d-flex flex-column">
                 {
                     loading &&
                     <ul className="list-group">
@@ -211,39 +214,50 @@ const Post = () => {
                 {
                     !loading &&
                     postComments.map(comment => {
-                        return (<li className="list-group-item">
-                            <div className="row">
-                                <div className="col">
-                                    {comment.comment}
-                                </div>
-                                <div className="col">
-                                    <Link className="sf-underline-hover sf-anim-3" to={`/profile/other/${comment.userId}`}>{comment.username} @{comment.handle}</Link>
-                                </div>
-                                <div className="col">
-                                    <Link onClick={() => handleCommentLike(comment)} className="sf-anim-3">
-                                        <i className={`fa-heart ${isLiked(comment.likeUsers)} pe-1 sf-anim-3 sf-small-hover`}></i>
-                                        {comment.likes}
-                                    </Link>
-                                </div>
-                                {
-                                    currentUser && (currentUser.role === "admin" || comment.userId === currentUser._id) &&
-                                    <div className="col">
-                                        <Link onClick={() => handleDeleteComment(comment)}>
-                                            <i className="fa-solid fa-x pe-1 sf-anim-3 sf-small-hover"></i>
+                        return (
+                            <div className="d-flex row justify-content-between pb-2">
+                                <div className="sf-bottom-border d-flex pb-2">
+                                    <div className="col-1 justify-content-center d-flex">
+                                        <Link onClick={() => handleCommentLike(comment)} className="sf-anim-3">
+                                            <i className={`fa-heart ${isLiked(comment.likeUsers)} pe-1 sf-anim-3 sf-small-hover sf-secondary`}></i>
+                                            <span className="sf-secondary">{comment.likes}</span>
                                         </Link>
                                     </div>
-                                }
-                    
-
-                            </div>
-
-                        </li>)
+                                    <div className="col-10 flex-column d-flex justify-content-start sf-secondary">
+                                        <div className="">
+                                            <Link className="" to={`/profile/other/${comment.userId}`}>
+                                                <span className="sf-underline-hover sf-secondary fw-bold">{comment.username}</span>
+                                                <span className="sf-tertiary"> @{comment.handle}</span>
+                                            </Link>
+                                        </div>
+                                        <div className="row pt-1">
+                                            <div className="sf-secondary">
+                                                {comment.comment}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {
+                                        currentUser && (currentUser.role === "admin" || comment.userId === currentUser._id) &&
+                                        <div className="col-1 d-flex justify-content-end">
+                                            <Link onClick={() => handleDeleteComment(comment)}>
+                                                <i className="fa-solid fa-x pe-1 sf-anim-3 sf-small-hover sf-tertiary"></i>
+                                            </Link>
+                                        </div>
+                                    }
+                                </div>
+                            </div>)
                     }
                     )
                 }
-            </ul>
-            <textarea onChange={(e) => setComment(e.target.value)} placeholder="Leave a comment" className="form-control" />
-            <FancyButton onclick={handlePostComment} text="Comment" />
+            </div>
+            <div className="p-3">
+                <div className="row sf-comment-post d-flex justify-content-center">
+                    <textarea onChange={(e) => setComment(e.target.value)} placeholder="Leave a comment" className="sf-form-control col-8 p-2" />
+                    <div className="col-3">
+                        <FancyButton onclick={handlePostComment} text="Comment" />
+                    </div>
+                </div>
+            </div>
         </div >
     );
 };
