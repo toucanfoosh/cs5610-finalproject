@@ -43,7 +43,7 @@ export const fullTextSearch = async ({ search, accessToken, offsetNum }) => {
         params: {
             q: `${search}`,
             type: "album",
-            limit: 8,
+            limit: 15,
             offset: `${offsetNum}`
         }
     }
@@ -73,7 +73,7 @@ export const miniTextSearch = async ({ searchterm, accessToken }) => {
         params: {
             q: `${searchterm}`,
             type: "album",
-            limit: 5
+            limit: 10
         }
     }
 

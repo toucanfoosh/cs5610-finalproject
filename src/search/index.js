@@ -221,7 +221,7 @@ const SearchScreen = () => {
                         !waiting && searchResults.items && searchResults.items.length > 0 &&
                         <div className="sf-results-button-container m-3">
                             <FancyButton onclick={() => {
-                                setOffset(offset + 8, result => searchSpotify(result));
+                                setOffset(offset + 15, result => searchSpotify(result));
                             }} text="More Results" className="sf-results-button" />
                         </div>
                     }
