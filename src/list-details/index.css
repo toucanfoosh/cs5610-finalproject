@@ -1,6 +1,6 @@
 .sf-folio-item-img {
-    max-width: 20vw;
-    max-height: 20vw;
+    /* width: 20vw;
+    height: 20vw; */
     object-fit: cover;
     border-radius: 10px;
 }
@@ -11,6 +11,7 @@
 }
 
 .sf-folio-button {
-    width: 25vw;
+    width: 15vw;
+    min-width: 10rem;
     height: 5rem;
 }
