@@ -2,8 +2,8 @@ import axios from "axios";
 import qs from "qs";
 
 const API_BASE = "https://api.spotify.com/v1";
-const CLIENT_ID = process.env.REACT_APP_CLIENT_ID || "cbcaeb3f4438485a97f64311aef9b3a4";
-const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET || "d983e07f8ac4403598cc5ed6c42cf35e";
+const CLIENT_ID = process.env.REACT_APP_CLIENT_ID;
+const CLIENT_SECRET = process.env.REACT_APP_CLIENT_SECRET;
 
 
 export const getAccessToken = async () => {
